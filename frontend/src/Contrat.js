@@ -36,7 +36,7 @@ function Contrat() {
     return (
         <>
             <h2 className="font-bold uppercase text-2xl text-center mt-5">Liste contrats</h2>
-                <h3 className="font-bold uppercase text-xl text-center mt-15 mb-5">Liste abonnements</h3>
+                <h3 className="font-bold uppercase text-xl text-center mt-5">Liste abonnements</h3>
             <ul>
                     {listeContrats.map((contrat) => (
                 <li className="flex items-center justify-center mt-5">
@@ -51,7 +51,7 @@ function Contrat() {
 
                             <div className="flex gap-10">
 
-                                <img className="h-7 rounded-lg" src={contrat.image} alt="" />
+                                <img className="h-8 w-8 object-cover rounded-lg" src={contrat.image} alt="" />
 
                                 <p>{contrat.nom}</p>
 
@@ -69,9 +69,9 @@ function Contrat() {
                 </li>
                     ))}
             </ul>
-            <div class="container-total border-t-2 absolute w-[100%] min-w-[400px] bottom-25 text-center">
+            <div class="container-total absolute w-[100%] min-w-[400px] bottom-25 text-center">
                 <p className="text-xl">Total :</p>
-                <p className="text-3xl font-bold">5.99 €</p>
+                <p className="text-2xl font-bold">5.99 €</p>
             </div>
         </>
     )
