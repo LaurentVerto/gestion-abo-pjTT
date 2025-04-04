@@ -11,9 +11,14 @@ function AjouterContrat() {
         nom:'',
         image:'',
         datePrlvt: Date.now,
-        prix: 0,
+        prix: Number,
         type:""
     })
+
+    const handleContrat = () =>{
+        console.log(nouveauContrat);
+        
+    }
 
     //fin ajout de contrat dans json
 
@@ -62,48 +67,41 @@ function AjouterContrat() {
 
     const [selectedSubscription, setSelectedSubscription ] = useState();
     
-    const [nomContrat, setNomContrat] = useState("")
+    // const [nomContrat, setNomContrat] = useState("")
+
     const[imageContrat, setImageContrat] = useState("https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg")
-
-
-    
-
 
     const handleChange = (e) => {
         const { name, value } = e.target; //recupere la valeur du champ grace au name
 
-        console.log(listeContrats);
+
 
         let contrat
         
 if(name === "nom"){
-    console.log(listeContrats);
     
     contrat = listeContrats.find(contrat => contrat.nom === value)
 
     setContratSelect(contrat) // créer une const booleen qui cherche si le nom du contrat (BDD) correspond a la value du champ (name=nom)
 }else{
-    console.log(contratSelect);
     contrat = contratSelect
     
 }
 
-console.log(contrat);
 
     
         
         setSelectedSubscription(value) //mettre à jour l'état SelectedSub avec la value du champ
         
         
-        console.log(selectedSubscription);
         setNouveauContrat((prev) => ({
             ...prev,
-            [name]: name === "prix" ? Number(value) : value, //si le name = prix alors change le type de la value en number (a la base c'est du string) sinon laisse le en string
+            [name]: value, //si le name = prix alors change le type de la value en number (a la base c'est du string) sinon laisse le en string
 
             // if(contratSelectionne != 'Autres'){
             // }
 
-            image: contrat && contrat.nom !== "Autres" ?{image:  contrat.image}: prev.image,
+            image: contrat && contrat.nom !== "Autres" ? contrat.image: prev.image,
 
             // ...selectedSubscription !== "Autres" && {image:  contratSelectionne.image},
             
@@ -115,23 +113,47 @@ console.log(contrat);
 
             // image:  contratSelectionne.image, //dans mon objet nouveauContrat , image correspond au contratSelectionner[image] 
         }));
+
+        
         
         if(contrat.image){ //si contratSelectionne est true alors met a jour l'état ImageContrat avec l'image du contratSelectionne (contratSelectionne[image])
             setImageContrat(contrat.image)
             return;
         }
+
+        
         
         
     };
-
-    console.log(nouveauContrat);
-    
-    
-    
     // fin 
 
 
 
+    // ajouter json dans un fichier en local storage
+
+    const mesContrats = []
+
+    const enregistrementContrat = () =>{
+
+        mesContrats.push(nouveauContrat)
+
+        console.log(mesContrats);
+        
+
+
+        const jsonData =JSON.stringify(mesContrats); //on ajoute les données du nouveau contrat dans un json
+        localStorage.setItem("mesContrats", jsonData) //dans le localstorage ajoute un item qui va s'appeller mesContrats qui contiendra les données en json de nouveau contrat
+
+
+
+        
+
+        console.log(jsonData, localStorage.getItem("mesContrats"));
+
+        
+    }
+
+    //fin ajout json
 
     return (
         <>
@@ -171,7 +193,7 @@ console.log(contrat);
 
 
 
-                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all group-hover:scale-105 ">Ajouter le contrat</button>
+                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all group-hover:scale-105 " onClick={enregistrementContrat}>Ajouter le contrat</button>
             </div>
         </>
     )
