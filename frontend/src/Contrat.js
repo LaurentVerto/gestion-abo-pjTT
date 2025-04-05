@@ -5,9 +5,17 @@ import netflixIcon from "./netflix.png"
 
 function Contrat() {
 
+    const [mesContrats, setMesContrats] = useState([])
+
+    useEffect(() =>{
+        const dataLocal = localStorage.getItem("mesContrats");
+        if(dataLocal){
+            setMesContrats(JSON.parse(dataLocal))
+        }
+    },[])
+
     const [listeContrats, setListeContrats] = useState([])
 
-    console.log(listeContrats);
 
 
     useEffect(() => {
@@ -20,7 +28,6 @@ function Contrat() {
 
                 const data = await response.json();
                 setListeContrats(data);
-                console.log(listeContrats);
 
 
             } catch (error) {
@@ -38,7 +45,7 @@ function Contrat() {
             <h2 className="font-bold uppercase text-2xl text-center mt-5">Liste contrats</h2>
                 <h3 className="font-bold uppercase text-xl text-center mt-5">Liste abonnements</h3>
             <ul>
-                    {listeContrats.map((contrat) => (
+                    {mesContrats.map((contrat) => (
                 <li className="flex items-center justify-center mt-5">
                     <div className="group">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#EAB308" class="cursor-pointer size-8 mr-5 transition-all groupe-hover group-hover:stroke-yellow-600 group-hover:scale-110 ">

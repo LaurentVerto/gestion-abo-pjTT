@@ -8,22 +8,22 @@ function AjouterContrat() {
     //ajout du contrat dans un json
 
     const [nouveauContrat, setNouveauContrat] = useState({
-        nom:'',
-        image:'',
+        nom: '',
+        image: '',
         datePrlvt: Date.now,
         prix: Number,
-        type:""
+        type: ""
     })
 
-    const handleContrat = () =>{
-        console.log(nouveauContrat);
-        
+    const handleContrat = () => {
+        // console.log(nouveauContrat);
+
     }
 
     //fin ajout de contrat dans json
 
     const [listeModeDePaiement, setListeModeDePaiement] = useState([]);
-    
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -62,14 +62,14 @@ function AjouterContrat() {
         }
         fetchData();
     }, [])
-    
+
     //essai changer photo grace au nom
 
-    const [selectedSubscription, setSelectedSubscription ] = useState();
-    
+    const [selectedSubscription, setSelectedSubscription] = useState();
+
     // const [nomContrat, setNomContrat] = useState("")
 
-    const[imageContrat, setImageContrat] = useState("https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg")
+    const [imageContrat, setImageContrat] = useState("https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg")
 
     const handleChange = (e) => {
         const { name, value } = e.target; //recupere la valeur du champ grace au name
@@ -77,23 +77,23 @@ function AjouterContrat() {
 
 
         let contrat
-        
-if(name === "nom"){
-    
-    contrat = listeContrats.find(contrat => contrat.nom === value)
 
-    setContratSelect(contrat) // créer une const booleen qui cherche si le nom du contrat (BDD) correspond a la value du champ (name=nom)
-}else{
-    contrat = contratSelect
-    
-}
+        if (name === "nom") {
+
+            contrat = listeContrats.find(contrat => contrat.nom === value)
+
+            setContratSelect(contrat) // créer une const booleen qui cherche si le nom du contrat (BDD) correspond a la value du champ (name=nom)
+        } else {
+            contrat = contratSelect
+
+        }
 
 
-    
-        
+
+
         setSelectedSubscription(value) //mettre à jour l'état SelectedSub avec la value du champ
-        
-        
+
+
         setNouveauContrat((prev) => ({
             ...prev,
             [name]: value, //si le name = prix alors change le type de la value en number (a la base c'est du string) sinon laisse le en string
@@ -101,29 +101,29 @@ if(name === "nom"){
             // if(contratSelectionne != 'Autres'){
             // }
 
-            image: contrat && contrat.nom !== "Autres" ? contrat.image: prev.image,
+            image: contrat && contrat.nom !== "Autres" ? contrat.image : prev.image,
 
             // ...selectedSubscription !== "Autres" && {image:  contratSelectionne.image},
-            
+
             // spread conditionnel (... permette de destructurer un objet) on veut decomposer l'objet contratSelectionne (condition) si booleen n'est pas strictement egal A "autres" ET UNIQUEMENT SI (&&) alors modifie une partie de l'objet (image) avec va valeur voulue (contratSelectionne.image)
 
 
-            
+
             // contratSelectionne !=== "autres" ? image:  contratSelectionne.image : break
 
             // image:  contratSelectionne.image, //dans mon objet nouveauContrat , image correspond au contratSelectionner[image] 
         }));
 
-        
-        
-        if(contrat.image){ //si contratSelectionne est true alors met a jour l'état ImageContrat avec l'image du contratSelectionne (contratSelectionne[image])
+
+
+        if (contrat.image) { //si contratSelectionne est true alors met a jour l'état ImageContrat avec l'image du contratSelectionne (contratSelectionne[image])
             setImageContrat(contrat.image)
             return;
         }
 
-        
-        
-        
+
+
+
     };
     // fin 
 
@@ -131,29 +131,29 @@ if(name === "nom"){
 
     // ajouter json dans un fichier en local storage
 
-    const mesContrats = []
+    const [mesContrats, setMesContrats] = useState([])
 
-    const enregistrementContrat = () =>{
+    const enregistrementContrat = (nouveauContrat) => {
+        setMesContrats(prev => {
+            const ContratMaj = [...prev, nouveauContrat];
 
-        mesContrats.push(nouveauContrat)
-
-        console.log(mesContrats);
-        
-
-
-        const jsonData =JSON.stringify(mesContrats); //on ajoute les données du nouveau contrat dans un json
-        localStorage.setItem("mesContrats", jsonData) //dans le localstorage ajoute un item qui va s'appeller mesContrats qui contiendra les données en json de nouveau contrat
+            const jsonData = JSON.stringify(ContratMaj);
+            localStorage.setItem("mesContrats", jsonData);
 
 
 
-        
-
-        console.log(jsonData, localStorage.getItem("mesContrats"));
-
-        
-    }
+            return ContratMaj; // bien retourner la nouvelle version
+        });
+    };
 
     //fin ajout json
+
+    useEffect(() =>{
+        const dataLocal = localStorage.getItem("mesContrats");
+        if(dataLocal){
+            setMesContrats(JSON.parse(dataLocal))
+        }
+    },[])
 
     return (
         <>
@@ -163,16 +163,16 @@ if(name === "nom"){
                 <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-cover" />
 
                 <select name="nom" id="" className="mt-5 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border" onChange={handleChange} value={nouveauContrat.nom} >
-                <option value="" selected unselectable hidden>Merci de choisir</option>
+                    <option value="" selected unselectable hidden>Merci de choisir</option>
 
                     {listeContrats.map((contrat) => (
 
                         <option value={contrat.nom} key={contrat._id} >{contrat.nom}</option>
                     ))}
-                    
+
                 </select>
 
-                <input className=" cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-5 flex justify-center text-black border" type="date" name="datePrlvt" id="" placeholder="Choisir la date de prélèvement" onChange={handleChange} value={nouveauContrat.datePrlvt}/>
+                <input className=" cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-5 flex justify-center text-black border" type="date" name="datePrlvt" id="" placeholder="Choisir la date de prélèvement" onChange={handleChange} value={nouveauContrat.datePrlvt} />
 
                 <div className="flex items-center gap-10">
                     <input type="number" name="prix" className="cursor-pointer text-xl font-bold mt-5 border text-center p-1 rounded-lg min-w-[300px]" placeholder="Entrer le montant" onChange={handleChange} value={nouveauContrat.prix} />
@@ -180,12 +180,12 @@ if(name === "nom"){
 
 
                 <select name="type" id="" className="mt-5 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border " onChange={handleChange} value={nouveauContrat.type}>
-                <option value="" unselectable="" selected hidden >Merci de choisir le type</option>
+                    <option value="" unselectable="" selected hidden >Merci de choisir le type</option>
                     {listeModeDePaiement.map((modeDePaiement) => (
 
                         <option value={modeDePaiement.nom} key={modeDePaiement._id}>{modeDePaiement.nom}</option>
                     ))}
-                    
+
                 </select>
 
 
@@ -193,7 +193,7 @@ if(name === "nom"){
 
 
 
-                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all group-hover:scale-105 " onClick={enregistrementContrat}>Ajouter le contrat</button>
+                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all group-hover:scale-105 " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
             </div>
         </>
     )

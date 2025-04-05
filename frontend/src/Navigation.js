@@ -7,6 +7,9 @@ import Header from "./header";
 import { AnimatePresence, motion } from "framer-motion";
 
 function AnimatedRoutes() {
+
+
+    
     const location = useLocation();
 
     return (
