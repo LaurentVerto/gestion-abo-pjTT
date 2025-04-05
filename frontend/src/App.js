@@ -1,6 +1,4 @@
 import './App.css';
-import ContratAdd from './ContratAdd';
-import ModeDePaiementAdd from './ModeDePaiementAdd';
 import Navigation from './Navigation';
 
 

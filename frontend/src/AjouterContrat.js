@@ -1,24 +1,36 @@
-import react, { useEffect, useState } from "react";
-import netflixIcon from "./netflix.png"
+import React, { useEffect, useState } from "react";
 
 function AjouterContrat() {
 
+const [message, setMessage] = useState('')
+    
     const [contratSelect, setContratSelect] = useState("")
+    
+    const inputAdditionel = contratSelect.nom === "Autres" ;
+
+    const [nomPerso, setNomPerso] = useState('');
+
+    const handleNomPerso = (e) => {
+        setNomPerso(e.target.value)
+        
+    }
 
     //ajout du contrat dans un json
 
     const [nouveauContrat, setNouveauContrat] = useState({
+        id: crypto.randomUUID,
         nom: '',
-        image: '',
+        image: 'https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg',
         datePrlvt: Date.now,
         prix: Number,
-        type: ""
+        type: "",
+        ...(inputAdditionel && {nom: nomPerso})
     })
 
-    const handleContrat = () => {
-        // console.log(nouveauContrat);
+    // const handleContrat = () => {
+    //     // console.log(nouveauContrat);
 
-    }
+    // }
 
     //fin ajout de contrat dans json
 
@@ -71,6 +83,8 @@ function AjouterContrat() {
 
     const [imageContrat, setImageContrat] = useState("https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg")
 
+
+
     const handleChange = (e) => {
         const { name, value } = e.target; //recupere la valeur du champ grace au name
 
@@ -79,8 +93,21 @@ function AjouterContrat() {
         let contrat
 
         if (name === "nom") {
+            console.log(value);
+            
+            if(value === "Autres"){
+                contrat = {nom: nomPerso};
+                console.log(contrat.nom);
+                const nouveauNom = contrat.nom
+                
+                
+                
+            }
 
-            contrat = listeContrats.find(contrat => contrat.nom === value)
+                contrat = listeContrats.find(contrat => contrat.nom === value)
+                console.log(contrat.nom);
+                
+            
 
             setContratSelect(contrat) // créer une const booleen qui cherche si le nom du contrat (BDD) correspond a la value du champ (name=nom)
         } else {
@@ -93,6 +120,7 @@ function AjouterContrat() {
 
         setSelectedSubscription(value) //mettre à jour l'état SelectedSub avec la value du champ
 
+        
 
         setNouveauContrat((prev) => ({
             ...prev,
@@ -134,15 +162,23 @@ function AjouterContrat() {
     const [mesContrats, setMesContrats] = useState([])
 
     const enregistrementContrat = (nouveauContrat) => {
+        const contratAvecNom = {
+            ...nouveauContrat,
+            nom: nouveauContrat.nom === "Autres" ? nomPerso : nouveauContrat.nom, // Si le nom est "Autres", on utilise nomPerso
+        };
+    
         setMesContrats(prev => {
-            const ContratMaj = [...prev, nouveauContrat];
-
+            // Ajout du contrat à la liste
+            const ContratMaj = [...prev, contratAvecNom];
+    
+            // Enregistrement de la liste dans le localStorage
             const jsonData = JSON.stringify(ContratMaj);
             localStorage.setItem("mesContrats", jsonData);
 
+            setMessage("Contrat enregistrer avec succès")
+    
+            return ContratMaj; //nouvelle liste de contrats
 
-
-            return ContratMaj; // bien retourner la nouvelle version
         });
     };
 
@@ -155,46 +191,66 @@ function AjouterContrat() {
         }
     },[])
 
+
+
+    
+
     return (
         <>
             <h2 className='font-bold uppercase text-xl text-center mt-5'>Ajouter un contrat</h2>
 
-            <div className="flex flex-col justify-center items-center mt-5 group gap-6 text-center">
+            <div className="flex flex-col justify-center items-center mt-5 group gap-3 text-center overflow-scroll">
                 <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-cover" />
-
-                <select name="nom" id="" className="mt-5 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border" onChange={handleChange} value={nouveauContrat.nom} >
-                    <option value="" selected unselectable hidden>Merci de choisir</option>
+<div>
+<p>Choisir un nom</p>
+                <select name="nom" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border appearance-none text-center" onChange={handleChange} value={nouveauContrat.nom} >
+                    <option value="" selected unselectable hidden disable></option>
 
                     {listeContrats.map((contrat) => (
-
-                        <option value={contrat.nom} key={contrat._id} >{contrat.nom}</option>
+                        
+                        <option  value={contrat.nom} key={contrat._id} >{contrat.nom}</option>
                     ))}
 
                 </select>
+                    </div>
 
-                <input className=" cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-5 flex justify-center text-black border" type="date" name="datePrlvt" id="" placeholder="Choisir la date de prélèvement" onChange={handleChange} value={nouveauContrat.datePrlvt} />
+                    {inputAdditionel  && 
+                        <input type="text" onChange={handleNomPerso}className="cursor-pointer text-xl font-bold mt-0 border text-center p-1 rounded-lg min-w-[300px]" name="nomPerso" value={nomPerso}/>
+                    }
+
+    <div>
+
+                    <p >Choisir une date</p>
+                <input className=" cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-0 flex justify-center  border" type="date" name="datePrlvt" id="" placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt} defaultValue="2025-04-15"/>
+    </div>
 
                 <div className="flex items-center gap-10">
                     <input type="number" name="prix" className="cursor-pointer text-xl font-bold mt-5 border text-center p-1 rounded-lg min-w-[300px]" placeholder="Entrer le montant" onChange={handleChange} value={nouveauContrat.prix} />
                 </div>
 
-
-                <select name="type" id="" className="mt-5 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border " onChange={handleChange} value={nouveauContrat.type}>
-                    <option value="" unselectable="" selected hidden >Merci de choisir le type</option>
+<div>
+<p>Choisir le type</p>
+                <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border " onChange={handleChange} value={nouveauContrat.type}>
+                    <option value="" unselectable="" selected hidden ></option>
                     {listeModeDePaiement.map((modeDePaiement) => (
-
+                        
                         <option value={modeDePaiement.nom} key={modeDePaiement._id}>{modeDePaiement.nom}</option>
                     ))}
 
                 </select>
+                    </div>
 
 
 
 
 
-
+                    
                 <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all group-hover:scale-105 " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
+
             </div>
+            <p className="text-center mt-2">{message}</p>
+
+            
         </>
     )
 }

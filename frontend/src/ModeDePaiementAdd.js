@@ -31,7 +31,8 @@ function ModeDePaiementAdd() {
             });
 
             if (response.status === 201) {
-                const data = await response.json();
+                // const data =
+                await response.json();
                 setMessage("Création du mode de paiement OK");
                 setModeDePaiement({
                     nom: '',

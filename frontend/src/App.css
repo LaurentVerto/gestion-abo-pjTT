@@ -2,10 +2,22 @@ html, body, #root{
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
   position: relative;
+  overflow-y: hidden;
 }
 
+
+
+.content{
+  height: 100%;
+  overflow-y: auto;
+}
+
+select {
+  text-align: center;           /* pour la liste */
+  -webkit-text-align-last: center; /* pour Safari */
+  text-align-last: center;      /* pour autres navigateurs */
+}
 
 .shadow-inner{
   box-shadow: inset 0px 0px 4px 0px rgba(0, 0, 0, 0.250);

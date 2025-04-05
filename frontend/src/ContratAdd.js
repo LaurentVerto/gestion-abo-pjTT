@@ -12,7 +12,7 @@ function ContratAdd() {
         type: ""
     })
 
-    const [nomContrat, setNomContrat] = useState('');
+    // const [nomContrat, setNomContrat] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -35,7 +35,8 @@ function ContratAdd() {
             });
 
             if (response.status === 201) {
-                const data = await response.json();
+                // const data = 
+                await response.json();
                 setMessage("Création de la recette réussie");
                 setContrat({
                     nom: '',
