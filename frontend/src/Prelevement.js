@@ -53,7 +53,7 @@ function Prelevement() {
                     </ul>
                 )}
             <div className="total w-[30%] min-w-[390px] bg-black h-8 mt-5 text-white flex items-center justify-center rounded-lg rounded-bl-none rounded-tl-none">
-                <p className="text-base">Total des prélèvements après le 15 du mois
+                <p className="text-sm">Total des prélèvements après le 15 du mois
                     <span className="font-bold text-large ml-2">
                         {mesContrats
                             .filter((contrat) => new Date(contrat.datePrlvt).getDate() <= 15)  // Filtrer les contrats
@@ -62,7 +62,7 @@ function Prelevement() {
                     </span>
                 </p>
             </div>
-            {listeAffichage >0 && (
+            {listeAffichage > 0 && (
             <div>
 
 
@@ -93,7 +93,7 @@ function Prelevement() {
                 
 
                     <div className="total w-[30%] min-w-[390px] bg-black h-8 mt-5 text-white flex items-center justify-center rounded-lg rounded-bl-none rounded-tl-none font-large">
-                <p>Total des prélèvements après le 30 du mois
+                <p className="text-sm">Total des prélèvements après le 30 du mois
                     <span className="font-bold text-large ml-2">
                         {mesContrats
                             .filter((contrat) => new Date(contrat.datePrlvt).getDate() > 15)  // Filtrer les contrats

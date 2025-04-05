@@ -1,17 +1,14 @@
 html, body, #root{
-  height: 100%;
+  height: 100dvh;
   margin: 0;
   padding: 0;
   position: relative;
+  overflow-x: hidden;
   overflow-y: hidden;
 }
 
 
 
-.content{
-  height: 100%;
-  overflow-y: auto;
-}
 
 select {
   text-align: center;           /* pour la liste */
