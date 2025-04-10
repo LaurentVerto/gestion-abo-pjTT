@@ -1,5 +1,6 @@
 import './App.css';
 import Navigation from './Navigation';
+import Test from './Test';
 
 
 function App() {
@@ -8,6 +9,7 @@ function App() {
       <Navigation />
       {/* <ContratAdd /> */}
       {/* <ModeDePaiementAdd /> */}
+      {/* <Test /> */}
     </>
   );
 }

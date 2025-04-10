@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 function Header() {
     const location = useLocation()
 
     const [activeTab, setActiveTab] = useState(location.pathname); // ici on recupere l'url avec le pathname pour que le menu reste actif
+
+    useEffect(() => {
+        setActiveTab(location.pathname);
+    }, [location.pathname]);
 
     return (
         <header className="flex justify-center fixed bottom-5 w-[100%]">

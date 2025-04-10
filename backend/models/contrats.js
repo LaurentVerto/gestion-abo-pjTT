@@ -21,9 +21,13 @@ const ContratSchema = new mongoose.Schema({
         required: true,
         default: 0
     },
-    type: { // ✅ Corrigé : "type" en minuscule
+    type: {
         type: String,
         required: true,
+        default: ""
+    },
+    echeance: {
+        type: Number,
         default: ""
     },
 });

@@ -1,13 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid';
+import { useNavigate } from "react-router-dom";
 
 function AjouterContrat() {
+
+    const navigate = useNavigate()
 
     const [message, setMessage] = useState('')
 
     const [contratSelect, setContratSelect] = useState("")
 
     const inputAdditionel = contratSelect.nom === "Autres";
+
+    
+
+
+
 
     const [nomPerso, setNomPerso] = useState('');
 
@@ -22,11 +30,16 @@ function AjouterContrat() {
         id: uuidv4(),
         nom: '',
         image: 'https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg',
-        datePrlvt: Date.now,
+        datePrlvt: Date.now(),
         prix: Number,
         type: "",
+        echeance: Number,
         ...(inputAdditionel && { nom: nomPerso })
     })
+
+    
+    const inputAdditionelPay = nouveauContrat.type !== "Abonnement" && nouveauContrat.type !== "" ;
+
 
     // const handleContrat = () => {
     //     // console.log(nouveauContrat);
@@ -94,14 +107,13 @@ function AjouterContrat() {
         let contrat
 
         if (name === "nom") {
-            console.log(value);
+           
 
             if(name === "prix")
                 value = parseFloat(value)
 
             if (value === "Autres") {
                 contrat = { nom: nomPerso };
-                console.log(contrat.nom);
                 const nouveauNom = contrat.nom
 
 
@@ -109,7 +121,6 @@ function AjouterContrat() {
             }
 
             contrat = listeContrats.find(contrat => contrat.nom === value)
-            console.log(contrat.nom);
 
 
 
@@ -172,6 +183,10 @@ function AjouterContrat() {
             setMessage('Le prix doit être un nombre positif.');
             return false;
         }
+        if (isNaN(nouveauContrat.echeance) || Number(nouveauContrat.echeance) <= 0) {
+            setMessage("L'échéance' doit être un supérieur a 0.");
+            return false;
+        }
         return true;
     };
 
@@ -179,7 +194,7 @@ function AjouterContrat() {
 
     const enregistrementContrat = (nouveauContrat) => {
         // Vérification que tous les champs sont remplis
-        if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type) {
+        if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type || !nouveauContrat.echeance) {
             setMessage('Tous les champs doivent être remplis.');
             return; // Arrête l'exécution si un champ est vide
         }
@@ -214,12 +229,18 @@ function AjouterContrat() {
                 datePrlvt: Date.now(),
                 prix: Number,
                 type: "",
+                echeance: "",
                 ...(inputAdditionel && { nom: nomPerso })
             });
+
+            
+            
     
             setImageContrat('https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg');
+
+            navigate("/contrats")
     
-            return ContratMaj; // Nouvelle liste de contrats
+            // return ContratMaj; // Nouvelle liste de contrats
         });
     };
     
@@ -229,9 +250,9 @@ function AjouterContrat() {
     useEffect(() => {
         const dataLocal = localStorage.getItem("mesContrats");
         if (dataLocal) {
-            setMesContrats(JSON.parse(dataLocal))
+            setMesContrats(JSON.parse(dataLocal));
         }
-    }, [])
+    }, []);
 
 
 
@@ -239,14 +260,13 @@ function AjouterContrat() {
 
     return (
         <>
-            <h2 className='font-bold uppercase text-xl text-center mt-5'>Ajouter un contrat</h2>
+            <h2 className=' uppercase text-2xl text-center mt-5'>Ajouter un contrat</h2>
 
-            <div className="flex flex-col justify-center items-center mt-5 group gap-3 text-center overflow-scroll">
+            <div className="flex flex-col justify-evently items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-175px)]">
                 <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-cover" />
                 <div>
-                    <p>Choisir un nom</p>
-                    <select name="nom" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border appearance-none text-center" onChange={handleChange} value={nouveauContrat.nom} required>
-                        <option value="" selected unselectable hidden disable></option>
+                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1  appearance-none text-center" onChange={handleChange} value={nouveauContrat.nom} required>
+                    <option value="" disabled selected >Choisir un Nom</option>
 
                         {listeContrats.map((contrat) => (
 
@@ -257,23 +277,29 @@ function AjouterContrat() {
                 </div>
 
                 {inputAdditionel &&
-                    <input type="text" onChange={handleNomPerso} className="cursor-pointer text-xl font-bold mt-0 border text-center p-1 rounded-lg min-w-[300px]" name="nomPerso" value={nomPerso} />
+
+                <div className="flex flex-col justify-center items-center group gap-0 text-center">
+
+                    <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-0 text-center p-1 rounded-lg min-w-[300px] border-b-1" name="nomPerso" value={nomPerso}
+                    placeholder="Saisir le nom" />
+                </div>
                 }
 
                 <div>
 
-                    <p >Choisir une date</p>
-                    <input className=" cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-0 flex justify-center  border" type="date" name="datePrlvt" id="" placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt} defaultValue="2025-04-15" />
+                    <p className="mt-5" >Choisir une date de prélèvement</p>
+                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-0 flex justify-center  bg-black border-b-1 text-white appearance-none " type="date" name="datePrlvt" id=""  placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt}  />
+                    
                 </div>
 
-                <div className="flex items-center gap-10">
-                    <input type="number" name="prix" className="cursor-pointer text-xl font-bold mt-5 border text-center p-1 rounded-lg min-w-[300px]" placeholder="Entrer le montant" onChange={handleChange} value={nouveauContrat.prix}  inputMode="decimal" step="any"/>
+                <div className="relative">
+                    <input type="number" name="prix" className="cursor-pointer text-3xl  mt-7 mb-7 text-center rounded-lg w-30" placeholder="0.00" onChange={handleChange} value={nouveauContrat.prix}  inputMode="decimal" step="any"/>
+                    <p className="absolute right-[-0px] top-2 text-2xl pointer-events-none mt-5">€</p>
                 </div>
 
                 <div>
-                    <p>Choisir le type</p>
-                    <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border " onChange={handleChange} value={nouveauContrat.type}>
-                        <option value="" unselectable="" selected hidden ></option>
+                    <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border-b-1 " onChange={handleChange} value={nouveauContrat.type}>
+                    <option value="" disabled selected >Choisir un type</option>
                         {listeModeDePaiement.map((modeDePaiement) => (
 
                             <option value={modeDePaiement.nom} key={modeDePaiement._id}>{modeDePaiement.nom}</option>
@@ -282,15 +308,15 @@ function AjouterContrat() {
                     </select>
                 </div>
 
+                {inputAdditionelPay &&
+                    <input type="number" onChange={handleChange} className="cursor-pointer text-sm border-b-1 mt-2 text-center p-1 rounded-lg min-w-[300px]"
+                    placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} />
+                }
 
+                <button className="mt-3 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
 
-
-
-
-                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all group-hover:scale-105 " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
-
+            <p className="text-center mt-0">{message}</p>
             </div>
-            <p className="text-center mt-2">{message}</p>
 
 
         </>
