@@ -30,6 +30,10 @@ const ContratSchema = new mongoose.Schema({
         type: Number,
         default: ""
     },
+    statusAbo: {
+        type: Boolean,
+        default: true
+    },
 });
 
 const Contrat = mongoose.model('Contrat', ContratSchema); 

@@ -15,13 +15,16 @@ exports.creationContrat = async (req, res, next) => {
 
     console.log({ nom, image, datePrlvt, prix, type, echeance });
 
+    
+
     const contrat = new Contrat({ // Crée une instance du modèle
         nom,
         image,
         datePrlvt,
         prix,
         type,
-        echeance
+        echeance,
+        statusAbo,
     });
 
     try {

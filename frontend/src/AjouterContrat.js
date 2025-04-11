@@ -29,11 +29,12 @@ function AjouterContrat() {
     const [nouveauContrat, setNouveauContrat] = useState({
         id: uuidv4(),
         nom: '',
-        image: 'https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg',
+        image: 'https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png',
         datePrlvt: Date.now(),
         prix: Number,
         type: "",
-        echeance: Number,
+        echeance: 0,
+        statusAbo: true,
         ...(inputAdditionel && { nom: nomPerso })
     })
 
@@ -95,7 +96,7 @@ function AjouterContrat() {
 
     // const [nomContrat, setNomContrat] = useState("")
 
-    const [imageContrat, setImageContrat] = useState("https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg")
+    const [imageContrat, setImageContrat] = useState("https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png")
 
 
 
@@ -225,7 +226,7 @@ function AjouterContrat() {
             setNouveauContrat({
                 id: uuidv4(),
                 nom: '',
-                image: 'https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg',
+                image: 'https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png',
                 datePrlvt: Date.now(),
                 prix: Number,
                 type: "",
@@ -236,7 +237,7 @@ function AjouterContrat() {
             
             
     
-            setImageContrat('https://i.ibb.co/K1BkWXJ/img-ptf-inconnu-1.jpg');
+            setImageContrat('https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png');
 
             navigate("/contrats")
     
@@ -262,10 +263,10 @@ function AjouterContrat() {
         <>
             <h2 className=' uppercase text-2xl text-center mt-5'>Ajouter un contrat</h2>
 
-            <div className="flex flex-col justify-evently items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-175px)]">
-                <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-cover" />
+            <div className="flex flex-col justify-center items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-220px)]">
+                <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-contain mb-2 mt-0" />
                 <div>
-                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1  appearance-none text-center" onChange={handleChange} value={nouveauContrat.nom} required>
+                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" onChange={handleChange} value={nouveauContrat.nom} required>
                     <option value="" disabled selected >Choisir un Nom</option>
 
                         {listeContrats.map((contrat) => (
@@ -280,25 +281,25 @@ function AjouterContrat() {
 
                 <div className="flex flex-col justify-center items-center group gap-0 text-center">
 
-                    <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-0 text-center p-1 rounded-lg min-w-[300px] border-b-1" name="nomPerso" value={nomPerso}
+                    <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" name="nomPerso" value={nomPerso}
                     placeholder="Saisir le nom" />
                 </div>
                 }
 
                 <div>
 
-                    <p className="mt-5" >Choisir une date de prélèvement</p>
-                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-0 flex justify-center  bg-black border-b-1 text-white appearance-none " type="date" name="datePrlvt" id=""  placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt}  />
+                    <p className="mt-5 text-sm" >Choisir une date de prélèvement</p>
+                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none " type="date" name="datePrlvt" id=""  placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt}  />
                     
                 </div>
 
                 <div className="relative">
-                    <input type="number" name="prix" className="cursor-pointer text-3xl  mt-7 mb-7 text-center rounded-lg w-30" placeholder="0.00" onChange={handleChange} value={nouveauContrat.prix}  inputMode="decimal" step="any"/>
+                    <input type="number" name="prix" className="cursor-pointer text-3xl  mt-5 mb-5 text-center rounded-lg w-30" placeholder="0.00" onChange={handleChange} value={nouveauContrat.prix}  inputMode="decimal" step="any"/>
                     <p className="absolute right-[-0px] top-2 text-2xl pointer-events-none mt-5">€</p>
                 </div>
 
                 <div>
-                    <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 border-b-1 " onChange={handleChange} value={nouveauContrat.type}>
+                    <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg " onChange={handleChange} value={nouveauContrat.type}>
                     <option value="" disabled selected >Choisir un type</option>
                         {listeModeDePaiement.map((modeDePaiement) => (
 
@@ -309,11 +310,12 @@ function AjouterContrat() {
                 </div>
 
                 {inputAdditionelPay &&
-                    <input type="number" onChange={handleChange} className="cursor-pointer text-sm border-b-1 mt-2 text-center p-1 rounded-lg min-w-[300px]"
-                    placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} />
+                    <input type="number" onChange={handleChange} className="cursor-pointer 
+                    bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px]"
+                    placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} required/>
                 }
 
-                <button className="mt-3 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
+                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
 
             <p className="text-center mt-0">{message}</p>
             </div>

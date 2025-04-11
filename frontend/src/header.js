@@ -11,8 +11,8 @@ function Header() {
     }, [location.pathname]);
 
     return (
-        <header className="flex justify-center fixed bottom-5 w-[100%]">
-            <nav className="w-[40%] min-w-[350px] rounded-full shadow-inner bg-white">
+        <header className="flex justify-center fixed bottom-3 w-[100%]">
+            <nav className="w-[40%] min-w-[350px]">
                 <ul className="flex justify-between w-[100%] p-3 pl-15 pr-15">
                     <NavItem to="/" activeTab={activeTab} setActiveTab={setActiveTab} label="Prélèvements">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 7.756a4.5 4.5 0 1 0 0 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -40,11 +40,11 @@ function NavItem({ to, activeTab, setActiveTab, label, children }) {
             <Link to={to} className="flex flex-col items-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black"
                     className={`size-9 transition-all duration-300 
-                    ${isActive ? "stroke-blue-500 translate-y-[-8px]" : "group-hover:stroke-blue-500 group-hover:translate-y-[-8px]"}`}>
+                    ${isActive ? "stroke-[#f8f8f8] translate-y-[-8px]" : "group-hover:stroke-[#f8f8f8] group-hover:translate-y-[-8px]"}`}>
                     {children}
                 </svg>
                 {/* Texte placé exactement comme le hover */}
-                <span className={`absolute top-6 text-blue-500 text-sm font-medium transition-all duration-300 
+                <span className={`absolute top-7 text-[#f8f8f8] text-sm font-medium transition-all duration-300 
                 ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}>
                     {label}
                 </span>
