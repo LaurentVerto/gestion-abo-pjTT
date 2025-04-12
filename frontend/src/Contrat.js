@@ -71,12 +71,11 @@ function Contrat() {
         if (dataLocal) {
             const anciensContrats = JSON.parse(dataLocal);
 
-            // Vérification de l'ID des contrats avant la suppression
-            console.log("Liste des contrats avant la suppression : ", anciensContrats.map(contrat => contrat.id));
+           
 
             // Trouver le contrat à supprimer (juste pour vérification)
             const contratToRemove = anciensContrats.find(contrat => contrat.id === idContrat);
-            console.log('Contrat à supprimer :', contratToRemove);
+            
 
             // Si on trouve l'élément à supprimer
             if (contratToRemove) {
@@ -84,7 +83,7 @@ function Contrat() {
                 const listeMaj = anciensContrats.filter(contrat => contrat.id !== idContrat);
 
                 // Vérification de la liste après suppression
-                console.log("Liste après filtrage : ", listeMaj.map(contrat => contrat.id));
+                
 
                 // Si la liste a été modifiée, mettre à jour le localStorage et l'état
                 if (anciensContrats.length !== listeMaj.length) {

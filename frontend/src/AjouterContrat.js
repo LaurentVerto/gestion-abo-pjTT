@@ -33,7 +33,7 @@ function AjouterContrat() {
         datePrlvt: Date.now(),
         prix: Number,
         type: "",
-        echeance: 0,
+        echeance: Number,
         statusAbo: true,
         ...(inputAdditionel && { nom: nomPerso })
     })
@@ -42,22 +42,16 @@ function AjouterContrat() {
     const inputAdditionelPay = nouveauContrat.type !== "Abonnement" && nouveauContrat.type !== "" ;
 
 
-    // const handleContrat = () => {
-    //     // console.log(nouveauContrat);
-
-    // }
-
-    //fin ajout de contrat dans json
 
     const [listeModeDePaiement, setListeModeDePaiement] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/modeDePaiement/liste-modeDePaiement');
+                const response = await fetch('data.json');
 
                 const data = await response.json();
-                setListeModeDePaiement(data);
+                setListeModeDePaiement(data.types);
 
 
             } catch (error) {
@@ -76,10 +70,10 @@ function AjouterContrat() {
 
 
             try {
-                const response = await fetch('/contrats/liste-contrats');
+                const response = await fetch('data.json');
 
                 const data = await response.json();
-                setListeContrats(data);
+                setListeContrats(data.abonnements);
 
 
             } catch (error) {
@@ -107,8 +101,7 @@ function AjouterContrat() {
 
         let contrat
 
-        if (name === "nom") {
-           
+        if (name === "nom") {           
 
             if(name === "prix")
                 value = parseFloat(value)
@@ -195,10 +188,17 @@ function AjouterContrat() {
 
     const enregistrementContrat = (nouveauContrat) => {
         // Vérification que tous les champs sont remplis
-        if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type || !nouveauContrat.echeance) {
-            setMessage('Tous les champs doivent être remplis.');
-            return; // Arrête l'exécution si un champ est vide
-        }
+        // Vérifie si les champs obligatoires sont remplis
+if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type) {
+    setMessage('Tous les champs doivent être remplis.');
+    return; // Arrête l'exécution si un champ est vide
+}
+
+// Si ce n'est pas un "Abonnement" et que l'échéance est inférieure à 1, affiche un message d'erreur
+if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveauContrat.echeance < 1)) {
+    setMessage("L'échéance doit être supérieure ou égale à 1 pour ce type de contrat.");
+    return; // Arrête l'exécution si l’échéance est invalide
+}
     
         // Vérification du prix (doit être un nombre positif)
         if (isNaN(nouveauContrat.prix) || Number(nouveauContrat.prix) <= 0) {
@@ -263,10 +263,10 @@ function AjouterContrat() {
         <>
             <h2 className=' uppercase text-2xl text-center mt-5'>Ajouter un contrat</h2>
 
-            <div className="flex flex-col justify-center items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-220px)]">
+            <div className="flex flex-col justify-center items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-220px)] sm:h-[calc(100vh-10vh)]">
                 <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-contain mb-2 mt-0" />
                 <div>
-                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" onChange={handleChange} value={nouveauContrat.nom} required>
+                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" onChange={handleChange} value={nouveauContrat.nom} >
                     <option value="" disabled selected >Choisir un Nom</option>
 
                         {listeContrats.map((contrat) => (
@@ -312,7 +312,7 @@ function AjouterContrat() {
                 {inputAdditionelPay &&
                     <input type="number" onChange={handleChange} className="cursor-pointer 
                     bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px]"
-                    placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} required/>
+                    placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} inputMode="decimal" />
                 }
 
                 <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>

@@ -1,0 +1,43 @@
+{
+    "abonnements": [
+      {
+        "nom": "Netflix",
+        "image": "https://images.seeklogo.com/logo-png/25/1/netflix-logo-png_seeklogo-256429.png"
+      },
+      {
+        "nom": "Canal+",
+        "image": "https://images.seeklogo.com/logo-png/2/1/canal-logo-png_seeklogo-25587.png"
+      },
+      {
+        "nom": "Spotify",
+        "image": "https://images.seeklogo.com/logo-png/28/1/spotify-logo-png_seeklogo-284480.png"
+      },
+      {
+        "nom": "Deezer",
+        "image": "https://images.seeklogo.com/logo-png/50/1/deezer-2023-logo-png_seeklogo-506768.png"
+      },
+      {
+        "nom": "YouTube Music",
+        "image": "https://images.seeklogo.com/logo-png/36/1/youtube-music-logo-png_seeklogo-364941.png"
+      },
+      {
+        "nom": "Autres",
+        "image": "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png"
+      }
+    ],
+    "types": [
+      {
+        "nom": "Abonnement"
+      },
+      {
+        "nom": "Paiement x3"
+      },
+      {
+        "nom": "Paiement x4"
+      },
+      {
+        "nom": "Paiement x10"
+      }
+    ]
+  }
+  
