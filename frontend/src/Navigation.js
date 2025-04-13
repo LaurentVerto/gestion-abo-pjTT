@@ -5,6 +5,7 @@ import Contrat from "./Contrat";
 import AjouterContrat from "./AjouterContrat";
 import Header from "./header";
 import { AnimatePresence, motion } from "framer-motion";
+import Version from "./Version";
 
 function AnimatedRoutes() {
 
@@ -38,6 +39,7 @@ function Navigation() {
             <div className="min-h-screen flex flex-col">
                 <Header />
                 <AnimatedRoutes />
+                <Version />
             </div>
         </Router>
     );

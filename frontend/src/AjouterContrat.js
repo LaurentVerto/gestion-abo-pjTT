@@ -264,7 +264,7 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
             <h2 className=' uppercase text-2xl text-center mt-5'>Ajouter un contrat</h2>
 
             <div className="flex flex-col justify-center items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-220px)] sm:h-[calc(100vh-10vh)]">
-                <img src={imageContrat} alt="" className="h-20 w-20 rounded-lg object-contain mb-2 mt-0" />
+                <img src={imageContrat} alt="" className="h-20 w-auto rounded-lg object-contain mb-2 mt-0" />
                 <div>
                     <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" onChange={handleChange} value={nouveauContrat.nom} >
                     <option value="" disabled selected >Choisir un Nom</option>
