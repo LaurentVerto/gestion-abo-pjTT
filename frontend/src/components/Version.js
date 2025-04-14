@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import iconSp from './logo-xs.png'
+import iconSp from '../assets/logo-xs.png'
 
 function Version() {
 

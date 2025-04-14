@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import Prelevement from "./Prelevement";
-import Contrat from "./Contrat";
-import AjouterContrat from "./AjouterContrat";
+import Prelevement from "../pages/Prelevement";
+import Contrat from "../pages/Contrat";
+import AjouterContrat from "../pages/AjouterContrat";
 import Header from "./header";
 import { AnimatePresence, motion } from "framer-motion";
 import Version from "./Version";
@@ -12,6 +12,15 @@ function AnimatedRoutes() {
 
     
     const location = useLocation();
+
+    const [mesContrats, setMesContrats] = useState([])
+
+    useEffect(() => {
+        const dataLocal = localStorage.getItem("mesContrats");
+        if (dataLocal) {
+            setMesContrats(JSON.parse(dataLocal))
+        }
+    }, [])
 
     return (
         <AnimatePresence mode="wait">
@@ -25,7 +34,9 @@ function AnimatedRoutes() {
             >
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Prelevement />} />
+
                     <Route path="/contrats" element={<Contrat />} />
+
                     <Route path="/ajouter-contrat" element={<AjouterContrat />} />
                 </Routes>
             </motion.div>

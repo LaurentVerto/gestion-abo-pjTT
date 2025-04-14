@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid'; //genere un id aleatoire
 import { useNavigate } from "react-router-dom";
 
 function AjouterContrat() {
@@ -11,11 +11,6 @@ function AjouterContrat() {
     const [contratSelect, setContratSelect] = useState("")
 
     const inputAdditionel = contratSelect.nom === "Autres";
-
-    
-
-
-
 
     const [nomPerso, setNomPerso] = useState('');
 
@@ -84,20 +79,12 @@ function AjouterContrat() {
         fetchData();
     }, [])
 
-    //essai changer photo grace au nom
-
     const [selectedSubscription, setSelectedSubscription] = useState();
-
-    // const [nomContrat, setNomContrat] = useState("")
 
     const [imageContrat, setImageContrat] = useState("https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png")
 
-
-
     const handleChange = (e) => {
         const { name, value } = e.target; //recupere la valeur du champ grace au name
-
-
 
         let contrat
 
@@ -109,62 +96,29 @@ function AjouterContrat() {
             if (value === "Autres") {
                 contrat = { nom: nomPerso };
                 const nouveauNom = contrat.nom
-
-
-
             }
 
             contrat = listeContrats.find(contrat => contrat.nom === value)
 
-
-
             setContratSelect(contrat) // créer une const booleen qui cherche si le nom du contrat (BDD) correspond a la value du champ (name=nom)
         } else {
             contrat = contratSelect
-
         }
 
-
-
-
         setSelectedSubscription(value) //mettre à jour l'état SelectedSub avec la value du champ
-
-
 
         setNouveauContrat((prev) => ({
             ...prev,
             [name]: value, //si le name = prix alors change le type de la value en number (a la base c'est du string) sinon laisse le en string
-
-            // if(contratSelectionne != 'Autres'){
-            // }
-
             image: contrat && contrat.nom !== "Autres" ? contrat.image : prev.image,
-
-            // ...selectedSubscription !== "Autres" && {image:  contratSelectionne.image},
-
             // spread conditionnel (... permette de destructurer un objet) on veut decomposer l'objet contratSelectionne (condition) si booleen n'est pas strictement egal A "autres" ET UNIQUEMENT SI (&&) alors modifie une partie de l'objet (image) avec va valeur voulue (contratSelectionne.image)
-
-
-
-            // contratSelectionne !=== "autres" ? image:  contratSelectionne.image : break
-
-            // image:  contratSelectionne.image, //dans mon objet nouveauContrat , image correspond au contratSelectionner[image] 
         }));
-
-
 
         if (contrat.image) { //si contratSelectionne est true alors met a jour l'état ImageContrat avec l'image du contratSelectionne (contratSelectionne[image])
             setImageContrat(contrat.image)
             return;
         }
-
-
-
-
     };
-    // fin 
-
-
 
     // ajouter json dans un fichier en local storage
 
@@ -199,13 +153,11 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
     setMessage("L'échéance doit être supérieure ou égale à 1 pour ce type de contrat.");
     return; // Arrête l'exécution si l’échéance est invalide
 }
-    
         // Vérification du prix (doit être un nombre positif)
         if (isNaN(nouveauContrat.prix) || Number(nouveauContrat.prix) <= 0) {
             setMessage('Le prix doit être un nombre positif.');
             return; // Arrête l'exécution si le prix est invalide
         }
-    
         // Si tout est valide, on continue
         const contratAvecNom = {
             ...nouveauContrat,
@@ -233,20 +185,12 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
                 echeance: "",
                 ...(inputAdditionel && { nom: nomPerso })
             });
-
-            
-            
     
             setImageContrat('https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png');
-
             navigate("/contrats")
-    
             // return ContratMaj; // Nouvelle liste de contrats
         });
     };
-    
-
-    //fin ajout json
 
     useEffect(() => {
         const dataLocal = localStorage.getItem("mesContrats");
@@ -254,10 +198,6 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
             setMesContrats(JSON.parse(dataLocal));
         }
     }, []);
-
-
-
-
 
     return (
         <>
@@ -319,8 +259,6 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
 
             <p className="text-center mt-0">{message}</p>
             </div>
-
-
         </>
     )
 }
