@@ -1,26 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { v4 as uuidv4 } from 'uuid'; //genere un id aleatoire
 import { useNavigate } from "react-router-dom";
+import useModeDePaiementServices from "../services/useModeDePaiementServices";
+import useContratServices from "../services/ContratsServices";
 
 function AjouterContrat() {
 
-    const navigate = useNavigate()
+    const navigate = useNavigate() // pouvoir etre redirigé vers une autre page 
 
     const [message, setMessage] = useState('')
 
+    //ici c'est pour afficher le champ supplémentaire pour le nom
+
     const [contratSelect, setContratSelect] = useState("")
 
-    const inputAdditionel = contratSelect.nom === "Autres";
+    const inputAdditionel = contratSelect.nom === "Autres"; // pour afficher le champ additionel
 
     const [nomPerso, setNomPerso] = useState('');
 
     const handleNomPerso = (e) => {
         setNomPerso(e.target.value)
-
     }
 
-    //ajout du contrat dans un json
+    // fin du champ supp
 
+    // initialisation de nouveauContrat
     const [nouveauContrat, setNouveauContrat] = useState({
         id: uuidv4(),
         nom: '',
@@ -33,64 +37,26 @@ function AjouterContrat() {
         ...(inputAdditionel && { nom: nomPerso })
     })
 
-    
-    const inputAdditionelPay = nouveauContrat.type !== "Abonnement" && nouveauContrat.type !== "" ;
+    const inputAdditionelPay = nouveauContrat.type !== "Abonnement" && nouveauContrat.type !== "";
 
+    // ici on ajoute les modeDePaiement
+    const { listeModeDePaiement } = useModeDePaiementServices();
 
-
-    const [listeModeDePaiement, setListeModeDePaiement] = useState([]);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('data.json');
-
-                const data = await response.json();
-                setListeModeDePaiement(data.types);
-
-
-            } catch (error) {
-                console.error("Erreur survenu lors de la récuperation de la liste : ", error)
-            }
-
-        }
-        fetchData();
-    }, []);
-
-    const [listeContrats, setListeContrats] = useState([]);
-
-    useEffect(() => {
-
-        const fetchData = async () => {
-
-
-            try {
-                const response = await fetch('data.json');
-
-                const data = await response.json();
-                setListeContrats(data.abonnements);
-
-
-            } catch (error) {
-                console.error("Erreur survenu lors de la récuperation de la liste : ", error)
-            }
-
-        }
-        fetchData();
-    }, [])
-
-    const [selectedSubscription, setSelectedSubscription] = useState();
+    //on recupere la liste des contrat donc el nom des abo pre enregistrer
+    const { listeContrats, setListeContrats } = useContratServices();
 
     const [imageContrat, setImageContrat] = useState("https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png")
+
+    const [selectedSubscription, setSelectedSubscription] = useState();
 
     const handleChange = (e) => {
         const { name, value } = e.target; //recupere la valeur du champ grace au name
 
         let contrat
 
-        if (name === "nom") {           
+        if (name === "nom") {
 
-            if(name === "prix")
+            if (name === "prix")
                 value = parseFloat(value)
 
             if (value === "Autres") {
@@ -120,8 +86,6 @@ function AjouterContrat() {
         }
     };
 
-    // ajouter json dans un fichier en local storage
-
     const validateForm = () => {
         if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type) {
             setMessage('Tous les champs doivent être remplis.');
@@ -138,21 +102,23 @@ function AjouterContrat() {
         return true;
     };
 
-    const [mesContrats, setMesContrats] = useState([])
+    const { mesContrats, setMesContrats } = useContratServices()
 
+
+    // utilise plusieurs éléments du front
     const enregistrementContrat = (nouveauContrat) => {
         // Vérification que tous les champs sont remplis
         // Vérifie si les champs obligatoires sont remplis
-if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type) {
-    setMessage('Tous les champs doivent être remplis.');
-    return; // Arrête l'exécution si un champ est vide
-}
+        if (!nouveauContrat.nom || !nouveauContrat.datePrlvt || !nouveauContrat.prix || !nouveauContrat.type) {
+            setMessage('Tous les champs doivent être remplis.');
+            return; // Arrête l'exécution si un champ est vide
+        }
 
-// Si ce n'est pas un "Abonnement" et que l'échéance est inférieure à 1, affiche un message d'erreur
-if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveauContrat.echeance < 1)) {
-    setMessage("L'échéance doit être supérieure ou égale à 1 pour ce type de contrat.");
-    return; // Arrête l'exécution si l’échéance est invalide
-}
+        // Si ce n'est pas un "Abonnement" et que l'échéance est inférieure à 1, affiche un message d'erreur
+        if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveauContrat.echeance < 1)) {
+            setMessage("L'échéance doit être supérieure ou égale à 1 pour ce type de contrat.");
+            return; // Arrête l'exécution si l’échéance est invalide
+        }
         // Vérification du prix (doit être un nombre positif)
         if (isNaN(nouveauContrat.prix) || Number(nouveauContrat.prix) <= 0) {
             setMessage('Le prix doit être un nombre positif.');
@@ -163,17 +129,17 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
             ...nouveauContrat,
             nom: nouveauContrat.nom === "Autres" ? nomPerso : nouveauContrat.nom, // Si le nom est "Autres", on utilise nomPerso
         };
-    
+
         setMesContrats(prev => {
             // Ajout du contrat à la liste
             const ContratMaj = [...prev, contratAvecNom];
-    
+
             // Enregistrement de la liste dans le localStorage
             const jsonData = JSON.stringify(ContratMaj);
             localStorage.setItem("mesContrats", jsonData);
-    
+
             setMessage("Contrat enregistré avec succès");
-    
+
             // Réinitialisation du formulaire
             setNouveauContrat({
                 id: uuidv4(),
@@ -185,19 +151,13 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
                 echeance: "",
                 ...(inputAdditionel && { nom: nomPerso })
             });
-    
+
             setImageContrat('https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png');
             navigate("/contrats")
             // return ContratMaj; // Nouvelle liste de contrats
         });
     };
-
-    useEffect(() => {
-        const dataLocal = localStorage.getItem("mesContrats");
-        if (dataLocal) {
-            setMesContrats(JSON.parse(dataLocal));
-        }
-    }, []);
+    // fin
 
     return (
         <>
@@ -207,7 +167,7 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
                 <img src={imageContrat} alt="" className="h-20 w-auto rounded-lg object-contain mb-2 mt-0" />
                 <div>
                     <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" onChange={handleChange} value={nouveauContrat.nom} >
-                    <option value="" disabled selected >Choisir un Nom</option>
+                        <option value="" disabled selected >Choisir un Nom</option>
 
                         {listeContrats.map((contrat) => (
 
@@ -219,28 +179,27 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
 
                 {inputAdditionel &&
 
-                <div className="flex flex-col justify-center items-center group gap-0 text-center">
-
-                    <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" name="nomPerso" value={nomPerso}
-                    placeholder="Saisir le nom" />
-                </div>
+                    <div className="flex flex-col justify-center items-center group gap-0 text-center">
+                        <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" name="nomPerso" value={nomPerso}
+                            placeholder="Saisir le nom" />
+                    </div>
                 }
 
                 <div>
 
                     <p className="mt-5 text-sm" >Choisir une date de prélèvement</p>
-                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none " type="date" name="datePrlvt" id=""  placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt}  />
-                    
+                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none " type="date" name="datePrlvt" id="" placeholder="YYYY-MM-DD" onChange={handleChange} value={nouveauContrat.datePrlvt} />
+
                 </div>
 
                 <div className="relative">
-                    <input type="number" name="prix" className="cursor-pointer text-3xl  mt-5 mb-5 text-center rounded-lg w-30" placeholder="0.00" onChange={handleChange} value={nouveauContrat.prix}  inputMode="decimal" step="any"/>
+                    <input type="number" name="prix" className="cursor-pointer text-3xl  mt-5 mb-5 text-center rounded-lg w-30" placeholder="0.00" onChange={handleChange} value={nouveauContrat.prix} inputMode="decimal" step="any" />
                     <p className="absolute right-[-0px] top-2 text-2xl pointer-events-none mt-5">€</p>
                 </div>
 
                 <div>
                     <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg " onChange={handleChange} value={nouveauContrat.type}>
-                    <option value="" disabled selected >Choisir un type</option>
+                        <option value="" disabled selected >Choisir un type</option>
                         {listeModeDePaiement.map((modeDePaiement) => (
 
                             <option value={modeDePaiement.nom} key={modeDePaiement._id}>{modeDePaiement.nom}</option>
@@ -252,12 +211,12 @@ if (nouveauContrat.type !== "Abonnement" && (!nouveauContrat.echeance || nouveau
                 {inputAdditionelPay &&
                     <input type="number" onChange={handleChange} className="cursor-pointer 
                     bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px]"
-                    placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} inputMode="decimal" />
+                        placeholder="Entrer le nombre d'échéances" name="echeance" value={nouveauContrat.echeance} inputMode="decimal" />
                 }
 
                 <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(nouveauContrat)}>Ajouter le contrat</button>
 
-            <p className="text-center mt-0">{message}</p>
+                <p className="text-center mt-0">{message}</p>
             </div>
         </>
     )

@@ -15,6 +15,29 @@ export const useContratServices = () => {
     }, []);
 
 
+    const [listeContrats, setListeContrats] = useState([]);
+    
+        useEffect(() => {
+    
+            const fetchData = async () => {
+    
+    
+                try {
+                    const response = await fetch('data.json');
+    
+                    const data = await response.json();
+                    setListeContrats(data.abonnements);
+    
+                } catch (error) {
+                    console.error("Erreur survenu lors de la récuperation de la liste : ", error)
+                }
+    
+            }
+            fetchData();
+        }, [])
+    
+
+
     const supprimerContrat = (idContrat) => {
         // Récupérer les anciens contrats depuis le localStorage
         const dataLocal = localStorage.getItem("mesContrats");
@@ -123,7 +146,9 @@ export const useContratServices = () => {
         handleUp,
         total,
         mesContrats,
-        setMesContrats
+        setMesContrats,
+        listeContrats,
+        setListeContrats
     }
 
 }
