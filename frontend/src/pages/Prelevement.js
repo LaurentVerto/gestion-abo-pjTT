@@ -5,6 +5,7 @@ import ListeContratsSup15 from "../components/contratsFilter/ListeContratsSup15"
 
 function Prelevement() {
 
+    // Recuperation de mesContrat en local storage
     const {mesContrats, setMesContrats} = useContratServices ();
 
     const contentRef = useRef(null);

@@ -5,17 +5,19 @@ import { useEffect, useState } from "react";
 
 export const useContratServices = () => {
 
-    const [mesContrats, setMesContrats] = useState([])
+    // on recupere les contrats dans le localStorage
+    const [myContracts, setMyContracts] = useState([])
 
     useEffect(() => {
-        const dataLocal = localStorage.getItem("mesContrats");
+        const dataLocal = localStorage.getItem("myContracts");
         if (dataLocal) {
-            setMesContrats(JSON.parse(dataLocal));
+            setMyContracts(JSON.parse(dataLocal));
         }
     }, []);
+    //
 
 
-    const [listeContrats, setListeContrats] = useState([]);
+    const [preSavedContractsList, setPreSavedContractsList] = useState([]);
     
         useEffect(() => {
     
@@ -26,7 +28,7 @@ export const useContratServices = () => {
                     const response = await fetch('data.json');
     
                     const data = await response.json();
-                    setListeContrats(data.abonnements);
+                    setPreSavedContractsList(data.abonnements);
     
                 } catch (error) {
                     console.error("Erreur survenu lors de la récuperation de la liste : ", error)
@@ -56,7 +58,7 @@ export const useContratServices = () => {
                 // Si la liste a été modifiée, mettre à jour le localStorage et l'état
                 if (anciensContrats.length !== listeMaj.length) {
                     localStorage.setItem("mesContrats", JSON.stringify(listeMaj));
-                    setMesContrats(listeMaj);
+                    setMyContracts(listeMaj);
                 } else {
                     console.log("Aucun contrat supprimé, vérifiez l'ID.");
                 }
@@ -70,16 +72,16 @@ export const useContratServices = () => {
 
     const handleUpdate = (contratId) => {
 
-        const aboUpdate = mesContrats.find(contrat => contrat.id === contratId);
+        const aboUpdate = myContracts.find(contrat => contrat.id === contratId);
 
         aboUpdate.statusAbo = !aboUpdate.statusAbo
 
-        const aboFinal = mesContrats.map(contrat => contrat.id === contratId ? aboUpdate : contrat)
+        const aboFinal = myContracts.map(contrat => contrat.id === contratId ? aboUpdate : contrat)
 
         localStorage.setItem("mesContrats",
             JSON.stringify(aboFinal)
         )
-        setMesContrats(aboFinal)
+        setMyContracts(aboFinal)
     }
 
 
@@ -88,7 +90,7 @@ export const useContratServices = () => {
         e.stopPropagation();  // Prevent event bubbling if necessary
 
         // Find the contract by its ID
-        const echeanceUpdate = mesContrats.find(contrat => contrat.id === contratId);
+        const echeanceUpdate = myContracts.find(contrat => contrat.id === contratId);
 
         if (!echeanceUpdate) return;  // Handle the case where the contract is not found
 
@@ -99,13 +101,13 @@ export const useContratServices = () => {
         const validatedEcheance = Math.min(10, Math.max(0, echeanceDown));
 
         // Map over all contracts to update the specific contract
-        const echeanceFinal = mesContrats.map(contrat =>
+        const echeanceFinal = myContracts.map(contrat =>
             contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat
         );
 
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
-        setMesContrats(echeanceFinal);
+        setMyContracts(echeanceFinal);
     };
 
 
@@ -114,7 +116,7 @@ export const useContratServices = () => {
         e.stopPropagation();  // Prevent event bubbling if necessary
 
         // Find the contract by its ID
-        const echeanceUpdate = mesContrats.find(contrat => contrat.id === contratId);
+        const echeanceUpdate = myContracts.find(contrat => contrat.id === contratId);
 
         if (!echeanceUpdate) return;  // Handle the case where the contract is not found
 
@@ -125,18 +127,18 @@ export const useContratServices = () => {
         const validatedEcheance = Math.min(10, Math.max(0, echeanceUp));
 
         // Map over all contracts to update the specific contract
-        const echeanceFinal = mesContrats.map(contrat =>
+        const echeanceFinal = myContracts.map(contrat =>
             contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat
         );
 
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
-        setMesContrats(echeanceFinal);
+        setMyContracts(echeanceFinal);
     };
 
 
 
-    const total = mesContrats ? mesContrats.reduce((total, contrat) => total + parseFloat(contrat.prix), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
+    const total = myContracts ? myContracts.reduce((total, contrat) => total + parseFloat(contrat.prix), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
 
 
     return {
@@ -145,10 +147,10 @@ export const useContratServices = () => {
         handleDown,
         handleUp,
         total,
-        mesContrats,
-        setMesContrats,
-        listeContrats,
-        setListeContrats
+        myContracts,
+        setMyContracts,
+        preSavedContractsList,
+        setPreSavedContractsList
     }
 
 }
