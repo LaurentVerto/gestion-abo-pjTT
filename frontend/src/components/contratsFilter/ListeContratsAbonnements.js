@@ -3,7 +3,7 @@ import useContratServices from "../../services/ContratsServices";
 function ListeContratsAbonnements() {
 
     
-    const {deleteContrat, handleUpdate, mesContrats, setMesContrats} = useContratServices();
+    const {deleteContrat, handleUpdate, myContracts, setMesContrats} = useContratServices();
 
     
 
@@ -14,7 +14,7 @@ function ListeContratsAbonnements() {
 
     <h3 className="font-bold uppercase text-large text-left ml-3 mt-5">Liste abonnements</h3>
     {
-        mesContrats.filter(contrat => {
+        myContracts.filter(contrat => {
             const abos = contrat.type === "Abonnement";
             return abos;
         }).map(contrat => {

@@ -2,7 +2,7 @@ import useContratServices from "../../services/ContratsServices";
 
 function ListeContratsX10() {
 
-    const {mesContrats, setMesContrats, handleDown,handleUp, supprimerContrat} = useContratServices();
+    const {myContracts, setMesContrats, handleDown,handleUp, supprimerContrat} = useContratServices();
 
     return(
 
@@ -12,7 +12,7 @@ function ListeContratsX10() {
         <ul className="flex justify-center w-[100%] flex-col items-center relative mt-0 gap-3 subpixel-antialiased ">
                             <div className="bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 "></div>
 
-                    {mesContrats.filter(contrat => {
+                    {myContracts.filter(contrat => {
                         const abos = contrat.type === "Paiement x10";
                         
                         return abos;

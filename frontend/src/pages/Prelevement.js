@@ -6,7 +6,7 @@ import ListeContratsSup15 from "../components/contratsFilter/ListeContratsSup15"
 function Prelevement() {
 
     // Recuperation de mesContrat en local storage
-    const {mesContrats, setMesContrats} = useContratServices ();
+    const {myContracts, setMyContracts} = useContratServices();    
 
     const contentRef = useRef(null);
     const [scrollUp, setScrollUp] = useState(false);
@@ -63,7 +63,7 @@ function Prelevement() {
 
             <div ref={contentRef} className="overflow-y-scroll h-[calc(100vh-220px)]">
 
-                {mesContrats.length === 0 && <p className="text-center mt-5">Aucun contrat enregistré</p>}
+                {myContracts.length === 0 && <p className="text-center mt-5">Aucun contrat enregistré</p>}
 
                 <ListeContratsInf15 />
                 <ListeContratsSup15 />

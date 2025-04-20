@@ -2,17 +2,17 @@ import useContratServices from "../../services/ContratsServices";
 
 function ListeContratsSup15() {
 
-    const {mesContrats, setMesContrats} = useContratServices();
+    const {myContracts, setMyContracts} = useContratServices();
 
     return (
         <>
-            {mesContrats.some(contrat => {
+            {myContracts.some(contrat => {
                 const day = new Date(contrat.datePrlvt).getDate();
                 return day >= 15 && contrat.statusAbo === true;
             }) && (
                     <ul className="flex justify-center w-[100%] flex-col items-center relative mt-3 subpixel-antialiased gap-3 ">
                         <div className="bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 "></div>
-                        {mesContrats.filter(contrat => {
+                        {myContracts.filter(contrat => {
                             const day = new Date(contrat.datePrlvt).getDate();
                             return day >= 15 && contrat.statusAbo === true;
                         }).map(contrat => (
@@ -42,7 +42,7 @@ function ListeContratsSup15() {
 
 
 
-                                    {mesContrats
+                                    {myContracts
                                         .filter((contrat) => new Date(contrat.datePrlvt).getDate() >= 15 && contrat.statusAbo === true)  // Filtrer les contrats
                                         .reduce((acc, contrat) => acc + (parseFloat(contrat.prix) || 0), 0)  // S'assurer que chaque prix est un nombre valide
                                         .toFixed(2)} €
