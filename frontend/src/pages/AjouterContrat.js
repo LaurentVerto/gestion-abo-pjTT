@@ -102,7 +102,7 @@ function AjouterContrat() {
         return true;
     };
 
-    const { myContracts, setMesContrats } = useContratServices()
+    const { myContracts, setMyContracts } = useContratServices()
 
 
     // utilise plusieurs éléments du front
@@ -130,7 +130,7 @@ function AjouterContrat() {
             nom: newContract.nom === "Autres" ? nomPerso : newContract.nom, // Si le nom est "Autres", on utilise nomPerso
         };
 
-        setMesContrats(prev => {
+        setMyContracts(prev => {
             // Ajout du contrat à la liste
             const ContratMaj = [...prev, contratAvecNom];
 

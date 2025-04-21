@@ -8,13 +8,13 @@ function ListeContratsSup15() {
         <>
             {myContracts.some(contrat => {
                 const day = new Date(contrat.datePrlvt).getDate();
-                return day >= 15 && contrat.statusAbo === true;
+                return day > 15 && contrat.statusAbo === true;
             }) && (
                     <ul className="flex justify-center w-[100%] flex-col items-center relative mt-3 subpixel-antialiased gap-3 ">
                         <div className="bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 "></div>
                         {myContracts.filter(contrat => {
                             const day = new Date(contrat.datePrlvt).getDate();
-                            return day >= 15 && contrat.statusAbo === true;
+                            return day > 15 && contrat.statusAbo === true;
                         }).map(contrat => (
                             <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma">
                                 {contrat.type === "Abonnement" ? (
@@ -43,7 +43,7 @@ function ListeContratsSup15() {
 
 
                                     {myContracts
-                                        .filter((contrat) => new Date(contrat.datePrlvt).getDate() >= 15 && contrat.statusAbo === true)  // Filtrer les contrats
+                                        .filter((contrat) => new Date(contrat.datePrlvt).getDate() > 15 && contrat.statusAbo === true)  // Filtrer les contrats
                                         .reduce((acc, contrat) => acc + (parseFloat(contrat.prix) || 0), 0)  // S'assurer que chaque prix est un nombre valide
                                         .toFixed(2)} €
                                 </span>
