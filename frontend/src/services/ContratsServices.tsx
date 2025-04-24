@@ -1,105 +1,176 @@
 // //ContratServices
-import { useEffect, useState } from "react";
 
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
+//npm create vite@latest test-type -- --template react-ts 
+// crer porjet vite
+
+import React, { useEffect, useState } from "react";
+
+//custom type
+type ContratType = {
+    datePrlvt: string;
+    echeance: number;
+    id: string;
+    nom: string;
+    prix: number;
+    statusAbo: boolean;
+    type: string
+}
+
+interface TestType  {
+    datePrlvt: string;
+    echeance: number;
+    id: string;
+    nom: string;
+    prix: number;
+    statusAbo: boolean;
+    type: string
+}
+
+const [myTest, setMytest] = useState<TestType[]>([])
+
+
 export const useContratServices = () => {
     // on recupere les contrats dans le localStorage
-    const [myContracts, setMyContracts] = useState([]);
+    const [myContracts, setMyContracts] = useState<ContratType[]>([])
+
+
+
+    
+
     useEffect(() => {
         const dataLocal = localStorage.getItem("myContracts");
         if (dataLocal) {
-            setMyContracts(JSON.parse(dataLocal));
+            setMyContracts(JSON.parse(dataLocal) as ContratType[]);
         }
     }, []);
     //
+    
+
+
     const [preSavedContractsList, setPreSavedContractsList] = useState([]);
-    useEffect(() => {
-        const fetchData = () => __awaiter(void 0, void 0, void 0, function* () {
-            try {
-                const response = yield fetch('data.json');
-                const data = yield response.json();
-                setPreSavedContractsList(data.abonnements);
+    
+        useEffect(() => {
+    
+            const fetchData = async () => {
+    
+    
+                try {
+                    const response = await fetch('data.json');
+    
+                    const data = await response.json();
+                    setPreSavedContractsList(data.abonnements);
+    
+                } catch (error) {
+                    console.error("Erreur survenu lors de la récuperation de la liste : ", error)
+                }
+    
             }
-            catch (error) {
-                console.error("Erreur survenu lors de la récuperation de la liste : ", error);
-            }
-        });
-        fetchData();
-    }, []);
-    const supprimerContrat = (idContrat) => {
+            fetchData();
+        }, [])
+    
+
+
+    const supprimerContrat = (idContrat: string) => {
         // Récupérer les anciens contrats depuis le localStorage
         const dataLocal = localStorage.getItem("mesContrats");
+
         if (dataLocal) {
             const anciensContrats = JSON.parse(dataLocal);
             // Trouver le contrat à supprimer (juste pour vérification)
             const contratToRemove = anciensContrats.find(contrat => contrat.id === idContrat);
+
             // Si on trouve l'élément à supprimer
             if (contratToRemove) {
                 // Filtrer la liste pour exclure ce contrat spécifique
                 const listeMaj = anciensContrats.filter(contrat => contrat.id !== idContrat);
                 // Vérification de la liste après suppression
+
                 // Si la liste a été modifiée, mettre à jour le localStorage et l'état
                 if (anciensContrats.length !== listeMaj.length) {
                     localStorage.setItem("mesContrats", JSON.stringify(listeMaj));
                     setMyContracts(listeMaj);
-                }
-                else {
+                } else {
                     console.log("Aucun contrat supprimé, vérifiez l'ID.");
                 }
-            }
-            else {
+            } else {
                 console.log('Aucun contrat trouvé avec l\'ID :', idContrat);
             }
         }
     };
+
+
+
     const handleUpdate = (contratId) => {
+
         const aboUpdate = myContracts.find(contrat => contrat.id === contratId);
-        aboUpdate.statusAbo = !aboUpdate.statusAbo;
-        const aboFinal = myContracts.map(contrat => contrat.id === contratId ? aboUpdate : contrat);
-        localStorage.setItem("mesContrats", JSON.stringify(aboFinal));
-        setMyContracts(aboFinal);
-    };
+
+        aboUpdate.statusAbo = !aboUpdate.statusAbo
+
+        const aboFinal = myContracts.map(contrat => contrat.id === contratId ? aboUpdate : contrat)
+
+        localStorage.setItem("mesContrats",
+            JSON.stringify(aboFinal)
+        )
+        setMyContracts(aboFinal)
+    }
+
+
+
     const handleDown = (contratId, e) => {
-        e.stopPropagation(); // Prevent event bubbling if necessary
+        e.stopPropagation();  // Prevent event bubbling if necessary
+
         // Find the contract by its ID
         const echeanceUpdate = myContracts.find(contrat => contrat.id === contratId);
-        if (!echeanceUpdate)
-            return; // Handle the case where the contract is not found
+
+        if (!echeanceUpdate) return;  // Handle the case where the contract is not found
+
         // Get the current echeance value and decrement it
         const echeanceDown = Number(echeanceUpdate.echeance) - 1;
+
         // Ensure the new echeance is within the range [0, 10]
         const validatedEcheance = Math.min(10, Math.max(0, echeanceDown));
+
         // Map over all contracts to update the specific contract
-        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? Object.assign(Object.assign({}, contrat), { echeance: validatedEcheance }) : contrat);
+        const echeanceFinal = myContracts.map(contrat =>
+            contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat
+        );
+
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
         setMyContracts(echeanceFinal);
     };
+
+
+
     const handleUp = (contratId, e) => {
-        e.stopPropagation(); // Prevent event bubbling if necessary
+        e.stopPropagation();  // Prevent event bubbling if necessary
+
         // Find the contract by its ID
         const echeanceUpdate = myContracts.find(contrat => contrat.id === contratId);
-        if (!echeanceUpdate)
-            return; // Handle the case where the contract is not found
+
+        if (!echeanceUpdate) return;  // Handle the case where the contract is not found
+
         // Get the current echeance value and increment it
         const echeanceUp = Number(echeanceUpdate.echeance) + 1;
+
         // Ensure the new echeance is within the range [0, 10]
         const validatedEcheance = Math.min(10, Math.max(0, echeanceUp));
+
         // Map over all contracts to update the specific contract
-        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? Object.assign(Object.assign({}, contrat), { echeance: validatedEcheance }) : contrat);
+        const echeanceFinal = myContracts.map(contrat =>
+            contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat
+        );
+
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
         setMyContracts(echeanceFinal);
     };
+
+
+
     const total = myContracts ? myContracts.reduce((total, contrat) => total + parseFloat(contrat.prix), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
+
+
     return {
         supprimerContrat,
         handleUpdate,
@@ -111,5 +182,7 @@ export const useContratServices = () => {
         preSavedContractsList,
         setPreSavedContractsList
     };
+
 };
+
 export default useContratServices;
