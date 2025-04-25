@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from "react";
 
 //custom type
-type ContratType = {
+export type ContratType = {
     datePrlvt: string;
     echeance: number;
     id: string;
@@ -16,20 +16,13 @@ type ContratType = {
     type: string
 }
 
-interface TestType  {
-    datePrlvt: string;
-    echeance: number;
-    id: string;
+export type PreSavedContractType = {
     nom: string;
-    prix: number;
-    statusAbo: boolean;
-    type: string
+    image: string
 }
 
-const [myTest, setMytest] = useState<TestType[]>([])
-
-
-export const useContratServices = () => {
+const useContratServices = () => {
+    
     // on recupere les contrats dans le localStorage
     const [myContracts, setMyContracts] = useState<ContratType[]>([])
 
@@ -47,7 +40,7 @@ export const useContratServices = () => {
     
 
 
-    const [preSavedContractsList, setPreSavedContractsList] = useState([]);
+    const [preSavedContractsList, setPreSavedContractsList] = useState<PreSavedContractType[]>([]);
     
         useEffect(() => {
     
@@ -70,12 +63,12 @@ export const useContratServices = () => {
     
 
 
-    const supprimerContrat = (idContrat: string) => {
+    const deleteContrat = (idContrat: string) => {
         // Récupérer les anciens contrats depuis le localStorage
-        const dataLocal = localStorage.getItem("mesContrats");
+        const dataLocal = localStorage.getItem("myContracts");
 
         if (dataLocal) {
-            const anciensContrats = JSON.parse(dataLocal);
+            const anciensContrats = JSON.parse(dataLocal) as ContratType[];
             // Trouver le contrat à supprimer (juste pour vérification)
             const contratToRemove = anciensContrats.find(contrat => contrat.id === idContrat);
 
@@ -87,7 +80,7 @@ export const useContratServices = () => {
 
                 // Si la liste a été modifiée, mettre à jour le localStorage et l'état
                 if (anciensContrats.length !== listeMaj.length) {
-                    localStorage.setItem("mesContrats", JSON.stringify(listeMaj));
+                    localStorage.setItem("myContracts", JSON.stringify(listeMaj));
                     setMyContracts(listeMaj);
                 } else {
                     console.log("Aucun contrat supprimé, vérifiez l'ID.");
@@ -100,23 +93,39 @@ export const useContratServices = () => {
 
 
 
-    const handleUpdate = (contratId) => {
+    const handleUpdate = (contratId: string) => {        
 
         const aboUpdate = myContracts.find(contrat => contrat.id === contratId);
+        
 
-        aboUpdate.statusAbo = !aboUpdate.statusAbo
+        if(aboUpdate){
+            aboUpdate.statusAbo = !aboUpdate.statusAbo
+            
+        }
+
 
         const aboFinal = myContracts.map(contrat => contrat.id === contratId ? aboUpdate : contrat)
 
-        localStorage.setItem("mesContrats",
-            JSON.stringify(aboFinal)
-        )
-        setMyContracts(aboFinal)
+        if(aboFinal){
+            localStorage.setItem("myContracts",
+                JSON.stringify(aboFinal)
+            )
+            const validContracts = aboFinal.filter((c): c is ContratType => c !== undefined);
+            // A VOIR PCK JE COMPREND RIEN
+            // A VOIR PCK JE COMPREND RIEN
+            // A VOIR PCK JE COMPREND RIEN
+            //TODO: a regarder pck comprend rien
+
+            setMyContracts(validContracts)
+            return;
+        }
+
+        
     }
 
 
 
-    const handleDown = (contratId, e) => {
+    const handleDown = (contratId: ContratType["id"], e: React.MouseEvent) => {
         e.stopPropagation();  // Prevent event bubbling if necessary
 
         // Find the contract by its ID
@@ -142,7 +151,7 @@ export const useContratServices = () => {
 
 
 
-    const handleUp = (contratId, e) => {
+    const handleUp = (contratId: ContratType["id"], e: React.MouseEvent) => {
         e.stopPropagation();  // Prevent event bubbling if necessary
 
         // Find the contract by its ID
@@ -168,11 +177,11 @@ export const useContratServices = () => {
 
 
 
-    const total = myContracts ? myContracts.reduce((total, contrat) => total + parseFloat(contrat.prix), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
+    const total = myContracts ? myContracts.reduce((total, contrat) => total + parseFloat(contrat.prix.toString()), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
 
 
     return {
-        supprimerContrat,
+        deleteContrat,
         handleUpdate,
         handleDown,
         handleUp,

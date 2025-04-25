@@ -1,20 +1,20 @@
-import React from 'react'
+import React from "react";
 import useContratServices from "../../services/ContratsServices";
 
-function ListeContratsX10() {
+function ListeContratsX4() {
 
-    const {myContracts, handleDown,handleUp, deleteContrat} = useContratServices();
+    const {myContracts, handleDown, handleUp, deleteContrat} = useContratServices();
 
     return(
 
         <>
-        <h3 className="font-bold uppercase text-large text-left ml-3 mt-5">Liste Paiement x10</h3>
+        <h3 className="font-bold uppercase text-large text-left ml-3 mt-5">Liste Paiement x4</h3>
         
         <ul className="flex justify-center w-[100%] flex-col items-center relative mt-0 gap-3 subpixel-antialiased ">
                             <div className="bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 "></div>
 
                     {myContracts.filter(contrat => {
-                        const abos = contrat.type === "Paiement x10";
+                        const abos = contrat.type === "Paiement x4";
                         
                         return abos;
                     }).map(contrat => {
@@ -45,4 +45,4 @@ function ListeContratsX10() {
 }
 
 
-export default ListeContratsX10;
+export default ListeContratsX4;

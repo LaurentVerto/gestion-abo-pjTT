@@ -31,7 +31,7 @@ const ContratSchema = new mongoose.Schema({
         default: ""
     },
     statusAbo: {
-        type: Boolean,
+        type: boolean,
         default: true
     },
 });

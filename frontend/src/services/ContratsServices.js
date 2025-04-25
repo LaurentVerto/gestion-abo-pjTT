@@ -1,42 +1,36 @@
+"use strict";
 // //ContratServices
-import { useEffect, useState } from "react";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-export const useContratServices = () => {
+Object.defineProperty(exports, "__esModule", { value: true });
+//npm create vite@latest test-type -- --template react-ts 
+// crer porjet vite
+const react_1 = require("react");
+const useContratServices = () => {
     // on recupere les contrats dans le localStorage
-    const [myContracts, setMyContracts] = useState([]);
-    useEffect(() => {
+    const [myContracts, setMyContracts] = (0, react_1.useState)([]);
+    (0, react_1.useEffect)(() => {
         const dataLocal = localStorage.getItem("myContracts");
         if (dataLocal) {
             setMyContracts(JSON.parse(dataLocal));
         }
     }, []);
     //
-    const [preSavedContractsList, setPreSavedContractsList] = useState([]);
-    useEffect(() => {
-        const fetchData = () => __awaiter(void 0, void 0, void 0, function* () {
+    const [preSavedContractsList, setPreSavedContractsList] = (0, react_1.useState)([]);
+    (0, react_1.useEffect)(() => {
+        const fetchData = async () => {
             try {
-                const response = yield fetch('data.json');
-                const data = yield response.json();
+                const response = await fetch('data.json');
+                const data = await response.json();
                 setPreSavedContractsList(data.abonnements);
             }
             catch (error) {
                 console.error("Erreur survenu lors de la récuperation de la liste : ", error);
             }
-        });
+        };
         fetchData();
     }, []);
-    const supprimerContrat = (idContrat) => {
+    const deleteContrat = (idContrat) => {
         // Récupérer les anciens contrats depuis le localStorage
-        const dataLocal = localStorage.getItem("mesContrats");
+        const dataLocal = localStorage.getItem("myContracts");
         if (dataLocal) {
             const anciensContrats = JSON.parse(dataLocal);
             // Trouver le contrat à supprimer (juste pour vérification)
@@ -48,7 +42,7 @@ export const useContratServices = () => {
                 // Vérification de la liste après suppression
                 // Si la liste a été modifiée, mettre à jour le localStorage et l'état
                 if (anciensContrats.length !== listeMaj.length) {
-                    localStorage.setItem("mesContrats", JSON.stringify(listeMaj));
+                    localStorage.setItem("myContracts", JSON.stringify(listeMaj));
                     setMyContracts(listeMaj);
                 }
                 else {
@@ -62,10 +56,20 @@ export const useContratServices = () => {
     };
     const handleUpdate = (contratId) => {
         const aboUpdate = myContracts.find(contrat => contrat.id === contratId);
-        aboUpdate.statusAbo = !aboUpdate.statusAbo;
+        if (aboUpdate) {
+            aboUpdate.statusAbo = !aboUpdate.statusAbo;
+        }
         const aboFinal = myContracts.map(contrat => contrat.id === contratId ? aboUpdate : contrat);
-        localStorage.setItem("mesContrats", JSON.stringify(aboFinal));
-        setMyContracts(aboFinal);
+        if (aboFinal) {
+            localStorage.setItem("myContracts", JSON.stringify(aboFinal));
+            const validContracts = aboFinal.filter((c) => c !== undefined);
+            // A VOIR PCK JE COMPREND RIEN
+            // A VOIR PCK JE COMPREND RIEN
+            // A VOIR PCK JE COMPREND RIEN
+            //TODO: a regarder pck comprend rien
+            setMyContracts(validContracts);
+            return;
+        }
     };
     const handleDown = (contratId, e) => {
         e.stopPropagation(); // Prevent event bubbling if necessary
@@ -78,7 +82,7 @@ export const useContratServices = () => {
         // Ensure the new echeance is within the range [0, 10]
         const validatedEcheance = Math.min(10, Math.max(0, echeanceDown));
         // Map over all contracts to update the specific contract
-        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? Object.assign(Object.assign({}, contrat), { echeance: validatedEcheance }) : contrat);
+        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat);
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
         setMyContracts(echeanceFinal);
@@ -94,14 +98,14 @@ export const useContratServices = () => {
         // Ensure the new echeance is within the range [0, 10]
         const validatedEcheance = Math.min(10, Math.max(0, echeanceUp));
         // Map over all contracts to update the specific contract
-        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? Object.assign(Object.assign({}, contrat), { echeance: validatedEcheance }) : contrat);
+        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat);
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
         setMyContracts(echeanceFinal);
     };
-    const total = myContracts ? myContracts.reduce((total, contrat) => total + parseFloat(contrat.prix), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
+    const total = myContracts ? myContracts.reduce((total, contrat) => total + parseFloat(contrat.prix.toString()), 0).toFixed(2) : 0; //si il y a des contrats tu fait un calcul : on creer donc 2 variable : total initialiser a 0 et contrat qui sera float de contrat.prix
     return {
-        supprimerContrat,
+        deleteContrat,
         handleUpdate,
         handleDown,
         handleUp,
@@ -112,4 +116,4 @@ export const useContratServices = () => {
         setPreSavedContractsList
     };
 };
-export default useContratServices;
+exports.default = useContratServices;
