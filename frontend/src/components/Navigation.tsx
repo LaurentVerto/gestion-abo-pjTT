@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Prelevement from "../pages/Prelevement";
 import Contrat from "../pages/Contrat";
+import Accueil from "../pages/Accueil";
 import AjouterContrat from "../pages/AjouterContrat";
 import Header from "./header";
 import { AnimatePresence, motion } from "framer-motion";
@@ -33,7 +34,9 @@ function AnimatedRoutes() {
                 className="min-h-screen flex flex-col overflow-hidden"  // Empêche la barre de défilement temporaire
             >
                 <Routes location={location} key={location.pathname}>
-                    <Route path="/" element={<Prelevement />} />
+                    <Route path="/" element={<Accueil />} />
+
+                    <Route path="/prélèvements" element={<Prelevement />} />
 
                     <Route path="/contrats" element={<Contrat />} />
 

@@ -40,6 +40,7 @@ const react_1 = __importStar(require("react"));
 const react_router_dom_1 = require("react-router-dom");
 const Prelevement_1 = __importDefault(require("../pages/Prelevement"));
 const Contrat_1 = __importDefault(require("../pages/Contrat"));
+const Accueil_1 = __importDefault(require("../pages/Accueil"));
 const AjouterContrat_1 = __importDefault(require("../pages/AjouterContrat"));
 const header_1 = __importDefault(require("./header"));
 const framer_motion_1 = require("framer-motion");
@@ -57,7 +58,8 @@ function AnimatedRoutes() {
         react_1.default.createElement(framer_motion_1.motion.div, { key: location.pathname, initial: { opacity: 0, y: 0 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -0 }, transition: { duration: 0.3 }, className: "min-h-screen flex flex-col overflow-hidden" // Empêche la barre de défilement temporaire
          },
             react_1.default.createElement(react_router_dom_1.Routes, { location: location, key: location.pathname },
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/", element: react_1.default.createElement(Prelevement_1.default, null) }),
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/", element: react_1.default.createElement(Accueil_1.default, null) }),
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/pr\u00E9l\u00E8vements", element: react_1.default.createElement(Prelevement_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/contrats", element: react_1.default.createElement(Contrat_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/ajouter-contrat", element: react_1.default.createElement(AjouterContrat_1.default, null) })))));
 }

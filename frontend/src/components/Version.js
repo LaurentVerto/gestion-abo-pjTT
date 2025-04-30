@@ -43,7 +43,6 @@ function Version() {
         setOverlay(!overlay);
     };
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement("img", { src: ICON_SP, alt: "logo_back", className: " centerP absolute z-1 opacity-3 pointer-events-none" }),
         react_1.default.createElement("p", { className: "absolute text-[9px] top-2 left-2 z-15" },
             "By ",
             react_1.default.createElement("br", null),
