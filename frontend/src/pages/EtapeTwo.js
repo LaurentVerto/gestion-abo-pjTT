@@ -30,8 +30,10 @@ function EtapeTwo() {
                             react_1.default.createElement("li", { className: "mt-2" }, "  supprimer d\u00E9finitivement le contrat"),
                             react_1.default.createElement("li", { className: "mt-2" }, "le d\u00E9sactiver temporairement pour une p\u00E9riode donn\u00E9e.")))),
                 react_1.default.createElement("img", { src: etapeTwo, alt: "image etape", className: "mt-10 ml-10 mb-10" }),
-                react_1.default.createElement("div", { className: "flex justify-center gap-10 mb-20" },
+                react_1.default.createElement("div", { className: "flex justify-center gap-10 mb-10" },
                     react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeOne", className: "bg-gray-700 p-2 rounded-lg " }, "Etape Pr\u00E9c\u00E9dente"),
-                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeThree", className: "bg-gray-500 p-2 rounded-lg animate-pulse " }, "Etape Suivante"))))));
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeThree", className: "bg-gray-500 p-2 rounded-lg animate-pulse " }, "Etape Suivante")),
+                react_1.default.createElement("div", { className: "flex justify-center mb-20" },
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/prelevements", className: "bg-[#60A8FE] p-2 rounded-lg text-black " }, "Entrer dans le site"))))));
 }
 exports.default = EtapeTwo;

@@ -38,8 +38,14 @@ function EtapeOne() {
                         </li>
                     </ul>
                 <img src={etapeOne} alt="image etape" className="mt-10 ml-10 mb-10" />
-                <div className="flex justify-center mb-20">
+                <div className="flex justify-center mb-10">
                     <Link to="/EtapeTwo" className="bg-gray-500 p-2 rounded-lg animate-pulse ">Etape Suivante</Link>
+                </div>
+                <div className="flex justify-center mb-10">
+                    <Link to="/EtapeTwo" className="bg-[#60A8FE] p-2 rounded-lg text-black ">Entrer dans le site</Link>
+                </div>
+                <div className="flex justify-center mb-20">
+                    <Link to="/prelevements" className="bg-[#60A8FE] p-2 rounded-lg text-black ">Entrer dans le site</Link>
                 </div>
                 </div>
             </div>

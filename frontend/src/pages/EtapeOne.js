@@ -31,7 +31,11 @@ function EtapeOne() {
                             react_1.default.createElement("li", { className: "mt-2" }, " Abonnement (paiement r\u00E9gulier tous les mois, etc.)"),
                             react_1.default.createElement("li", { className: "mt-2" }, "Paiement en plusieurs fois (un montant total divis\u00E9 sur plusieurs \u00E9ch\u00E9ances)")))),
                 react_1.default.createElement("img", { src: etapeOne, alt: "image etape", className: "mt-10 ml-10 mb-10" }),
+                react_1.default.createElement("div", { className: "flex justify-center mb-10" },
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeTwo", className: "bg-gray-500 p-2 rounded-lg animate-pulse " }, "Etape Suivante")),
+                react_1.default.createElement("div", { className: "flex justify-center mb-10" },
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeTwo", className: "bg-[#60A8FE] p-2 rounded-lg text-black " }, "Entrer dans le site")),
                 react_1.default.createElement("div", { className: "flex justify-center mb-20" },
-                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeTwo", className: "bg-gray-500 p-2 rounded-lg animate-pulse " }, "Etape Suivante"))))));
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/prelevements", className: "bg-[#60A8FE] p-2 rounded-lg text-black " }, "Entrer dans le site"))))));
 }
 exports.default = EtapeOne;
