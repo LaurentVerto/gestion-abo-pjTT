@@ -4,9 +4,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importDefault(require("react"));
+const react_router_dom_1 = require("react-router-dom");
 const ICON_SP = "/logo-xs.png";
 function Accueil() {
-    return (react_1.default.createElement("div", { className: "container bg-white w-[100vw] h-[100vh] z-25 fontAbe pb-0 " },
+    return (react_1.default.createElement("div", { className: "container bg-white w-[100vw] h-[100vh] z-0 fontAbe pb-0 " },
         react_1.default.createElement("div", { className: "absolute h-30 bg-[#1d1d21] w-[100vw] z-1" }),
         react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 1440 320", className: "absolute mt-29 z-1" },
             react_1.default.createElement("path", { fill: "#1d1d21", "fill-opacity": "1", d: "M0,224L40,208C80,192,160,160,240,144C320,128,400,128,480,154.7C560,181,640,235,720,218.7C800,203,880,117,960,85.3C1040,53,1120,75,1200,117.3C1280,160,1360,224,1400,256L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z" })),
@@ -28,9 +29,10 @@ function Accueil() {
             react_1.default.createElement("div", { className: "bg-[#1d1d21] w-2.5 h-2.5 rounded-full shadow-md" })),
         react_1.default.createElement("div", { className: "w-[100%] flex justify-center mt-10" },
             react_1.default.createElement("div", { className: "bg-[#1d1d21] w-18 h-18 rounded-full flex justify-center items-center" },
-                react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "60", height: "60", viewBox: "0 0 24 24", fill: "none", stroke: "white", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-arrow-right-icon lucide-arrow-right" },
-                    react_1.default.createElement("path", { d: "M5 12h14" }),
-                    react_1.default.createElement("path", { d: "m12 5 7 7-7 7" })))),
+                react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeOne" },
+                    react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "60", height: "60", viewBox: "0 0 24 24", fill: "none", stroke: "white", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-arrow-right-icon lucide-arrow-right" },
+                        react_1.default.createElement("path", { d: "M5 12h14" }),
+                        react_1.default.createElement("path", { d: "m12 5 7 7-7 7" }))))),
         react_1.default.createElement("p", { className: "text-black text-xs absolute bottom-2 right-3" }, "Note de Version"),
         react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 1440 320", className: "absolute bottom-0 z-1" },
             react_1.default.createElement("path", { fill: "#1d1d21", "fill-opacity": "1", d: "M0,256L60,245.3C120,235,240,213,360,181.3C480,149,600,107,720,128C840,149,960,235,1080,250.7C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z" })),

@@ -45,6 +45,7 @@ const AjouterContrat_1 = __importDefault(require("../pages/AjouterContrat"));
 const header_1 = __importDefault(require("./header"));
 const framer_motion_1 = require("framer-motion");
 const Version_1 = __importDefault(require("./Version"));
+const EtapeOne_1 = __importDefault(require("../pages/EtapeOne"));
 function AnimatedRoutes() {
     const location = (0, react_router_dom_1.useLocation)();
     const [mesContrats, setMesContrats] = (0, react_1.useState)([]);
@@ -59,6 +60,7 @@ function AnimatedRoutes() {
          },
             react_1.default.createElement(react_router_dom_1.Routes, { location: location, key: location.pathname },
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/", element: react_1.default.createElement(Accueil_1.default, null) }),
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/etapeOne", element: react_1.default.createElement(EtapeOne_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/pr\u00E9l\u00E8vements", element: react_1.default.createElement(Prelevement_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/contrats", element: react_1.default.createElement(Contrat_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/ajouter-contrat", element: react_1.default.createElement(AjouterContrat_1.default, null) })))));

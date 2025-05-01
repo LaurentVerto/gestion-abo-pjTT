@@ -7,6 +7,7 @@ import AjouterContrat from "../pages/AjouterContrat";
 import Header from "./header";
 import { AnimatePresence, motion } from "framer-motion";
 import Version from "./Version";
+import EtapeOne from "../pages/EtapeOne";
 
 function AnimatedRoutes() {
 
@@ -35,6 +36,8 @@ function AnimatedRoutes() {
             >
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Accueil />} />
+                    <Route path="/etapeOne" element={<EtapeOne />} />
+
 
                     <Route path="/prélèvements" element={<Prelevement />} />
 

@@ -4,7 +4,7 @@ const ICON_SP = "/logo-xs.png";
 
 function Accueil() {
     return (
-            <div className="container bg-white w-[100vw] h-[100vh] z-25 fontAbe pb-0 ">
+            <div className="container bg-white w-[100vw] h-[100vh] z-0 fontAbe pb-0 ">
                 <div className="absolute h-30 bg-[#1d1d21] w-[100vw] z-1"></div>
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute mt-29 z-1">
@@ -39,9 +39,10 @@ function Accueil() {
 
                 <div className="w-[100%] flex justify-center mt-10">
 
-
                     <div className="bg-[#1d1d21] w-18 h-18 rounded-full flex justify-center items-center">
+                    <Link to="/EtapeOne">
                         <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
+                    </Link>
                     </div>
                 </div>
 
