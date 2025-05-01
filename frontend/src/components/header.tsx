@@ -37,7 +37,7 @@ function Header() {
                         <path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/>
                         </NavItem>
 
-                        <NavItem to="/prélèvements" activeTab={activeTab} setActiveTab={setActiveTab} label="Prélèvements">
+                        <NavItem to="/prelevements" activeTab={activeTab} setActiveTab={setActiveTab} label="Prelevements">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.25 7.756a4.5 4.5 0 1 0 0 8.488M7.5 10.5h5.25m-5.25 3h5.25M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </NavItem>
 
@@ -62,7 +62,7 @@ function NavItem({ to, activeTab, setActiveTab, label, children }: NavItemTypes)
     return (
         <li className="relative group top-0" onClick={() => setActiveTab(to)}>
             <Link to={to} className="flex flex-col items-center">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="black"
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="gray"
                     className={`size-9 transition-all duration-300 
                     ${isActive ? "stroke-[#f8f8f8] translate-y-[-8px]" : "group-hover:stroke-[#f8f8f8] group-hover:translate-y-[-8px]"}`}>
                     {children}

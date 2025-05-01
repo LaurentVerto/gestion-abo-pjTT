@@ -9,6 +9,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Version from "./Version";
 import EtapeOne from "../pages/EtapeOne";
 import EtapeTwo from "../pages/EtapeTwo";
+import EtapeThree from "../pages/EtapeThree";
 
 function AnimatedRoutes() {
 
@@ -39,9 +40,10 @@ function AnimatedRoutes() {
                     <Route path="/" element={<Accueil />} />
                     <Route path="/etapeOne" element={<EtapeOne />} />
                     <Route path="/etapeTwo" element={<EtapeTwo />} />
+                    <Route path="/etapeThree" element={<EtapeThree />} />
 
 
-                    <Route path="/prélèvements" element={<Prelevement />} />
+                    <Route path="/prelevements" element={<Prelevement />} />
 
                     <Route path="/contrats" element={<Contrat />} />
 
