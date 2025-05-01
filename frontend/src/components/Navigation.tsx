@@ -8,6 +8,7 @@ import Header from "./header";
 import { AnimatePresence, motion } from "framer-motion";
 import Version from "./Version";
 import EtapeOne from "../pages/EtapeOne";
+import EtapeTwo from "../pages/EtapeTwo";
 
 function AnimatedRoutes() {
 
@@ -37,6 +38,7 @@ function AnimatedRoutes() {
                 <Routes location={location} key={location.pathname}>
                     <Route path="/" element={<Accueil />} />
                     <Route path="/etapeOne" element={<EtapeOne />} />
+                    <Route path="/etapeTwo" element={<EtapeTwo />} />
 
 
                     <Route path="/prélèvements" element={<Prelevement />} />
