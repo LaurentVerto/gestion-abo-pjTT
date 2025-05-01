@@ -48,15 +48,37 @@ const Version_1 = __importDefault(require("./Version"));
 const EtapeOne_1 = __importDefault(require("../pages/EtapeOne"));
 const EtapeTwo_1 = __importDefault(require("../pages/EtapeTwo"));
 const EtapeThree_1 = __importDefault(require("../pages/EtapeThree"));
+const ContratsServices_1 = __importDefault(require("../services/ContratsServices"));
 function AnimatedRoutes() {
-    const location = (0, react_router_dom_1.useLocation)();
-    const [mesContrats, setMesContrats] = (0, react_1.useState)([]);
+    const navigate = (0, react_router_dom_1.useNavigate)();
+    const { myContracts } = (0, ContratsServices_1.default)();
+    const [isLoading, setIsLoading] = (0, react_1.useState)(true); // Gérer le temps de chargement des contrats
+    const [hasRedirected, setHasRedirected] = (0, react_1.useState)(false); // Marque si la redirection a été effectuée
     (0, react_1.useEffect)(() => {
-        const dataLocal = localStorage.getItem("mesContrats");
-        if (dataLocal) {
-            setMesContrats(JSON.parse(dataLocal));
+        // Si myContracts est encore vide ou en attente, on reste en mode "loading"
+        if (myContracts === undefined) {
+            return; // Ne rien faire tant que les contrats ne sont pas définis
         }
-    }, []);
+        // Dès que les contrats sont prêts, gérer la redirection
+        if (myContracts.length === 0 && !hasRedirected && !isLoading) {
+            navigate("/"); // Rediriger vers l'accueil si pas de contrats
+            setHasRedirected(true); // Marque que la redirection a eu lieu
+        }
+        else if (myContracts.length > 0 && !hasRedirected && !isLoading) {
+            navigate("/prelevements"); // Rediriger vers /prelevements si des contrats existent
+            setHasRedirected(true); // Marque que la redirection a eu lieu
+        }
+    }, [myContracts, navigate, hasRedirected, isLoading]); // Dépendances : wait until myContracts are available
+    (0, react_1.useEffect)(() => {
+        // S'assurer que les contrats sont bien chargés avant d'effectuer des actions supplémentaires
+        if (myContracts !== undefined) {
+            setIsLoading(false); // Une fois les contrats chargés, on passe à "isLoading = false"
+        }
+    }, [myContracts]);
+    (0, react_1.useEffect)(() => {
+        console.log(myContracts); // Vérifie le contenu de myContracts
+    }, [myContracts]);
+    const location = (0, react_router_dom_1.useLocation)();
     return (react_1.default.createElement(framer_motion_1.AnimatePresence, { mode: "wait" },
         react_1.default.createElement(framer_motion_1.motion.div, { key: location.pathname, initial: { opacity: 0, y: 0 }, animate: { opacity: 1, y: 0 }, exit: { opacity: 0, y: -0 }, transition: { duration: 0.3 }, className: "min-h-screen flex flex-col overflow-hidden" // Empêche la barre de défilement temporaire
          },

@@ -74,6 +74,6 @@ function Version() {
                                 react_1.default.createElement("li", { className: "list-disc" }, "Ajout de preset nom de contrat (Netflix, Canal +, Spotify, Deezer, YouTube Music )")))),
                     react_1.default.createElement("p", { className: "text-xs m-4 text-center" }, "\u26A0\uFE0F Le navigateur ne doit pas \u00EAtre en priv\u00E9 pour la sauvegarde de vos contrats"),
                     react_1.default.createElement("p", { className: "mt-5 text-center text-xs text-white/20 cursor-pointer" }, "Tap pour fermer"))),
-        react_1.default.createElement("p", { onClick: handleVersionOverlay, className: "absolute border cursor-pointer rounded-full right-2 top-2 w-7 h-7 flex justify-center items-center text-base drop-figma z-20" }, "?")));
+        react_1.default.createElement("p", { onClick: handleVersionOverlay, className: "absolute border cursor-pointer rounded-full right-2 top-2 w-7 h-7 flex justify-center items-center text-base drop-figma z-15" }, "?")));
 }
 exports.default = Version;

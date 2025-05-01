@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Prelevement from "../pages/Prelevement";
 import Contrat from "../pages/Contrat";
 import Accueil from "../pages/Accueil";
@@ -10,21 +10,44 @@ import Version from "./Version";
 import EtapeOne from "../pages/EtapeOne";
 import EtapeTwo from "../pages/EtapeTwo";
 import EtapeThree from "../pages/EtapeThree";
+import useContratServices from "../services/ContratsServices";
 
 function AnimatedRoutes() {
 
-
+    const navigate = useNavigate();
+    const { myContracts } = useContratServices();
     
-    const location = useLocation();
-
-    const [mesContrats, setMesContrats] = useState([])
+    const [isLoading, setIsLoading] = useState(true); // Gérer le temps de chargement des contrats
+    const [hasRedirected, setHasRedirected] = useState(false); // Marque si la redirection a été effectuée
 
     useEffect(() => {
-        const dataLocal = localStorage.getItem("mesContrats");
-        if (dataLocal) {
-            setMesContrats(JSON.parse(dataLocal))
+        // Si myContracts est encore vide ou en attente, on reste en mode "loading"
+        if (myContracts === undefined) {
+            return; // Ne rien faire tant que les contrats ne sont pas définis
         }
-    }, [])
+
+        // Dès que les contrats sont prêts, gérer la redirection
+        if (myContracts.length === 0 && !hasRedirected && !isLoading) {
+            navigate("/"); // Rediriger vers l'accueil si pas de contrats
+            setHasRedirected(true); // Marque que la redirection a eu lieu
+        } else if (myContracts.length > 0 && !hasRedirected && !isLoading) {
+            navigate("/prelevements"); // Rediriger vers /prelevements si des contrats existent
+            setHasRedirected(true); // Marque que la redirection a eu lieu
+        }
+    }, [myContracts, navigate, hasRedirected, isLoading]); // Dépendances : wait until myContracts are available
+
+    useEffect(() => {
+        // S'assurer que les contrats sont bien chargés avant d'effectuer des actions supplémentaires
+        if (myContracts !== undefined) {
+            setIsLoading(false); // Une fois les contrats chargés, on passe à "isLoading = false"
+        }
+    }, [myContracts]);
+
+    useEffect(() => {
+        console.log(myContracts); // Vérifie le contenu de myContracts
+    }, [myContracts]);
+
+    const location = useLocation();
 
     return (
         <AnimatePresence mode="wait">

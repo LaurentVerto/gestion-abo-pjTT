@@ -49,7 +49,7 @@ function Version() {
             </div>
         </div>
         }
-        <p onClick={handleVersionOverlay} className="absolute border cursor-pointer rounded-full right-2 top-2 w-7 h-7 flex justify-center items-center text-base drop-figma z-20">?</p>
+        <p onClick={handleVersionOverlay} className="absolute border cursor-pointer rounded-full right-2 top-2 w-7 h-7 flex justify-center items-center text-base drop-figma z-15">?</p>
         </>
     )
 }
