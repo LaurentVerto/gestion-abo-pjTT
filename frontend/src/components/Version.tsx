@@ -15,11 +15,11 @@ function Version() {
 
     return(
         <>
-        <p className="absolute text-[9px] top-2 left-2 z-15">By <br /> LFPC-DEV</p>
+        <p className="absolute text-[9px] top-2 left-2 z-50 mix-blend-difference">By <br /> LFPC-DEV</p>
 
         {overlay && 
         
-        <div onClick={handleVersionOverlay} className="overlay  w-[100%] h-[100%] bg-black/70 absolute z-10 ">
+        <div onClick={handleVersionOverlay} className="overlay  w-[100%] h-[100%] bg-black/70 absolute z-49 ">
             <div className="w-[70%] h-auto absolute centerP rounded-lg bg-[#282830] drop-figma p-3">
                 <span className="absolute right-2 top-[-2px] font-sans cursor-pointer">x</span>
                 <h3>Note de version : <span className="font-sans lowercase">v</span>0.1</h3>
@@ -49,7 +49,7 @@ function Version() {
             </div>
         </div>
         }
-        <p onClick={handleVersionOverlay} className="absolute border cursor-pointer rounded-full right-2 top-2 w-7 h-7 flex justify-center items-center text-base drop-figma z-15">?</p>
+        <p onClick={handleVersionOverlay} className="absolute border cursor-pointer rounded-full right-2 top-2 w-7 h-7 flex justify-center items-center text-base drop-figma z-50 mix-blend-difference">?</p>
         </>
     )
 }

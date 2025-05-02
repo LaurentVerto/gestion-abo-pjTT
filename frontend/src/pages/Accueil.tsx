@@ -4,7 +4,9 @@ const ICON_SP = "/logo-xs.png";
 
 function Accueil() {
     return (
-            <div className="container bg-white w-[100vw] h-[100vh] z-0 fontAbe pb-0 ">
+        <>
+        
+            <div className=" bg-white w-[100vw] h-[100dvh] z-0 fontAbe border-red-500  ">
                 <div className="absolute h-30 bg-[#1d1d21] w-[100vw] z-1"></div>
 
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute mt-29 z-1">
@@ -25,7 +27,7 @@ function Accueil() {
                     <img src={ICON_SP} alt="logo-xs" className="absolute z-1 h-35" />
                 </div>
 
-                <div className="flex flex-col justify-center items-center mt-17">
+                <div className="flex flex-col justify-center items-center mt-[20dvh]">
                     <p className="text-black">Bienvenue sur</p>
                     <h1 className="text-black text-xl linear-title font-bold ">SplitPay</h1>
                     <p className="text-black w-80 text-justify mt-10 text-sm">Une application qui vous permet d’avoir, en un coup d’œil, une vue claire de vos abonnements et de vos paiements en plusieurs fois.</p>
@@ -46,21 +48,10 @@ function Accueil() {
                     </div>
                 </div>
 
-                <p className="text-black text-xs absolute bottom-2 right-3">Note de Version</p>
-
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute bottom-0 z-1">
-                    <path fill="#1d1d21" fill-opacity="1" d="M0,256L60,245.3C120,235,240,213,360,181.3C480,149,600,107,720,128C840,149,960,235,1080,250.7C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-                </svg>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute bottom-4">
-                <defs>
-                        <linearGradient id="monDegrade" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stop-color="#60A8FE" />
-                            <stop offset="100%" stop-color="#4950FF" />
-                        </linearGradient>
-                    </defs>
-                    <path fill="url(#monDegrade)" fill-opacity="1" d="M0,256L60,245.3C120,235,240,213,360,181.3C480,149,600,107,720,128C840,149,960,235,1080,250.7C1200,267,1320,213,1380,186.7L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
-                </svg>
+                
+                
             </div>
+            </>
     )
 }
 
