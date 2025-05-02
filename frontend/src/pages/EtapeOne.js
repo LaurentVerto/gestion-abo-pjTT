@@ -8,7 +8,7 @@ const react_router_dom_1 = require("react-router-dom");
 const ICON_SP = "/logo-xs.png";
 const etapeOne = "/etapeOne.png";
 function EtapeOne() {
-    return (react_1.default.createElement("div", { className: "main-content  bg-[#1d1d21] w-full h-screen fontAbe pb-0 overflow-y-scroll relative " },
+    return (react_1.default.createElement("div", { className: "main-content  bg-[#1d1d21] w-full h-screen fontAbe pb-0 overflow-y-scroll relative min-height-10" },
         react_1.default.createElement("div", { className: "absolute h-[15dvh] bg-[#f8f8f8] w-full z-0 top-[0dvh] md:top-[0dvh] md:h-[5dvh] " }),
         react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 1440 320", className: "absolute top-[13dvh] md:top-[0dvh] left-0 w-full z-2" },
             react_1.default.createElement("path", { fill: "#f8f8f8", fillOpacity: "1", d: "M0,224L40,208C80,192,160,160,240,144C320,128,400,128,480,154.7C560,181,640,235,720,218.7C800,203,880,117,960,85.3C1040,53,1120,75,1200,117.3C1280,160,1360,224,1400,256L1440,288L1440,0L0,0Z" })),
