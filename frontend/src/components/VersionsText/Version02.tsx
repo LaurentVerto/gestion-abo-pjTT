@@ -28,7 +28,7 @@ function Version02({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void
                         Onglet Accueil <span className="new">Nouveau</span>
                         <ul className="ml-5 mt-2 font-light text-xs">
                             <li className="list-disc">
-                                Présenation rapide de l'utilisation du site internet
+                                Présentation rapide de l'utilisation du site internet
                             </li>
                         </ul>
                     </li>
