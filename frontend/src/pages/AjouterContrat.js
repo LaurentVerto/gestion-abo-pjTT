@@ -85,19 +85,13 @@ function AjouterContrat() {
             if (value === "Autres") {
                 contrat = {
                     nom: nomPerso,
-                    image: ""
+                    image: "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png"
                 };
             }
             else {
                 contrat = preSavedContractsList.find(c => c.nom === value);
             }
-            if (contrat) {
-                setSelectedContract(contrat.nom);
-            }
-        }
-        else {
-            // Si ce n’est pas le champ "nom", on essaie d’utiliser le contrat déjà sélectionné
-            contrat = preSavedContractsList.find(c => c.nom === selectedContract);
+            setSelectedContract(value); // <-- ici, juste garder la valeur
         }
         // Mise à jour de l’abonnement sélectionné (tu peux ajuster selon le type voulu)
         setSelectedSubscription(newValue.toString());
@@ -199,7 +193,7 @@ function AjouterContrat() {
                     listeModeDePaiement.map((modeDePaiement) => (react_1.default.createElement("option", { value: modeDePaiement.nom, key: modeDePaiement.nom }, modeDePaiement.nom))))),
             inputAdditionelPay &&
                 react_1.default.createElement("input", { type: "number", onChange: handleChange, className: "cursor-pointer \r\n                    bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px]", placeholder: "Entrer le nombre d'\u00E9ch\u00E9ances", name: "echeance", value: newContract.echeance, inputMode: "decimal" }),
-            react_1.default.createElement("button", { className: "mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm ", onClick: () => enregistrementContrat(newContract) }, "Ajouter le contrat"),
+            react_1.default.createElement("button", { className: "mt-10\r\n                shadow-lg\r\n                bg-gray-700 w-[40%] min-w-[300px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm ", onClick: () => enregistrementContrat(newContract) }, "Ajouter le contrat"),
             react_1.default.createElement("p", { className: "text-center mt-0" }, message))));
 }
 exports.default = AjouterContrat;

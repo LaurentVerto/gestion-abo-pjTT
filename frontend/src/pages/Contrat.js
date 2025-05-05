@@ -81,7 +81,7 @@ function Contrat() {
     return (react_1.default.createElement("div", { className: "main-content" },
         react_1.default.createElement("h2", { className: "font-bold uppercase text-2xl text-center mt-5" }, "Liste contrats"),
         scrollUp &&
-            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-2 top-5\r\n            animate-bounce rotate-180 z-11\r\n            " },
+            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-2 top-6\r\n            animate-bounce rotate-180 z-11\r\n            " },
                 react_1.default.createElement("path", { d: "m6 9 6 6 6-6" })),
         react_1.default.createElement("div", { ref: contentRef, className: "content overflow-y-scroll h-[calc(100vh-280px)] " },
             react_1.default.createElement(ListeContratsAbonnements_1.default, null),

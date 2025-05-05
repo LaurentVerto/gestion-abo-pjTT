@@ -24,7 +24,7 @@ function ListeContratsAbonnements() {
 
                     <li key={contrat.id} className={`${contrat.statusAbo ? "border-l-[#5B975D]" : "border-l-[#975B5B]"} bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4  rounded-br-[5px] rounded-tr-[5px] drop-figma mt-3`}>
                         <div className="ml-3 flex flex-col justify-between ">
-                            <strong className=" text-lg  leading-none">{contrat.nom} | <span className="font-sans text-sm">{contrat.prix} €</span></strong>
+                            <strong className=" text-md  leading-none">{contrat.nom} | <span className="font-sans text-sm">{contrat.prix} €</span></strong>
                             <p className="text-sm font-sans font-light">{contrat.statusAbo ? "Abonnement actif" : "Abonnement Inactif"}</p>
                             <p onClick={() => deleteContrat(contrat.id)} className="text-[11px]  font-sans text-[#975B5B] cursor-pointer hover:scale-105 transition-all duration-100">Supprimer l'abonnement</p>
                             <p></p>

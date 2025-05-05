@@ -14,7 +14,11 @@ function AjouterContrat() {
 
     const [selectedContract, setSelectedContract] = useState("")
 
+    
+
     const inputAdditionel = selectedContract === "Autres"; // pour afficher le champ additionel
+
+    
 
     const [nomPerso, setNomPerso] = useState('');
 
@@ -69,19 +73,16 @@ function AjouterContrat() {
         if (value === "Autres") {
             contrat = {
                 nom: nomPerso,
-                image: ""
+                image: "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png"
             };
         } else {
             contrat = preSavedContractsList.find(c => c.nom === value);
         }
-
-        if (contrat) {
-            setSelectedContract(contrat.nom);
-        }
-    } else {
-        // Si ce n’est pas le champ "nom", on essaie d’utiliser le contrat déjà sélectionné
-        contrat = preSavedContractsList.find(c => c.nom === selectedContract);
+    
+        setSelectedContract(value); // <-- ici, juste garder la valeur
     }
+
+    
 
     // Mise à jour de l’abonnement sélectionné (tu peux ajuster selon le type voulu)
     setSelectedSubscription(newValue.toString());
@@ -229,7 +230,9 @@ function AjouterContrat() {
                         placeholder="Entrer le nombre d'échéances" name="echeance" value={newContract.echeance} inputMode="decimal" />
                 }
 
-                <button className="mt-5 bg-black w-[20%] min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(newContract)}>Ajouter le contrat</button>
+                <button className="mt-10
+                shadow-lg
+                bg-gray-700 w-[40%] min-w-[300px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(newContract)}>Ajouter le contrat</button>
 
                 <p className="text-center mt-0">{message}</p>
             </div>

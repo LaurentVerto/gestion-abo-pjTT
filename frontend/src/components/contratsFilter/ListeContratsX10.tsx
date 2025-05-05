@@ -21,7 +21,7 @@ function ListeContratsX10() {
                         return (
                             <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma">
                             <div className="ml-3 flex flex-col justify-between ">
-                                <strong className=" text-lg  leading-none">{contrat.nom} | <span className="font-sans text-sm">{contrat.prix} €</span></strong>
+                                <strong className=" text-md   leading-none">{contrat.nom} | <span className="font-sans text-sm">{contrat.prix} €</span></strong>
                                 <div className="flex items-center gap-2 " >
                                     <svg onClick={(e) => handleDown(contrat.id, e)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-minus-icon lucide-minus"><path d="M5 12h14"/></svg>
                                     <p className="text-xs font-sans font-thin ">Echéances : <span className="text-sm font-bold">{contrat.echeance}</span></p>

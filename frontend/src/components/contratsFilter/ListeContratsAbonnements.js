@@ -16,7 +16,7 @@ function ListeContratsAbonnements() {
             return (react_1.default.createElement("ul", { className: "flex justify-center w-[100%] flex-col items-center relative mt-0 gap-3 subpixel-antialiased" },
                 react_1.default.createElement("li", { key: contrat.id, className: `${contrat.statusAbo ? "border-l-[#5B975D]" : "border-l-[#975B5B]"} bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4  rounded-br-[5px] rounded-tr-[5px] drop-figma mt-3` },
                     react_1.default.createElement("div", { className: "ml-3 flex flex-col justify-between " },
-                        react_1.default.createElement("strong", { className: " text-lg  leading-none" },
+                        react_1.default.createElement("strong", { className: " text-md  leading-none" },
                             contrat.nom,
                             " | ",
                             react_1.default.createElement("span", { className: "font-sans text-sm" },
