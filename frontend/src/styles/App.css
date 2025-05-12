@@ -20,7 +20,7 @@ html, body, #root{
 }
 
 body{
-  background-color: #1d1d21;
+  background-color: #282830;
   color: #f8f8f8;
 }
 
@@ -61,4 +61,24 @@ input {
   color: rgb(0, 187, 255);
   font-weight: bolder;
   text-shadow: #1d1d21;
+}
+
+.design-point-down, .design-point-up{
+  height: 110px;
+  width: 110px;
+  border-radius: 100%;
+  background: #009cea;
+  filter: blur(100px);
+}
+
+.design-point-up{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.design-point-down{
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
 }

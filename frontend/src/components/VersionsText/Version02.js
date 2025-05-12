@@ -23,7 +23,7 @@ function Version02({ isOpen, onToggle }) {
                 "Onglet Accueil ",
                 react_1.default.createElement("span", { className: "new" }, "Nouveau"),
                 react_1.default.createElement("ul", { className: "ml-5 mt-2 font-light text-xs" },
-                    react_1.default.createElement("li", { className: "list-disc" }, "Pr\u00E9senation rapide de l'utilisation du site internet"))),
+                    react_1.default.createElement("li", { className: "list-disc" }, "Pr\u00E9sentation rapide de l'utilisation du site internet"))),
             react_1.default.createElement("li", { className: "list-none font-thin" },
                 "Onglet Pr\u00E9l\u00E8vement",
                 react_1.default.createElement("ul", { className: "ml-5 mt-2 font-light text-xs" },

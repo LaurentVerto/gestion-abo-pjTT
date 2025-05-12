@@ -42,7 +42,7 @@ const Prelevement_1 = __importDefault(require("../pages/Prelevement"));
 const Contrat_1 = __importDefault(require("../pages/Contrat"));
 const Accueil_1 = __importDefault(require("../pages/Accueil"));
 const AjouterContrat_1 = __importDefault(require("../pages/AjouterContrat"));
-const header_1 = __importDefault(require("./header"));
+const Header_1 = __importDefault(require("./Header"));
 const framer_motion_1 = require("framer-motion");
 const Version_1 = __importDefault(require("./Version"));
 const EtapeOne_1 = __importDefault(require("../pages/EtapeOne"));
@@ -94,7 +94,7 @@ function AnimatedRoutes() {
 function Navigation() {
     return (react_1.default.createElement(react_router_dom_1.HashRouter, null,
         react_1.default.createElement("div", { className: "min-h-screen flex flex-col" },
-            react_1.default.createElement(header_1.default, null),
+            react_1.default.createElement(Header_1.default, null),
             react_1.default.createElement(AnimatedRoutes, null),
             react_1.default.createElement(Version_1.default, null))));
 }

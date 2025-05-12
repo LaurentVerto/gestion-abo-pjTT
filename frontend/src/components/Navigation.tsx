@@ -4,7 +4,7 @@ import Prelevement from "../pages/Prelevement";
 import Contrat from "../pages/Contrat";
 import Accueil from "../pages/Accueil";
 import AjouterContrat from "../pages/AjouterContrat";
-import Header from "./header";
+import Header from "./Header";
 import { AnimatePresence, motion } from "framer-motion";
 import Version from "./Version";
 import EtapeOne from "../pages/EtapeOne";
