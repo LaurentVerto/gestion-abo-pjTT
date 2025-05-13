@@ -8,7 +8,7 @@ function App() {
   
   return (
     <>
-    <div className='design-point-up'></div>
+    <div className='design-point-up z-[-1] pointer-events-none'></div>
       <Navigation />
     <div className='design-point-down'></div>
     </>
