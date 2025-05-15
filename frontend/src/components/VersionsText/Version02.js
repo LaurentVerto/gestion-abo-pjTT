@@ -8,7 +8,7 @@ function Version02({ isOpen, onToggle }) {
     return (react_1.default.createElement("div", { onClick: (e) => {
             e.stopPropagation();
             onToggle();
-        }, className: `box pr-1 relative content overflow-hidden transition-all ease-in-out duration-300 shadow-xl rounded-lg bg-gray-700 p-1 ${isOpen ? "h-70 overflow-scroll" : "h-8"}` },
+        }, className: `box pr-1 relative content overflow-hidden transition-all ease-in-out duration-300 shadow-xl rounded-lg bg-gray-700 p-1 ${isOpen ? "h-70 overflow-scroll overflow-x-hidden p-4" : "h-8"}` },
         react_1.default.createElement("h3", { className: "text-center" },
             "Note de version : ",
             react_1.default.createElement("span", { className: "font-sans lowercase" }, "v"),

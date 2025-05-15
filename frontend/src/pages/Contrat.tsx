@@ -58,7 +58,7 @@ function Contrat() {
     return (
         <div className="main-content">
             <div className="flex justify-between items-center mt-10">
-            <h2 className='bold text-lg ml-5'>Contrats</h2>
+            <h2 className='bold text-sm ml-5 md:text-xl '>Contrats</h2>
             <img src={ICON_SP} alt="logo_xs" className="h-8 mr-5" />
             </div>
 
@@ -78,7 +78,7 @@ function Contrat() {
 
                 
                 <div className="container-total absolute w-[100%] min-w-[400px] bottom-19 p-2 text-center">
-                    <p className="text-xs">Total :</p>
+                    <p className="text-xs  ">Total :</p>
                     <p className="text-xl font-bold">{total ? total : 0} €</p>
                 </div>
 

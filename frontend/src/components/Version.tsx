@@ -20,15 +20,15 @@ function Version() {
             {overlay && (
                 <div
                     onClick={handleVersionOverlay}
-                    className="overlay w-full h-full bg-black/70 absolute z-49"
+                    className="overlay  w-full h-full bg-black/70 absolute z-49"
                 >
                     <div className="w-[70%] h-auto absolute centerP rounded-lg bg-[#282830] drop-figma p-3">
                         <ul className="flex flex-col gap-3">
-                            <Version01
+                            <Version02
                                 isOpen={openIndex === 0}
                                 onToggle={() => setOpenIndex(openIndex === 0 ? null : 0)}
                             />
-                            <Version02
+                            <Version01
                                 isOpen={openIndex === 1}
                                 onToggle={() => setOpenIndex(openIndex === 1 ? null : 1)}
                             />

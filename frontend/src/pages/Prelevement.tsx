@@ -69,7 +69,7 @@ function Prelevement() {
     return (
         <div className="main-content">
             <div className="flex justify-between items-center mt-10">
-            <h2 className='bold text-sm ml-5'>Prélèvements</h2>
+            <h2 className='bold text-sm md:text-xl ml-5'>Prélèvements</h2>
             <img src={ICON_SP} alt="logo_xs" className="h-8 mr-5" />
             </div>
 

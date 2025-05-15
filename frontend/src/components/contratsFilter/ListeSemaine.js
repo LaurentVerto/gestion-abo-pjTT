@@ -69,21 +69,21 @@ function ListeSemaine() {
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { className: "w-full flex justify-center mt-5 " },
             react_1.default.createElement("ul", { className: "flex items-center justify-center gap-4 " },
-                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante - 1), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante - 1
+                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante - 1), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${selectedWeek === semaineCourante - 1
                         ? "bg-[#009CEA]"
                         : "bg-none"}` }, semaineCourante - 1),
-                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante
+                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] hover:cursor-pointer rounded-sm ${selectedWeek === semaineCourante
                         ? "bg-[#009CEA]"
                         : "bg-none"}` },
                     semaineCourante,
                     " "),
-                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 1), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante + 1
+                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 1), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${selectedWeek === semaineCourante + 1
                         ? "bg-[#009CEA]"
                         : "bg-none"}` }, semaineCourante + 1),
-                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 2), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante + 2
+                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 2), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${selectedWeek === semaineCourante + 2
                         ? "bg-[#009CEA]"
                         : "bg-none"}` }, semaineCourante + 2),
-                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 3), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante + 3
+                react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 3), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${selectedWeek === semaineCourante + 3
                         ? "bg-[#009CEA]"
                         : "bg-none"}` }, semaineCourante + 3))),
         contratsActifs.length > 0 && (react_1.default.createElement("ul", { className: "flex justify-center w-[100%] flex-col items-center relative mt-3 subpixel-antialiased gap-3 " },
@@ -108,8 +108,8 @@ function ListeSemaine() {
                         contrat.prix,
                         " \u20AC"))))))),
         react_1.default.createElement("div", { className: "total w-[100%] min-w-[390px] h-8 text-white flex flex-col items-center absolute bottom-25 justify-center" },
-            react_1.default.createElement("p", { className: "text-sm font-sans" }, "Total :"),
-            react_1.default.createElement("span", { className: "font-bold text-lg" },
+            react_1.default.createElement("p", { className: "text-sm font-sans md:text-lg " }, "Total :"),
+            react_1.default.createElement("span", { className: "font-bold text-lg md:text-2xl " },
                 total,
                 " \u20AC"))));
 }

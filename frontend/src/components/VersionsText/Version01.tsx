@@ -8,7 +8,7 @@ function Version01({ isOpen, onToggle }: { isOpen: boolean; onToggle: () => void
                 onToggle();
             }}
             className={`box pr-1 relative content overflow-hidden transition-all ease-in-out duration-300 shadow-xl rounded-lg bg-gray-700 p-1 ${
-                isOpen ? "h-70 overflow-scroll" : "h-8"
+                isOpen ? "h-70 overflow-scroll overflow-x-hidden p-4" : "h-8"
             }`}
         >
             <h3 className="text-center">

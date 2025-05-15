@@ -67,7 +67,7 @@ function ListeSemaine() {
 
                     <li
                         onClick={() => handleSelectWeek(semaineCourante-1)}
-                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${
+                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${
                             selectedWeek === semaineCourante-1
                                 ? "bg-[#009CEA]"
                                 : "bg-none"
@@ -78,7 +78,7 @@ function ListeSemaine() {
 
                     <li
                         onClick={() => handleSelectWeek(semaineCourante )}
-                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${
+                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] hover:cursor-pointer rounded-sm ${
                             selectedWeek === semaineCourante
                                 ? "bg-[#009CEA]"
                                 : "bg-none"
@@ -88,7 +88,7 @@ function ListeSemaine() {
                     </li>
                     <li
                         onClick={() => handleSelectWeek(semaineCourante + 1)}
-                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${
+                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${
                             selectedWeek === semaineCourante + 1
                                 ? "bg-[#009CEA]"
                                 : "bg-none"
@@ -98,7 +98,7 @@ function ListeSemaine() {
                     </li>
                     <li
                         onClick={() => handleSelectWeek(semaineCourante + 2)}
-                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${
+                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${
                             selectedWeek === semaineCourante + 2
                                 ? "bg-[#009CEA]"
                                 : "bg-none"
@@ -108,7 +108,7 @@ function ListeSemaine() {
                     </li>
                     <li
                         onClick={() => handleSelectWeek(semaineCourante + 3)}
-                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${
+                        className={` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm hover:cursor-pointer  ${
                             selectedWeek === semaineCourante + 3
                                 ? "bg-[#009CEA]"
                                 : "bg-none"
@@ -199,11 +199,11 @@ function ListeSemaine() {
             )}
 
             <div className="total w-[100%] min-w-[390px] h-8 text-white flex flex-col items-center absolute bottom-25 justify-center">
-                <p className="text-sm font-sans">
+                <p className="text-sm font-sans md:text-lg ">
                     Total :
                     
                 </p>
-                <span className="font-bold text-lg">{total} €</span>
+                <span className="font-bold text-lg md:text-2xl ">{total} €</span>
             </div>
         </>
     );

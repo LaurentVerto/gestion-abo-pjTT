@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import useContratServices from "../../services/ContratsServices";
+import { a } from 'framer-motion/dist/types.d-B50aGbjN';
 
 function ListeContratsX10() {
 
@@ -13,15 +14,26 @@ function ListeContratsX10() {
         
     }
 
+     const contractsFilter = myContracts.filter(
+        (contrat) => contrat.type === "Paiement x10"
+    );
+
     return(
 
         <>
         <div className="flex items-center mt-3" onClick={handleDrop}>
 
-                <h3 className="text-xs text-left ml-3 ">Paiements x10</h3>
+                <h3 className="text-xs text-left ml-3 md:text-lg hover:cursor-pointer ">Paiements x10</h3>
                 <svg className={isOpen ? "rotate-180" : "rotate-0"}  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L12 15L18 9" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
+                {contractsFilter.length > 0 && (
+                    <p className="text-xs text-[#009CEA]">
+                        {contractsFilter.length === 1
+                            ? `${contractsFilter.length} Contrat`
+                            : `${contractsFilter.length} Contrats`}
+                    </p>
+                )}
             </div>
 
             {isOpen && 
@@ -29,12 +41,15 @@ function ListeContratsX10() {
         
         <ul className="flex justify-center w-[100%] flex-col items-center relative mt-0 gap-3 subpixel-antialiased ">
                             <div className="bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 "></div>
+                            
 
                     {myContracts.filter(contrat => {
                         const abos = contrat.type === "Paiement x10";
                         
-                        return abos;
+                        return abos
                     }).map(contrat => {
+
+
                         return (
                             <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] gradient-border drop-figma">
                             <div className="ml-3 flex flex-col justify-between ">

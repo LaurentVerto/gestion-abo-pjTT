@@ -81,7 +81,7 @@ function Contrat() {
     }, []);
     return (react_1.default.createElement("div", { className: "main-content" },
         react_1.default.createElement("div", { className: "flex justify-between items-center mt-10" },
-            react_1.default.createElement("h2", { className: 'bold text-lg ml-5' }, "Contrats"),
+            react_1.default.createElement("h2", { className: 'bold text-sm ml-5 md:text-xl ' }, "Contrats"),
             react_1.default.createElement("img", { src: ICON_SP, alt: "logo_xs", className: "h-8 mr-5" })),
         scrollUp &&
             react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-0 top-18\r\n            animate-bounce rotate-180 z-11\r\n            " },
@@ -92,7 +92,7 @@ function Contrat() {
             react_1.default.createElement(ListeContratsX4_1.default, null),
             react_1.default.createElement(ListeContratsX10_1.default, null),
             react_1.default.createElement("div", { className: "container-total absolute w-[100%] min-w-[400px] bottom-19 p-2 text-center" },
-                react_1.default.createElement("p", { className: "text-xs" }, "Total :"),
+                react_1.default.createElement("p", { className: "text-xs  " }, "Total :"),
                 react_1.default.createElement("p", { className: "text-xl font-bold" },
                     total ? total : 0,
                     " \u20AC"))),

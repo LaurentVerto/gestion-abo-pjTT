@@ -13,6 +13,10 @@ function ListeContratsX3() {
             
         }
 
+         const contractsFilter = myContracts.filter(
+        (contrat) => contrat.type === "Paiement x3"
+    );
+
     return(
 
         <>
@@ -21,10 +25,17 @@ function ListeContratsX3() {
             
             
 
-                <h3 className="text-xs text-left ml-3 ">Paiements x3</h3>
+                <h3 className="text-xs text-left ml-3 md:text-lg hover:cursor-pointer ">Paiements x3</h3>
                 <svg className={isOpen ? "rotate-180" : "rotate-0"}  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 9L12 15L18 9" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                 </svg>
+                {contractsFilter.length > 0 && (
+                    <p className="text-xs text-[#009CEA]">
+                        {contractsFilter.length === 1
+                            ? `${contractsFilter.length} Contrat`
+                            : `${contractsFilter.length} Contrats`}
+                    </p>
+                )}
             </div>
             {isOpen && 
             <>
