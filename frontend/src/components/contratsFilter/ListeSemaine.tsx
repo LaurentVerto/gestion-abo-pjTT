@@ -3,7 +3,7 @@ import useContratServices from "../../services/ContratsServices";
 import { useTime } from "framer-motion";
 
 function ListeSemaine() {
-    const [selectedWeek, setSelectedWeek] = useState(0);
+    
 
     const { myContracts } = useContratServices();
 
@@ -23,14 +23,13 @@ function ListeSemaine() {
 
     const semaineCourante = getWeek(new Date());
 
+    const [selectedWeek, setSelectedWeek] = useState(semaineCourante);
+
     const contratsActifs = myContracts.filter((contrat) => {
         const contratWeek = getWeek(new Date(contrat.datePrlvt))
 
         return contratWeek === selectedWeek && contrat.statusAbo === true;
-    });
-
-    console.log(contratsActifs);
-    
+    });    
 
     const total = contratsActifs
         .reduce((acc, contrat) => {
@@ -47,7 +46,7 @@ function ListeSemaine() {
         <>
             <div className="w-full flex justify-center mt-5 ">
                 <ul className="flex items-center justify-center gap-4 ">
-                    <li>
+                    {/* <li>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -62,7 +61,7 @@ function ListeSemaine() {
                         >
                             <path d="m15 18-6-6 6-6" />
                         </svg>
-                    </li>
+                    </li> */}
 
                     {/* ici on doit faire en sorte que les numero de semaine s'incrémente automatiquement le prmeier sera la semaine en cours et le reste les semaine suivante */}
 
@@ -118,7 +117,7 @@ function ListeSemaine() {
                         {semaineCourante + 3}
                     </li>
 
-                    <li>
+                    {/* <li>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -133,7 +132,7 @@ function ListeSemaine() {
                         >
                             <path d="m9 18 6-6-6-6" />
                         </svg>
-                    </li>
+                    </li> */}
                 </ul>
             </div>
 
@@ -199,11 +198,12 @@ function ListeSemaine() {
                 </ul>
             )}
 
-            <div className="total w-[100%] min-w-[390px] h-8 text-white flex items-center ml-5 absolute bottom-25">
+            <div className="total w-[100%] min-w-[390px] h-8 text-white flex flex-col items-center absolute bottom-25 justify-center">
                 <p className="text-sm font-sans">
                     Total :
-                    <span className="font-bold text-lg ml-2">{total} €</span>
+                    
                 </p>
+                <span className="font-bold text-lg">{total} €</span>
             </div>
         </>
     );

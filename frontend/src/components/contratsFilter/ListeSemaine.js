@@ -39,7 +39,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const ContratsServices_1 = __importDefault(require("../../services/ContratsServices"));
 function ListeSemaine() {
-    const [selectedWeek, setSelectedWeek] = (0, react_1.useState)(0);
     const { myContracts } = (0, ContratsServices_1.default)();
     // Fonction pour obtenir le numéro de semaine ISO
     function getWeek(date) {
@@ -53,11 +52,11 @@ function ListeSemaine() {
         return 1 + Math.floor(diff / oneWeek);
     }
     const semaineCourante = getWeek(new Date());
+    const [selectedWeek, setSelectedWeek] = (0, react_1.useState)(semaineCourante);
     const contratsActifs = myContracts.filter((contrat) => {
         const contratWeek = getWeek(new Date(contrat.datePrlvt));
         return contratWeek === selectedWeek && contrat.statusAbo === true;
     });
-    console.log(contratsActifs);
     const total = contratsActifs
         .reduce((acc, contrat) => {
         const prix = parseFloat(String(contrat.prix).replace(",", "."));
@@ -70,9 +69,6 @@ function ListeSemaine() {
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { className: "w-full flex justify-center mt-5 " },
             react_1.default.createElement("ul", { className: "flex items-center justify-center gap-4 " },
-                react_1.default.createElement("li", null,
-                    react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-left-icon lucide-chevron-left" },
-                        react_1.default.createElement("path", { d: "m15 18-6-6 6-6" }))),
                 react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante - 1), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante - 1
                         ? "bg-[#009CEA]"
                         : "bg-none"}` }, semaineCourante - 1),
@@ -89,10 +85,7 @@ function ListeSemaine() {
                         : "bg-none"}` }, semaineCourante + 2),
                 react_1.default.createElement("li", { onClick: () => handleSelectWeek(semaineCourante + 3), className: ` pt-1 pb-1 pr-3 pl-3 hover:bg-[#009CEA] rounded-sm ${selectedWeek === semaineCourante + 3
                         ? "bg-[#009CEA]"
-                        : "bg-none"}` }, semaineCourante + 3),
-                react_1.default.createElement("li", null,
-                    react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-right-icon lucide-chevron-right" },
-                        react_1.default.createElement("path", { d: "m9 18 6-6-6-6" }))))),
+                        : "bg-none"}` }, semaineCourante + 3))),
         contratsActifs.length > 0 && (react_1.default.createElement("ul", { className: "flex justify-center w-[100%] flex-col items-center relative mt-3 subpixel-antialiased gap-3 " },
             react_1.default.createElement("div", { className: "bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 " }),
             contratsActifs.map((contrat) => (react_1.default.createElement("li", { key: contrat.id, className: "flex w-[90%] relative justify-between p-3 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border items-center" },
@@ -114,11 +107,10 @@ function ListeSemaine() {
                     react_1.default.createElement("p", null,
                         contrat.prix,
                         " \u20AC"))))))),
-        react_1.default.createElement("div", { className: "total w-[100%] min-w-[390px] h-8 text-white flex items-center ml-5 absolute bottom-25" },
-            react_1.default.createElement("p", { className: "text-sm font-sans" },
-                "Total :",
-                react_1.default.createElement("span", { className: "font-bold text-lg ml-2" },
-                    total,
-                    " \u20AC")))));
+        react_1.default.createElement("div", { className: "total w-[100%] min-w-[390px] h-8 text-white flex flex-col items-center absolute bottom-25 justify-center" },
+            react_1.default.createElement("p", { className: "text-sm font-sans" }, "Total :"),
+            react_1.default.createElement("span", { className: "font-bold text-lg" },
+                total,
+                " \u20AC"))));
 }
 exports.default = ListeSemaine;
