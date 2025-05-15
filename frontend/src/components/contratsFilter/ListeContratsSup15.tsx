@@ -17,14 +17,14 @@ function ListeContratsSup15() {
                             const day = new Date(contrat.datePrlvt).getDate();
                             return day > 15 && contrat.statusAbo === true;
                         }).map(contrat => (
-                            <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma">
+                            <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border">
                                 {contrat.type === "Abonnement" ? (
-                                    <div className="ml-3 flex flex-col justify-between ">
+                                    <div className="ml-0 flex flex-col justify-between ">
                                         <strong className="text-lg leading-none">{contrat.nom}</strong>
                                         <p className="text-sm font-sans font-light">Abonnement actif</p>
                                     </div>
                                 ) : (
-                                    <div className="ml-3 flex flex-col justify-between ">
+                                    <div className="ml-0 flex flex-col justify-between ">
                                         <strong className="text-lg leading-none">{contrat.nom}</strong>
                                         <p className="text-sm font-sans font-light">Echéances restantes : <span className="text-sm font-bold">{contrat.echeance}</span></p>
                                     </div>
@@ -36,8 +36,8 @@ function ListeContratsSup15() {
                                 </div>
                             </li>
                         ))}
-                        <div className="total w-[100%] min-w-[390px] bg-[#282830] h-8 text-white flex items-center justify-center drop-figma">
-                            <p className="text-sm font-sans">Total des prélèvements le 30 du mois
+                        <div className="total w-[100%] min-w-[390px] h-8 text-white flex items-center ml-5">
+                            <p className="text-sm font-sans">Total :
                                 <span className="font-bold text-lg ml-2">
 
 

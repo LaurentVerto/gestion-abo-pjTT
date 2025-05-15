@@ -20,7 +20,7 @@ html, body, #root{
 }
 
 body{
-  background-color: #282830;
+  background-color: #121214;
   color: #f8f8f8;
 }
 
@@ -71,6 +71,8 @@ input {
   filter: blur(100px);
 }
 
+
+
 .design-point-up{
   position: absolute;
   top: 0px;
@@ -81,4 +83,15 @@ input {
   position: absolute;
   bottom: 0px;
   right: 0px;
+}
+
+
+.gradient-border {
+  padding: 10px 20px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  background: 
+    linear-gradient(rgba(40, 40, 48, 0.3), rgba(40, 40, 48, 0.3)) padding-box, /* opacité 30% */
+    linear-gradient(150deg, #282830 43%, #f8f8f831 100%) border-box;
 }

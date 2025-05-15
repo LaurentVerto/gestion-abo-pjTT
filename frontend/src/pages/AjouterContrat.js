@@ -41,6 +41,7 @@ const uuid_1 = require("uuid"); //genere un id aleatoire
 const react_router_dom_1 = require("react-router-dom");
 const useModeDePaiementServices_1 = __importDefault(require("../services/useModeDePaiementServices"));
 const ContratsServices_1 = __importDefault(require("../services/ContratsServices"));
+const ICON_SP = "/logo-xs.png";
 function AjouterContrat() {
     const navigate = (0, react_router_dom_1.useNavigate)(); // pouvoir etre redirigé vers une autre page 
     const [message, setMessage] = (0, react_1.useState)('');
@@ -171,29 +172,31 @@ function AjouterContrat() {
     };
     // fin
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement("h2", { className: ' uppercase text-2xl text-center mt-5' }, "Ajouter un contrat"),
-        react_1.default.createElement("div", { className: "flex flex-col justify-center items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-220px)] sm:h-[calc(100vh-10vh)]" },
+        react_1.default.createElement("div", { className: "flex justify-between items-center mt-10" },
+            react_1.default.createElement("h2", { className: 'bold text-lg ml-5' }, "Ajouter un contrat"),
+            react_1.default.createElement("img", { src: ICON_SP, alt: "logo_xs", className: "h-8 mr-5" })),
+        react_1.default.createElement("div", { className: "flex flex-col items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-150px)] sm:h-[calc(100vh-10vh)]" },
             react_1.default.createElement("img", { src: imageContrat, alt: "", className: "h-20 w-auto rounded-lg object-contain mb-2 mt-0" }),
             react_1.default.createElement("div", null,
-                react_1.default.createElement("select", { name: "nom", id: "", className: "mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg", onChange: handleChange, value: newContract.nom },
+                react_1.default.createElement("select", { name: "nom", id: "", className: "mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-sm", onChange: handleChange, value: newContract.nom },
                     react_1.default.createElement("option", { value: "", disabled: true, selected: true }, "Choisir un Nom"),
                     preSavedContractsList.map((contrat) => (react_1.default.createElement("option", { value: contrat.nom, key: contrat.nom }, contrat.nom))))),
             inputAdditionel &&
                 react_1.default.createElement("div", { className: "flex flex-col justify-center items-center group gap-0 text-center" },
-                    react_1.default.createElement("input", { type: "text", onChange: handleNomPerso, className: "cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg", name: "nomPerso", value: nomPerso, placeholder: "Saisir le nom" })),
+                    react_1.default.createElement("input", { type: "text", onChange: handleNomPerso, className: "cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-xs", name: "nomPerso", value: nomPerso, placeholder: "Saisir le nom" })),
             react_1.default.createElement("div", null,
                 react_1.default.createElement("p", { className: "mt-5 text-sm" }, "Choisir une date de pr\u00E9l\u00E8vement"),
-                react_1.default.createElement("input", { className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none ", type: "date", name: "datePrlvt", id: "", placeholder: "YYYY-MM-DD", onChange: handleChange, value: newContract.datePrlvt })),
+                react_1.default.createElement("input", { className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm ", type: "date", name: "datePrlvt", id: "", placeholder: "YYYY-MM-DD", onChange: handleChange, value: newContract.datePrlvt })),
             react_1.default.createElement("div", { className: "relative" },
                 react_1.default.createElement("input", { type: "number", name: "prix", className: "cursor-pointer text-3xl  mt-5 mb-5 text-center rounded-lg w-30", placeholder: "0.00", onChange: handleChange, value: newContract.prix, inputMode: "decimal", step: "any" }),
                 react_1.default.createElement("p", { className: "absolute right-[-0px] top-2 text-2xl pointer-events-none mt-5" }, "\u20AC")),
             react_1.default.createElement("div", null,
-                react_1.default.createElement("select", { name: "type", id: "", className: "mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg ", onChange: handleChange, value: newContract.type },
+                react_1.default.createElement("select", { name: "type", id: "", className: "mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-sm", onChange: handleChange, value: newContract.type },
                     react_1.default.createElement("option", { value: "", disabled: true, selected: true }, "Choisir un type"),
                     listeModeDePaiement.map((modeDePaiement) => (react_1.default.createElement("option", { value: modeDePaiement.nom, key: modeDePaiement.nom }, modeDePaiement.nom))))),
             inputAdditionelPay &&
-                react_1.default.createElement("input", { type: "number", onChange: handleChange, className: "cursor-pointer \r\n                    bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px]", placeholder: "Entrer le nombre d'\u00E9ch\u00E9ances", name: "echeance", value: newContract.echeance, inputMode: "decimal" }),
-            react_1.default.createElement("button", { className: "mt-10\r\n                shadow-lg\r\n                bg-gray-700 w-[40%] min-w-[300px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm ", onClick: () => enregistrementContrat(newContract) }, "Ajouter le contrat"),
+                react_1.default.createElement("input", { type: "number", onChange: handleChange, className: "cursor-pointer \r\n                    bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px] text-xs", placeholder: "Entrer le nombre d'\u00E9ch\u00E9ances", name: "echeance", value: newContract.echeance, inputMode: "decimal" }),
+            react_1.default.createElement("button", { className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] w-[40%] min-w-[300px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm ", onClick: () => enregistrementContrat(newContract) }, "Ajouter le contrat"),
             react_1.default.createElement("p", { className: "text-center mt-0" }, message))));
 }
 exports.default = AjouterContrat;

@@ -11,6 +11,7 @@ export type ContratType = {
     echeance: number;
     id: string;
     nom: string;
+    image: string,
     prix: number;
     statusAbo: boolean;
     type: string

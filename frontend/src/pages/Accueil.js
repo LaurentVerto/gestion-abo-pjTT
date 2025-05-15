@@ -20,7 +20,7 @@ function Accueil() {
                 react_1.default.createElement("path", { fill: "url(#monDegrade)", "fill-opacity": "1", d: "M0,224L40,208C80,192,160,160,240,144C320,128,400,128,480,154.7C560,181,640,235,720,218.7C800,203,880,117,960,85.3C1040,53,1120,75,1200,117.3C1280,160,1360,224,1400,256L1440,288L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z" })),
             react_1.default.createElement("div", { className: "flex justify-center h-40 mt-0 " },
                 react_1.default.createElement("img", { src: ICON_SP, alt: "logo-xs", className: "absolute z-1 h-35" })),
-            react_1.default.createElement("div", { className: "flex flex-col justify-center items-center mt-[20dvh]" },
+            react_1.default.createElement("div", { className: "flex flex-col justify-center items-center mt-[10dvh]" },
                 react_1.default.createElement("p", { className: "text-black" }, "Bienvenue sur"),
                 react_1.default.createElement("h1", { className: "text-black text-xl linear-title font-bold " }, "SplitPay"),
                 react_1.default.createElement("p", { className: "text-black w-80 text-justify mt-10 text-sm" }, "Une application qui vous permet d\u2019avoir, en un coup d\u2019\u0153il, une vue claire de vos abonnements et de vos paiements en plusieurs fois.")),

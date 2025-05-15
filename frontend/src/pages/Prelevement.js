@@ -38,9 +38,21 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const ContratsServices_1 = __importDefault(require("../services/ContratsServices"));
-const ListeContratsInf15_1 = __importDefault(require("../components/contratsFilter/ListeContratsInf15"));
-const ListeContratsSup15_1 = __importDefault(require("../components/contratsFilter/ListeContratsSup15"));
+const ListeSemaine_1 = __importDefault(require("../components/contratsFilter/ListeSemaine"));
+const ICON_SP = "/logo-xs.png";
 function Prelevement() {
+    // Fonction pour obtenir le numéro de semaine ISO
+    function getWeek(date) {
+        const target = new Date(date);
+        target.setHours(0, 0, 0, 0);
+        target.setDate(target.getDate() + 3 - ((target.getDay() + 6) % 7));
+        const firstThursday = new Date(target.getFullYear(), 0, 4);
+        firstThursday.setDate(firstThursday.getDate() + 3 - ((firstThursday.getDay() + 6) % 7));
+        const diff = target.getTime() - firstThursday.getTime();
+        const oneWeek = 7 * 24 * 60 * 60 * 1000;
+        return 1 + Math.floor(diff / oneWeek);
+    }
+    const semaineCourante = getWeek(new Date());
     // Recuperation de mesContrat en local storage
     const { myContracts, setMyContracts } = (0, ContratsServices_1.default)();
     const contentRef = (0, react_1.useRef)(null);
@@ -77,14 +89,15 @@ function Prelevement() {
         return () => clearTimeout(timeout);
     }, []); // Ajout d'un effet supplémentaire pour forcer la mise à jour après le premier rendu
     return (react_1.default.createElement("div", { className: "main-content" },
-        react_1.default.createElement("h2", { className: 'font-bold uppercase text-2xl text-center mt-5' }, "Liste prelevements"),
+        react_1.default.createElement("div", { className: "flex justify-between items-center mt-10" },
+            react_1.default.createElement("h2", { className: 'bold text-sm ml-5' }, "Pr\u00E9l\u00E8vements"),
+            react_1.default.createElement("img", { src: ICON_SP, alt: "logo_xs", className: "h-8 mr-5" })),
         scrollUp &&
             react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-2 top-5\r\n            animate-bounce rotate-180 z-11\r\n            " },
                 react_1.default.createElement("path", { d: "m6 9 6 6 6-6" })),
         react_1.default.createElement("div", { ref: contentRef, className: "overflow-y-scroll h-[calc(100vh-220px)]" },
             myContracts.length === 0 && react_1.default.createElement("p", { className: "text-center mt-5" }, "Aucun contrat enregistr\u00E9"),
-            react_1.default.createElement(ListeContratsInf15_1.default, null),
-            react_1.default.createElement(ListeContratsSup15_1.default, null)),
+            react_1.default.createElement(ListeSemaine_1.default, null)),
         scrollDown &&
             react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-2 bottom-13 z-11\r\n            animate-bounce\r\n            " },
                 react_1.default.createElement("path", { d: "m6 9 6 6 6-6" }))));

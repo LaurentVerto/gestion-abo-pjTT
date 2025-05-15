@@ -27,7 +27,7 @@ function Accueil() {
                     <img src={ICON_SP} alt="logo-xs" className="absolute z-1 h-35" />
                 </div>
 
-                <div className="flex flex-col justify-center items-center mt-[20dvh]">
+                <div className="flex flex-col justify-center items-center mt-[10dvh]">
                     <p className="text-black">Bienvenue sur</p>
                     <h1 className="text-black text-xl linear-title font-bold ">SplitPay</h1>
                     <p className="text-black w-80 text-justify mt-10 text-sm">Une application qui vous permet d’avoir, en un coup d’œil, une vue claire de vos abonnements et de vos paiements en plusieurs fois.</p>

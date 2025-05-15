@@ -3,6 +3,8 @@ import { v4 as uuidv4 } from 'uuid'; //genere un id aleatoire
 import { useNavigate } from "react-router-dom";
 import useModeDePaiementServices, { listeModeDePaiementType } from "../services/useModeDePaiementServices";
 import useContratServices, { ContratType, PreSavedContractType } from "../services/ContratsServices";
+const ICON_SP = "/logo-xs.png";
+
 
 function AjouterContrat() {
 
@@ -177,12 +179,15 @@ function AjouterContrat() {
 
     return (
         <>
-            <h2 className=' uppercase text-2xl text-center mt-5'>Ajouter un contrat</h2>
+            <div className="flex justify-between items-center mt-10">
+            <h2 className='bold text-lg ml-5'>Ajouter un contrat</h2>
+            <img src={ICON_SP} alt="logo_xs" className="h-8 mr-5" />
+            </div>
 
-            <div className="flex flex-col justify-center items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-220px)] sm:h-[calc(100vh-10vh)]">
+            <div className="flex flex-col items-center mt-2 group gap-0 text-center overflow-y-scroll h-[calc(100vh-150px)] sm:h-[calc(100vh-10vh)]">
                 <img src={imageContrat} alt="" className="h-20 w-auto rounded-lg object-contain mb-2 mt-0" />
                 <div>
-                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" onChange={handleChange} value={newContract.nom} >
+                    <select name="nom" id="" className="mt-2 cursor-pointer w-[40%] min-w-[300px] text-center bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-sm" onChange={handleChange} value={newContract.nom} >
                         <option value="" disabled selected >Choisir un Nom</option>
 
                         {preSavedContractsList.map((contrat) => (
@@ -196,7 +201,7 @@ function AjouterContrat() {
                 {inputAdditionel &&
 
                     <div className="flex flex-col justify-center items-center group gap-0 text-center">
-                        <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg" name="nomPerso" value={nomPerso}
+                        <input type="text" onChange={handleNomPerso} className="cursor-pointer text-base  mt-2 text-center p-1 rounded-lg min-w-[300px] bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-xs" name="nomPerso" value={nomPerso}
                             placeholder="Saisir le nom" />
                     </div>
                 }
@@ -204,7 +209,7 @@ function AjouterContrat() {
                 <div>
 
                     <p className="mt-5 text-sm" >Choisir une date de prélèvement</p>
-                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none " type="date" name="datePrlvt" id="" placeholder="YYYY-MM-DD" onChange={handleChange} value={newContract.datePrlvt} />
+                    <input className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " type="date" name="datePrlvt" id="" placeholder="YYYY-MM-DD" onChange={handleChange} value={newContract.datePrlvt} />
 
                 </div>
 
@@ -214,7 +219,7 @@ function AjouterContrat() {
                 </div>
 
                 <div>
-                    <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg " onChange={handleChange} value={newContract.type}>
+                    <select name="type" id="" className="mt-0 cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-sm" onChange={handleChange} value={newContract.type}>
                         <option value="" disabled selected >Choisir un type</option>
                         {listeModeDePaiement.map((modeDePaiement) => (
 
@@ -226,13 +231,13 @@ function AjouterContrat() {
 
                 {inputAdditionelPay &&
                     <input type="number" onChange={handleChange} className="cursor-pointer 
-                    bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px]"
+                    bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg mt-2 text-center p-1 rounded-lg min-w-[300px] text-xs"
                         placeholder="Entrer le nombre d'échéances" name="echeance" value={newContract.echeance} inputMode="decimal" />
                 }
 
-                <button className="mt-10
+                <button className="mt-8
                 shadow-lg
-                bg-gray-700 w-[40%] min-w-[300px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(newContract)}>Ajouter le contrat</button>
+                bg-[#009CEA] w-[40%] min-w-[300px] text-white rounded-lg p-1 cursor-pointer transition-all hover:scale-105 text-sm " onClick={() => enregistrementContrat(newContract)}>Ajouter le contrat</button>
 
                 <p className="text-center mt-0">{message}</p>
             </div>

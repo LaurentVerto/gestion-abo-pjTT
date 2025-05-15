@@ -7,7 +7,7 @@ const etapeTwo = "/etapeTwo.png";
 function EtapeTwo() {
     return (
         <>
-            <div className="main-content bg-[#1d1d21] w-screen h-screen fontAbe pb-0 overflow-y-scroll relative ">
+            <div className="main-content bg-[#1d1d21] w-screen h-screen fontAbe pb-0 overflow-y-scroll relative  z-70">
 
                 {/* SVG de fond (arrière-plan) */}
                 {/* SVG de fond (arrière-plan) */}
@@ -79,8 +79,8 @@ function EtapeTwo() {
                     </ul>
                     <img src={etapeTwo} alt="image etape" className="mt-10 ml-10 mb-28" />
                     <div className="flex justify-center gap-10 mb-5">
-                        <Link to="/EtapeOne" className="bg-gray-700 p-2 rounded-lg ">Etape Précédente</Link>
-                        <Link to="/EtapeThree" className="bg-gray-500 p-2 rounded-lg animate-pulse ">Etape Suivante</Link>
+                        <Link to="/EtapeOne" className="bg-gray-900 p-2 rounded-lg ">Etape Précédente</Link>
+                        <Link to="/EtapeThree" className="bg-gray-700 p-2 rounded-lg animate-pulse ">Etape Suivante</Link>
                     </div>
                     <div className="flex justify-center mb-20">
                         <Link to="/prelevements" className="bg-[#60A8FE] p-2 rounded-lg text-black ">Entrer dans le site</Link>

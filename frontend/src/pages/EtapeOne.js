@@ -8,8 +8,8 @@ const react_router_dom_1 = require("react-router-dom");
 const ICON_SP = "/logo-xs.png";
 const etapeOne = "/etapeOne.png";
 function EtapeOne() {
-    return (react_1.default.createElement("div", { className: "main-content  bg-[#1d1d21] w-full h-screen fontAbe pb-0 overflow-y-scroll relative min-height-10\r\n        " },
-        react_1.default.createElement("div", { className: "relative z-10 flex justify-center " },
+    return (react_1.default.createElement("div", { className: "main-content  bg-[#1d1d21] w-full h-screen fontAbe pb-0 overflow-y-scroll relative min-height-10 z-70\r\n        " },
+        react_1.default.createElement("div", { className: "relative z-50 flex justify-center " },
             react_1.default.createElement("img", { src: ICON_SP, alt: "logo-xs", className: "h-20 left-2 top-10 fixed" }),
             react_1.default.createElement("div", { className: "mt-5 self-center" },
                 react_1.default.createElement("p", { className: "text-[#f8f8f8] " }, "Bienvenue sur"),

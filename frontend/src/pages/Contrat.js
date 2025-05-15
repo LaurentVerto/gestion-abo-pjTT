@@ -42,6 +42,7 @@ const ListeContratsX3_1 = __importDefault(require("../components/contratsFilter/
 const ListeContratsX4_1 = __importDefault(require("../components/contratsFilter/ListeContratsX4"));
 const ListeContratsX10_1 = __importDefault(require("../components/contratsFilter/ListeContratsX10"));
 const ContratsServices_1 = __importDefault(require("../services/ContratsServices"));
+const ICON_SP = "/logo-xs.png";
 function Contrat() {
     const { total } = (0, ContratsServices_1.default)();
     const contentRef = (0, react_1.useRef)(null);
@@ -79,22 +80,24 @@ function Contrat() {
         return () => clearTimeout(timeout);
     }, []);
     return (react_1.default.createElement("div", { className: "main-content" },
-        react_1.default.createElement("h2", { className: "font-bold uppercase text-2xl text-center mt-5" }, "Liste contrats"),
+        react_1.default.createElement("div", { className: "flex justify-between items-center mt-10" },
+            react_1.default.createElement("h2", { className: 'bold text-lg ml-5' }, "Contrats"),
+            react_1.default.createElement("img", { src: ICON_SP, alt: "logo_xs", className: "h-8 mr-5" })),
         scrollUp &&
-            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-2 top-6\r\n            animate-bounce rotate-180 z-11\r\n            " },
+            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-0 top-18\r\n            animate-bounce rotate-180 z-11\r\n            " },
                 react_1.default.createElement("path", { d: "m6 9 6 6 6-6" })),
-        react_1.default.createElement("div", { ref: contentRef, className: "content overflow-y-scroll h-[calc(100vh-280px)] " },
+        react_1.default.createElement("div", { ref: contentRef, className: "content overflow-y-scroll h-[calc(100vh-220px)] pt-1 " },
             react_1.default.createElement(ListeContratsAbonnements_1.default, null),
             react_1.default.createElement(ListeContratsX3_1.default, null),
             react_1.default.createElement(ListeContratsX4_1.default, null),
             react_1.default.createElement(ListeContratsX10_1.default, null),
-            react_1.default.createElement("div", { className: "container-total absolute w-[100%] min-w-[400px] bottom-19  bg-[#282830] p-2" },
+            react_1.default.createElement("div", { className: "container-total absolute w-[100%] min-w-[400px] bottom-19 p-2 text-center" },
                 react_1.default.createElement("p", { className: "text-xs" }, "Total :"),
-                react_1.default.createElement("p", { className: "text-2xl " },
+                react_1.default.createElement("p", { className: "text-xl font-bold" },
                     total ? total : 0,
                     " \u20AC"))),
         scrollDown &&
-            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-2 bottom-27 z-11\r\n            animate-bounce\r\n            " },
+            react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round", className: "lucide lucide-chevron-down-icon lucide-chevron-down\r\n            absolute right-0 bottom-34.5 z-11\r\n            animate-bounce\r\n            " },
                 react_1.default.createElement("path", { d: "m6 9 6 6 6-6" }))));
 }
 exports.default = Contrat;

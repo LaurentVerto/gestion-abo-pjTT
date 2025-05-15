@@ -15,10 +15,10 @@ function ListeContratsSup15() {
         myContracts.filter(contrat => {
             const day = new Date(contrat.datePrlvt).getDate();
             return day > 15 && contrat.statusAbo === true;
-        }).map(contrat => (react_1.default.createElement("li", { key: contrat.id, className: "bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma" },
-            contrat.type === "Abonnement" ? (react_1.default.createElement("div", { className: "ml-3 flex flex-col justify-between " },
+        }).map(contrat => (react_1.default.createElement("li", { key: contrat.id, className: "bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border" },
+            contrat.type === "Abonnement" ? (react_1.default.createElement("div", { className: "ml-0 flex flex-col justify-between " },
                 react_1.default.createElement("strong", { className: "text-lg leading-none" }, contrat.nom),
-                react_1.default.createElement("p", { className: "text-sm font-sans font-light" }, "Abonnement actif"))) : (react_1.default.createElement("div", { className: "ml-3 flex flex-col justify-between " },
+                react_1.default.createElement("p", { className: "text-sm font-sans font-light" }, "Abonnement actif"))) : (react_1.default.createElement("div", { className: "ml-0 flex flex-col justify-between " },
                 react_1.default.createElement("strong", { className: "text-lg leading-none" }, contrat.nom),
                 react_1.default.createElement("p", { className: "text-sm font-sans font-light" },
                     "Ech\u00E9ances restantes : ",
@@ -28,9 +28,9 @@ function ListeContratsSup15() {
                 react_1.default.createElement("p", null,
                     contrat.prix,
                     " \u20AC"))))),
-        react_1.default.createElement("div", { className: "total w-[100%] min-w-[390px] bg-[#282830] h-8 text-white flex items-center justify-center drop-figma" },
+        react_1.default.createElement("div", { className: "total w-[100%] min-w-[390px] h-8 text-white flex items-center ml-5" },
             react_1.default.createElement("p", { className: "text-sm font-sans" },
-                "Total des pr\u00E9l\u00E8vements le 30 du mois",
+                "Total :",
                 react_1.default.createElement("span", { className: "font-bold text-lg ml-2" },
                     myContracts
                         .filter((contrat) => new Date(contrat.datePrlvt).getDate() > 15 && contrat.statusAbo === true) // Filtrer les contrats

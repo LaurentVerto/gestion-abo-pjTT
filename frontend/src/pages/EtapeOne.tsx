@@ -6,7 +6,7 @@ const etapeOne = "/etapeOne.png";
 
 function EtapeOne() {
     return (
-        <div className="main-content  bg-[#1d1d21] w-full h-screen fontAbe pb-0 overflow-y-scroll relative min-height-10
+        <div className="main-content  bg-[#1d1d21] w-full h-screen fontAbe pb-0 overflow-y-scroll relative min-height-10 z-70
         ">
 
             {/* SVG de fond (arrière-plan)
@@ -48,7 +48,7 @@ function EtapeOne() {
             </svg> */}
 
             {/* Contenu principal */}
-            <div className="relative z-10 flex justify-center ">
+            <div className="relative z-50 flex justify-center ">
                 <img src={ICON_SP} alt="logo-xs" className="h-20 left-2 top-10 fixed" />
                 <div className="mt-5 self-center">
                     <p className="text-[#f8f8f8] ">Bienvenue sur</p>

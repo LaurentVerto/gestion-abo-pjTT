@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useContratsServices from '../../services/ContratsServices'
 
 function ListeContratsX3() {
 
     const {myContracts, handleUp, handleDown, deleteContrat} = useContratsServices()
 
+    const [isOpen, setIsOpen] = useState(false)
+    
+        const handleDrop = () => {
+            setIsOpen(!isOpen)
+            console.log(isOpen);
+            
+        }
+
     return(
 
         <>
-        <h3 className="font-bold uppercase text-large text-left ml-3 mt-5">Liste Paiement x3</h3>
+        <div className="flex items-center mt-3" onClick={handleDrop}>
+
+            
+            
+
+                <h3 className="text-xs text-left ml-3 ">Paiements x3</h3>
+                <svg className={isOpen ? "rotate-180" : "rotate-0"}  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 9L12 15L18 9" stroke="#F8F8F8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </div>
+            {isOpen && 
+            <>
         
         <ul className="flex justify-center w-[100%] flex-col items-center relative mt-0 gap-3 subpixel-antialiased ">
                             <div className="bg-[#5B975D] abolute left-0 top-0 bottom-0 w-1 "></div>
@@ -19,7 +38,7 @@ function ListeContratsX3() {
                         return abos;
                     }).map(contrat => {
                         return (
-                            <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma">
+                            <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] gradient-border drop-figma">
                             <div className="ml-3 flex flex-col justify-between ">
                                 <strong className=" text-md   leading-none">{contrat.nom} | <span className="font-sans text-sm">{contrat.prix} €</span></strong>
                                 <div className="flex items-center gap-2 " >
@@ -31,7 +50,7 @@ function ListeContratsX3() {
 
                             <div className="flex flex-col justify-between leading-none items-end relative ">
                                         
-                                        <p>{new Date(contrat.datePrlvt).toLocaleDateString()}</p>
+                                        <p className='text-xs'>{new Date(contrat.datePrlvt).toLocaleDateString()}</p>
 
                                         <p onClick={() => deleteContrat(contrat.id)} className="text-[11px]  font-sans text-[#975B5B] cursor-pointer hover:scale-105 transition-all duration-100">Supprimer le contrat</p>
                                     </div>
@@ -39,6 +58,8 @@ function ListeContratsX3() {
                         )
                     })}
                 </ul>
+                </>
+}
                 </>
 
                 )

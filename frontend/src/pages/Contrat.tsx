@@ -5,6 +5,8 @@ import ListeContratsX3 from "../components/contratsFilter/ListeContratsX3";
 import ListeContratsX4 from "../components/contratsFilter/ListeContratsX4";
 import ListeContratsX10 from "../components/contratsFilter/ListeContratsX10";
 import useContratServices from "../services/ContratsServices";
+const ICON_SP = "/logo-xs.png";
+
 
 function Contrat() {
 
@@ -55,16 +57,19 @@ function Contrat() {
 
     return (
         <div className="main-content">
-            <h2 className="font-bold uppercase text-2xl text-center mt-5">Liste contrats</h2>
+            <div className="flex justify-between items-center mt-10">
+            <h2 className='bold text-lg ml-5'>Contrats</h2>
+            <img src={ICON_SP} alt="logo_xs" className="h-8 mr-5" />
+            </div>
 
             {scrollUp &&
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down
-            absolute right-2 top-6
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down
+            absolute right-0 top-18
             animate-bounce rotate-180 z-11
             "><path d="m6 9 6 6 6-6" /></svg>
             }
 
-            <div ref={contentRef} className="content overflow-y-scroll h-[calc(100vh-280px)] ">
+            <div ref={contentRef} className="content overflow-y-scroll h-[calc(100vh-220px)] pt-1 ">
 
             <ListeContratsAbonnements />
             <ListeContratsX3 />
@@ -72,15 +77,15 @@ function Contrat() {
             <ListeContratsX10 />
 
                 
-                <div className="container-total absolute w-[100%] min-w-[400px] bottom-19  bg-[#282830] p-2">
+                <div className="container-total absolute w-[100%] min-w-[400px] bottom-19 p-2 text-center">
                     <p className="text-xs">Total :</p>
-                    <p className="text-2xl ">{total ? total : 0} €</p>
+                    <p className="text-xl font-bold">{total ? total : 0} €</p>
                 </div>
 
             </div>
             {scrollDown &&
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down
-            absolute right-2 bottom-27 z-11
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down
+            absolute right-0 bottom-34.5 z-11
             animate-bounce
             "><path d="m6 9 6 6 6-6" /></svg>
             }

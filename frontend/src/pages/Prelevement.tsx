@@ -2,8 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import useContratServices from "../services/ContratsServices";
 import ListeContratsInf15 from "../components/contratsFilter/ListeContratsInf15"
 import ListeContratsSup15 from "../components/contratsFilter/ListeContratsSup15";
+import ListeSemaine from "../components/contratsFilter/ListeSemaine";
+const ICON_SP = "/logo-xs.png";
 
 function Prelevement() {
+
+     // Fonction pour obtenir le numéro de semaine ISO
+    function getWeek(date: Date): number {
+        const target = new Date(date);
+        target.setHours(0, 0, 0, 0);
+        target.setDate(target.getDate() + 3 - ((target.getDay() + 6) % 7));
+        const firstThursday = new Date(target.getFullYear(), 0, 4);
+        firstThursday.setDate(firstThursday.getDate() + 3 - ((firstThursday.getDay() + 6) % 7));
+        const diff = target.getTime() - firstThursday.getTime();
+        const oneWeek = 7 * 24 * 60 * 60 * 1000;
+        return 1 + Math.floor(diff / oneWeek);
+    }
+
+    const semaineCourante = getWeek(new Date());
 
     // Recuperation de mesContrat en local storage
     const {myContracts, setMyContracts} = useContratServices();    
@@ -52,7 +68,10 @@ function Prelevement() {
 
     return (
         <div className="main-content">
-            <h2 className='font-bold uppercase text-2xl text-center mt-5'>Liste prelevements</h2>
+            <div className="flex justify-between items-center mt-10">
+            <h2 className='bold text-sm ml-5'>Prélèvements</h2>
+            <img src={ICON_SP} alt="logo_xs" className="h-8 mr-5" />
+            </div>
 
             {scrollUp &&
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-chevron-down-icon lucide-chevron-down
@@ -61,12 +80,16 @@ function Prelevement() {
             "><path d="m6 9 6 6 6-6" /></svg>
             }
 
+            
+
             <div ref={contentRef} className="overflow-y-scroll h-[calc(100vh-220px)]">
 
                 {myContracts.length === 0 && <p className="text-center mt-5">Aucun contrat enregistré</p>}
 
-                <ListeContratsInf15 />
-                <ListeContratsSup15 />
+                <ListeSemaine />
+
+                {/* <ListeContratsInf15 />
+                <ListeContratsSup15 /> */}
                 
             </div>
             {scrollDown &&

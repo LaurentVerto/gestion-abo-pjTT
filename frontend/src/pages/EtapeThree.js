@@ -9,7 +9,7 @@ const ICON_SP = "/logo-xs.png";
 const etapeThree = "/etapeThree.png";
 function EtapeThree() {
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement("div", { className: "main-content  bg-[#1d1d21] w-screen h-screen fontAbe pb-0 overflow-y-scroll relative " },
+        react_1.default.createElement("div", { className: "main-content  bg-[#1d1d21] w-screen h-screen fontAbe pb-0 overflow-y-scroll relative  z-70" },
             react_1.default.createElement("div", { className: "relative z-10 flex justify-center " },
                 react_1.default.createElement("img", { src: ICON_SP, alt: "logo-xs", className: "h-20 left-2 top-10 fixed" }),
                 react_1.default.createElement("div", { className: "mt-5 self-center" },

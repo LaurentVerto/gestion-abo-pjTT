@@ -9,7 +9,7 @@ const ICON_SP = "/logo-xs.png";
 const etapeTwo = "/etapeTwo.png";
 function EtapeTwo() {
     return (react_1.default.createElement(react_1.default.Fragment, null,
-        react_1.default.createElement("div", { className: "main-content bg-[#1d1d21] w-screen h-screen fontAbe pb-0 overflow-y-scroll relative " },
+        react_1.default.createElement("div", { className: "main-content bg-[#1d1d21] w-screen h-screen fontAbe pb-0 overflow-y-scroll relative  z-70" },
             react_1.default.createElement("div", { className: "relative z-10 flex justify-center " },
                 react_1.default.createElement("img", { src: ICON_SP, alt: "logo-xs", className: "h-20 left-2 top-10 fixed" }),
                 react_1.default.createElement("div", { className: "mt-5 self-center" },
@@ -31,8 +31,8 @@ function EtapeTwo() {
                             react_1.default.createElement("li", { className: "mt-2" }, "le d\u00E9sactiver temporairement pour une p\u00E9riode donn\u00E9e.")))),
                 react_1.default.createElement("img", { src: etapeTwo, alt: "image etape", className: "mt-10 ml-10 mb-28" }),
                 react_1.default.createElement("div", { className: "flex justify-center gap-10 mb-5" },
-                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeOne", className: "bg-gray-700 p-2 rounded-lg " }, "Etape Pr\u00E9c\u00E9dente"),
-                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeThree", className: "bg-gray-500 p-2 rounded-lg animate-pulse " }, "Etape Suivante")),
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeOne", className: "bg-gray-900 p-2 rounded-lg " }, "Etape Pr\u00E9c\u00E9dente"),
+                    react_1.default.createElement(react_router_dom_1.Link, { to: "/EtapeThree", className: "bg-gray-700 p-2 rounded-lg animate-pulse " }, "Etape Suivante")),
                 react_1.default.createElement("div", { className: "flex justify-center mb-20" },
                     react_1.default.createElement(react_router_dom_1.Link, { to: "/prelevements", className: "bg-[#60A8FE] p-2 rounded-lg text-black " }, "Entrer dans le site"))))));
 }
