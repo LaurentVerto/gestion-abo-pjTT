@@ -62,7 +62,7 @@ function ListeContratsX4() {
                         const abos = contrat.type === "Paiement x4";
                         return abos;
                     }).map(contrat => {
-                        return (react_1.default.createElement("li", { key: contrat.id, className: "bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] gradient-border drop-figma" },
+                        return (react_1.default.createElement("li", { key: contrat.id, className: "bg-[#282830] flex w-[90%] relative justify-between p-3   rounded-br-[5px] rounded-tr-[5px] gradient-border drop-figma" },
                             react_1.default.createElement("div", { className: "ml-3 flex flex-col justify-between " },
                                 react_1.default.createElement("strong", { className: " text-md   leading-none" },
                                     contrat.nom,

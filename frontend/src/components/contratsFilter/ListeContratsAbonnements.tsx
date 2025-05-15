@@ -73,7 +73,7 @@ function ListeContratsAbonnements() {
                                                 contrat.statusAbo
                                                     ? "bg-[#5B975D]"
                                                     : "bg-[#975B5B]"
-                                            } design-bar absolute left-0 top-0 h-[100%] w-1`}
+                                            } rounded-tl-lg rounded-bl-lg design-bar absolute left-0 top-0 h-[100%] w-1`}
                                         ></div>
                                         <div className="ml-0 flex flex-col justify-between ">
                                             <strong className=" text-md  leading-none">

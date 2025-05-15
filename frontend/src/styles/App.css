@@ -87,11 +87,28 @@ input {
 
 
 .gradient-border {
+  position: relative;
   padding: 10px 20px;
-  border: 1px solid transparent;
   border-radius: 8px;
-
-  background: 
-    linear-gradient(rgba(40, 40, 48, 0.3), rgba(40, 40, 48, 0.3)) padding-box, /* opacité 30% */
-    linear-gradient(150deg, #282830 43%, #f8f8f831 100%) border-box;
+  background: rgba(40, 40, 48, 0.1);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 0;
 }
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  padding: 1px; /* épaisseur de la bordure */
+  background: linear-gradient(150deg, rgba(0, 0, 0, 0.725) 20%, #009cea45 100%);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+  z-index: -1;
+}
+

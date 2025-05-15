@@ -51,7 +51,7 @@ function ListeContratsX10() {
 
 
                         return (
-                            <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3  border-l-4 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] gradient-border drop-figma">
+                            <li key={contrat.id} className="bg-[#282830] flex w-[90%] relative justify-between p-3   rounded-br-[5px] rounded-tr-[5px] gradient-border drop-figma">
                             <div className="ml-3 flex flex-col justify-between ">
                                 <strong className=" text-md   leading-none">{contrat.nom} | <span className="font-sans text-sm">{contrat.prix} €</span></strong>
                                 <div className="flex items-center gap-2 " >

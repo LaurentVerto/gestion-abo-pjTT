@@ -66,7 +66,7 @@ function ListeContratsAbonnements() {
                         : "border-l-[#975B5B]"} bg-[#282830] flex w-[90%] relative justify-between p-1  border-l-4  rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border mt-3 ` },
                     react_1.default.createElement("div", { className: `${contrat.statusAbo
                             ? "bg-[#5B975D]"
-                            : "bg-[#975B5B]"} design-bar absolute left-0 top-0 h-[100%] w-1` }),
+                            : "bg-[#975B5B]"} rounded-tl-lg rounded-bl-lg design-bar absolute left-0 top-0 h-[100%] w-1` }),
                     react_1.default.createElement("div", { className: "ml-0 flex flex-col justify-between " },
                         react_1.default.createElement("strong", { className: " text-md  leading-none" },
                             contrat.nom,
