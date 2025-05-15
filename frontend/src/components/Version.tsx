@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Version01 from "./VersionsText/Version01";
 import Version02 from "./VersionsText/Version02";
+import Version03 from "./VersionsText/Version03";
 
 function Version() {
     const [overlay, setOverlay] = useState(false);
@@ -24,13 +25,17 @@ function Version() {
                 >
                     <div className="w-[70%] h-auto absolute centerP rounded-lg bg-[#282830] drop-figma p-3">
                         <ul className="flex flex-col gap-3">
-                            <Version02
-                                isOpen={openIndex === 0}
-                                onToggle={() => setOpenIndex(openIndex === 0 ? null : 0)}
+                            <Version03
+                                isOpen={openIndex === 2}
+                                onToggle={() => setOpenIndex(openIndex === 2 ? null : 2)}
                             />
-                            <Version01
+                            <Version02
                                 isOpen={openIndex === 1}
                                 onToggle={() => setOpenIndex(openIndex === 1 ? null : 1)}
+                            />
+                            <Version01
+                                isOpen={openIndex === 0}
+                                onToggle={() => setOpenIndex(openIndex === 0 ? null : 0)}
                             />
                         </ul>
 
