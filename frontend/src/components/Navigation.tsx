@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { HashRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import Prelevement from "../pages/Prelevement";
 import Contrat from "../pages/Contrat";
 import Accueil from "../pages/Accueil";

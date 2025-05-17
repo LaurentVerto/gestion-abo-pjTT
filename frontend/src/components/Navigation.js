@@ -92,7 +92,7 @@ function AnimatedRoutes() {
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/ajouter-contrat", element: react_1.default.createElement(AjouterContrat_1.default, null) })))));
 }
 function Navigation() {
-    return (react_1.default.createElement(react_router_dom_1.HashRouter, null,
+    return (react_1.default.createElement(react_router_dom_1.BrowserRouter, null,
         react_1.default.createElement("div", { className: "min-h-screen flex flex-col" },
             react_1.default.createElement(Header_1.default, null),
             react_1.default.createElement(AnimatedRoutes, null),
