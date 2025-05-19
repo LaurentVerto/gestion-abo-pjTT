@@ -9,7 +9,7 @@
     // "disableReferencedProjectLoad": true,
 
     /* Language and Environment */
-    "target": "ES2024",
+    "target": "ES6",
     "jsx": "react",
     "jsxImportSource": "",
     "reactNamespace": "",

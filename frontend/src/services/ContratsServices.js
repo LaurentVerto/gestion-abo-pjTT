@@ -1,5 +1,14 @@
 "use strict";
 // //ContratServices
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 //npm create vite@latest test-type -- --template react-ts 
 // crer porjet vite
@@ -16,16 +25,16 @@ const useContratServices = () => {
     //
     const [preSavedContractsList, setPreSavedContractsList] = (0, react_1.useState)([]);
     (0, react_1.useEffect)(() => {
-        const fetchData = async () => {
+        const fetchData = () => __awaiter(void 0, void 0, void 0, function* () {
             try {
-                const response = await fetch('data.json');
-                const data = await response.json();
+                const response = yield fetch('data.json');
+                const data = yield response.json();
                 setPreSavedContractsList(data.abonnements);
             }
             catch (error) {
                 console.error("Erreur survenu lors de la récuperation de la liste : ", error);
             }
-        };
+        });
         fetchData();
     }, []);
     const deleteContrat = (idContrat) => {
@@ -82,7 +91,7 @@ const useContratServices = () => {
         // Ensure the new echeance is within the range [0, 10]
         const validatedEcheance = Math.min(10, Math.max(0, echeanceDown));
         // Map over all contracts to update the specific contract
-        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat);
+        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? Object.assign(Object.assign({}, contrat), { echeance: validatedEcheance }) : contrat);
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
         setMyContracts(echeanceFinal);
@@ -98,7 +107,7 @@ const useContratServices = () => {
         // Ensure the new echeance is within the range [0, 10]
         const validatedEcheance = Math.min(10, Math.max(0, echeanceUp));
         // Map over all contracts to update the specific contract
-        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? { ...contrat, echeance: validatedEcheance } : contrat);
+        const echeanceFinal = myContracts.map(contrat => contrat.id === contratId ? Object.assign(Object.assign({}, contrat), { echeance: validatedEcheance }) : contrat);
         // Update localStorage and state with the new contracts array
         localStorage.setItem("mesContrats", JSON.stringify(echeanceFinal));
         setMyContracts(echeanceFinal);

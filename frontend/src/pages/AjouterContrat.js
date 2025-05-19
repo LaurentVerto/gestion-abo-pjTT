@@ -15,23 +15,13 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 }) : function(o, v) {
     o["default"] = v;
 });
-var __importStar = (this && this.__importStar) || (function () {
-    var ownKeys = function(o) {
-        ownKeys = Object.getOwnPropertyNames || function (o) {
-            var ar = [];
-            for (var k in o) if (Object.prototype.hasOwnProperty.call(o, k)) ar[ar.length] = k;
-            return ar;
-        };
-        return ownKeys(o);
-    };
-    return function (mod) {
-        if (mod && mod.__esModule) return mod;
-        var result = {};
-        if (mod != null) for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
-        __setModuleDefault(result, mod);
-        return result;
-    };
-})();
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -55,17 +45,7 @@ function AjouterContrat() {
     };
     // fin du champ supp
     // initialisation de newContract
-    const [newContract, setNewContract] = (0, react_1.useState)({
-        id: (0, uuid_1.v4)(),
-        nom: "",
-        image: "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png",
-        datePrlvt: Date.now().toString(),
-        prix: 0,
-        type: "",
-        echeance: 0,
-        statusAbo: true,
-        ...(inputAdditionel && { nom: nomPerso }),
-    });
+    const [newContract, setNewContract] = (0, react_1.useState)(Object.assign({ id: (0, uuid_1.v4)(), nom: "", image: "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png", datePrlvt: Date.now().toString(), prix: 0, type: "", echeance: 0, statusAbo: true }, (inputAdditionel && { nom: nomPerso })));
     const inputAdditionelPay = newContract.type !== "Abonnement" && newContract.type !== "";
     // ici on ajoute les modeDePaiement
     const { listeModeDePaiement } = (0, useModeDePaiementServices_1.default)();
@@ -97,15 +77,11 @@ function AjouterContrat() {
         // Mise à jour de l’abonnement sélectionné (tu peux ajuster selon le type voulu)
         setSelectedSubscription(newValue.toString());
         // Mise à jour du nouveau contrat
-        setNewContract((prev) => ({
-            ...prev,
-            [fieldName]: newValue,
-            image: contrat && contrat.nom !== "Autres"
+        setNewContract((prev) => (Object.assign(Object.assign({}, prev), { [fieldName]: newValue, image: contrat && contrat.nom !== "Autres"
                 ? contrat.image
-                : prev.image,
-        }));
+                : prev.image })));
         // Mise à jour de l’image si disponible
-        if (contrat?.image) {
+        if (contrat === null || contrat === void 0 ? void 0 : contrat.image) {
             setImageContrat(contrat.image);
         }
     };
@@ -152,10 +128,7 @@ function AjouterContrat() {
             return; // Arrête l'exécution si le prix est invalide
         }
         // Si tout est valide, on continue
-        const contratAvecNom = {
-            ...newContract,
-            nom: newContract.nom === "Autres" ? nomPerso : newContract.nom, // Si le nom est "Autres", on utilise nomPerso
-        };
+        const contratAvecNom = Object.assign(Object.assign({}, newContract), { nom: newContract.nom === "Autres" ? nomPerso : newContract.nom });
         setMyContracts((prev) => {
             // Ajout du contrat à la liste
             const ContratMaj = [...prev, contratAvecNom];
@@ -164,17 +137,7 @@ function AjouterContrat() {
             localStorage.setItem("myContracts", jsonData);
             setMessage("Contrat enregistré avec succès");
             // Réinitialisation du formulaire
-            setNewContract({
-                id: (0, uuid_1.v4)(),
-                nom: "",
-                image: "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png",
-                datePrlvt: Date.now().toString(),
-                prix: 0,
-                type: "",
-                echeance: 0,
-                statusAbo: true,
-                ...(inputAdditionel && { nom: nomPerso }),
-            });
+            setNewContract(Object.assign({ id: (0, uuid_1.v4)(), nom: "", image: "https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png", datePrlvt: Date.now().toString(), prix: 0, type: "", echeance: 0, statusAbo: true }, (inputAdditionel && { nom: nomPerso })));
             setImageContrat("https://i.ibb.co/ymC3g9rc/Capture-d-cran-2024-04-12-212330-removebg-preview.png");
             navigate("/contrats");
             return ContratMaj; // Nouvelle liste de contrats
