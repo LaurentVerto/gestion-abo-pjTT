@@ -11,6 +11,8 @@ import EtapeOne from "../pages/EtapeOne";
 import EtapeTwo from "../pages/EtapeTwo";
 import EtapeThree from "../pages/EtapeThree";
 import useContratServices from "../services/ContratsServices";
+import Saving from "../pages/Saving";
+import SavingDetails from "../pages/SavingDetails";
 
 function AnimatedRoutes() {
 
@@ -71,6 +73,9 @@ function AnimatedRoutes() {
                     <Route path="/contrats" element={<Contrat />} />
 
                     <Route path="/ajouter-contrat" element={<AjouterContrat />} />
+                    
+                    <Route path="/epargnes" element={<Saving />} />
+                    <Route path="/epargnes/detail" element={<SavingDetails />} />
                 </Routes>
             </motion.div>
         </AnimatePresence>

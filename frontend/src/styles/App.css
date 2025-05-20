@@ -1,3 +1,11 @@
+:root {
+  --lfpc: #1d1d21;
+
+}
+
+
+
+
 html, body, #root{
   height: 100dvh;
   margin: 0;
