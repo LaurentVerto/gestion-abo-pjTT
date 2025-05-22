@@ -7,7 +7,6 @@ function CurrentSavings() {
 
     const handleDrop = () => {
         setIsOpen(!isOpen);
-        console.log(isOpen);
     };
 
     return(

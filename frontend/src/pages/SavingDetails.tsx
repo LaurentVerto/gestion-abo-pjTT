@@ -1,4 +1,6 @@
 import React from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const ICON_SP = "/logo-xs.png";
 
 function SavingDetails() {
@@ -21,14 +23,75 @@ function SavingDetails() {
                     <p className="text-xs">Montant épargné</p>
                     <p className="text-2xl font-semibold">5 800 €</p>
                 </div>
-                <div stroke-dasharray="80,100" className="outline-30 outline-[#0074FF]  flex flex-col items-center justify-center gap-5 mt-15 p-8 aspect-square rounded-full relative ">
-                    <div className="text-center">
-                        <p className="text-xs">Objectif</p>
-                        <p className="text-3xl font-bold text-[#009CEA]">10 000 €</p>
+
+                {/* Nouveau cercle de progression */}
+                <div className="relative flex items-center justify-center mt-5">
+                    <div
+                        style={{ position: "relative", display: "inline-flex" }}
+                    >
+                        {/* Cercle fond rouge */}
+                        
+                        <CircularProgress
+                            variant="determinate"
+                            value={100}
+                            size={200}
+                            thickness={3}
+                            sx={{ color: "#1d1d21" }}
+                        />
+                        {/* Cercle progression bleu */}
+                        <CircularProgress
+                            variant="determinate"
+                            value={90}
+                            size={200}
+                            thickness={3}
+                            sx={{
+                                color: "#009CEA",
+                                position: "absolute",
+                                left: 0,
+                                top: 0,
+                            }}
+                        />
                     </div>
-                    <p className="text-sm">Avant Juillet 2025</p>
+
+                    <div className="absolute flex flex-col items-center justify-center">
+                        <p className="text-xs">Objectif</p>
+                        <p className="text-2xl font-bold text-[#009CEA]">
+                            10 000 €
+                        </p>
+                        <p className="text-xs mt-2">Avant Juillet 2025</p>
+                    </div>
                 </div>
+                <p className=" text-xs p-3 mt-2 text-center ">Tu dois épargner <span className="text-base font-bold text-[#009CEA] ">100</span> euros / mois si tu veux atteindre ton objectif : <span className="text-base font-bold text-[#009CEA] ">Vacances</span> </p>
+                <div className="w-full px-4">
+                    <div className="flex items-center justify-between mt-2 text-xs">
+                        <p>Transactions</p>
+                        <div className="flex justify-between gap-15">
+                            <span className="text-xs text-[#00FF62]/50">Dépots = 150 €</span>
+                            <span className="text-xs text-[#FF0000]/50">Retrait = 50 €</span>
+                        </div>
+                    </div>
+                </div>
+                <ul className="w-full px-5 mt-3 flex flex-col gap-3 overflow-hidden h-[20vh]">
+                    <li className="flex w-[100%] relative justify-between p-3 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border items-center text-xs">
+                        <p>Dépôt</p>
+                        <p>150 €</p>
+                    </li>
+                    <li className="flex w-[100%] relative justify-between p-3 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border items-center text-xs">
+                        <p>Dépôt</p>
+                        <p>150 €</p>
+                    </li>
+                    <li className="flex w-[100%] relative justify-between p-3 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border items-center text-xs">
+                        <p>Dépôt</p>
+                        <p>150 €</p>
+                    </li>
+                    <li className="flex w-[100%] relative justify-between p-3 border-l-[#5B975D] rounded-br-[5px] rounded-tr-[5px] drop-figma gradient-border items-center text-xs">
+                        <p>Dépôt</p>
+                        <p>150 €</p>
+                    </li>
+                </ul>
             </div>
+            
+            
         </div>
     );
 }

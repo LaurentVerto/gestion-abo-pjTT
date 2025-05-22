@@ -39,7 +39,6 @@ function CurrentSavings() {
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
     const handleDrop = () => {
         setIsOpen(!isOpen);
-        console.log(isOpen);
     };
     return (react_1.default.createElement(react_1.default.Fragment, null,
         react_1.default.createElement("div", { className: "flex items-center mt-3", onClick: handleDrop },
