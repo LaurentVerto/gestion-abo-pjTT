@@ -1,14 +1,40 @@
 import React, { useState } from "react";
 import CurrentSavings from "../components/Saving/CurrentSavings";
 import SavingsCompleted from "../components/Saving/SavingsCompleted";
+import useSavingsServices from "../services/SavingsServices";
 const ICON_SP = "/logo-xs.png";
 
 function Saving() {
+
+    const [newSaving, setNewSaving] = useState({
+        name: "",
+        amount: 0,
+        deadline: Date.now().toString()
+    })
+
     const [isOpen, setIsOpen] = useState(false);
 
     const handleDrop = () => {
         setIsOpen(!isOpen);
     };
+
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
+        ) => {
+        const { name: fieldName, value } = e.target;
+            let newValue: string | number = value;
+
+            setNewSaving((prev) => ({
+            ...prev,
+            [fieldName]: newValue,
+        }));
+        console.log(newSaving);
+    }
+
+    const handleSubmit = () =>{
+        const jsonData = JSON.stringify(newSaving);
+            localStorage.setItem("myContracts", jsonData);
+    }
 
     return (
         <div className="realtive">
@@ -69,23 +95,32 @@ function Saving() {
                 </div>
             </div>
 
+
+
+            {/* overlay form ajout saving */}
+
             {isOpen && (
                 <>
                     <div className="overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-100 flex flex-col justify-center items-center gap-3">
                         <h4>Ajout d'une épargne</h4>
                         <input
+                            onChange={handleChange}
+                            name="name"
                             type="text"
                             placeholder="Nom de l'épargne"
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
                         <input
+                            onChange={handleChange}
+                            name="amount"
                             type="number"
                             placeholder="Montant de l'épargne"
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
                         <input
+                            name="deadline"
                             type="date"
-                            placeholder="Nom de l'épargne"
+                            placeholder="YYYY-MM-DD"
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
                         <button

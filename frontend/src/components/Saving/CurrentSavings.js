@@ -51,7 +51,7 @@ function CurrentSavings() {
                     react_1.default.createElement("div", { className: "flex  justify-between" },
                         react_1.default.createElement("h3", { className: "font-medium" }, "\uD83D\uDCBB Test epargnes"),
                         react_1.default.createElement("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
-                            react_1.default.createElement("path", { d: "M9 18L15 12L9 6", stroke: "white", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }))),
+                            react_1.default.createElement("path", { d: "M9 18L15 12L9 6", stroke: "white", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))),
                     react_1.default.createElement("div", { className: "mt-3 w-full" },
                         react_1.default.createElement("div", { className: "bg-[#41414e]  w-[100%] rounded-full flex justify-start relative\r\n                        drop-figma\r\n                        " },
                             react_1.default.createElement("div", { className: " w-[80%] rounded-full text-center\r\n                            bg-linear-to-r from-[#1d1d21] to-blue-500\r\n                            " },

@@ -53,9 +53,9 @@ function CurrentSavings() {
                             <path
                                 d="M9 18L15 12L9 6"
                                 stroke="white"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
                             />
                         </svg>
                     </div>

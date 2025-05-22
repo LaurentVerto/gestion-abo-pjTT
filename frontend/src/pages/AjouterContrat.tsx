@@ -107,6 +107,8 @@ function AjouterContrat() {
         if (contrat?.image) {
             setImageContrat(contrat.image);
         }
+        console.log(newContract);
+        
     };
 
     const validateForm = () => {

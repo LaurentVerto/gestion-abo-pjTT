@@ -94,6 +94,7 @@ function AjouterContrat() {
         if (contrat === null || contrat === void 0 ? void 0 : contrat.image) {
             setImageContrat(contrat.image);
         }
+        console.log(newContract);
     };
     const validateForm = () => {
         if (!newContract.nom ||

@@ -46,7 +46,6 @@ function AnimatedRoutes() {
     }, [myContracts]);
 
     useEffect(() => {
-        console.log(myContracts); // Vérifie le contenu de myContracts
     }, [myContracts]);
 
     const location = useLocation();

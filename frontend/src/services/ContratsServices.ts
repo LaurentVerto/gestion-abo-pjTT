@@ -29,7 +29,6 @@ const useContratServices = () => {
 
 
 
-    
 
     useEffect(() => {
         const dataLocal = localStorage.getItem("myContracts");

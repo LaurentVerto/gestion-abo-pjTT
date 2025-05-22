@@ -78,7 +78,6 @@ function AnimatedRoutes() {
         }
     }, [myContracts]);
     (0, react_1.useEffect)(() => {
-        console.log(myContracts); // Vérifie le contenu de myContracts
     }, [myContracts]);
     const location = (0, react_router_dom_1.useLocation)();
     return (react_1.default.createElement(framer_motion_1.AnimatePresence, { mode: "wait" },

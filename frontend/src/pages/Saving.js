@@ -41,9 +41,24 @@ const CurrentSavings_1 = __importDefault(require("../components/Saving/CurrentSa
 const SavingsCompleted_1 = __importDefault(require("../components/Saving/SavingsCompleted"));
 const ICON_SP = "/logo-xs.png";
 function Saving() {
+    const [newSaving, setNewSaving] = (0, react_1.useState)({
+        name: "",
+        amount: 0,
+        deadline: Date.now().toString()
+    });
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
     const handleDrop = () => {
         setIsOpen(!isOpen);
+    };
+    const handleChange = (e) => {
+        const { name: fieldName, value } = e.target;
+        let newValue = value;
+        setNewSaving((prev) => (Object.assign(Object.assign({}, prev), { [fieldName]: newValue })));
+        console.log(newSaving);
+    };
+    const handleSubmit = () => {
+        const jsonData = JSON.stringify(newSaving);
+        localStorage.setItem("myContracts", jsonData);
     };
     return (react_1.default.createElement("div", { className: "realtive" },
         react_1.default.createElement("div", { className: "flex justify-between items-center mt-10" },
@@ -64,9 +79,9 @@ function Saving() {
         isOpen && (react_1.default.createElement(react_1.default.Fragment, null,
             react_1.default.createElement("div", { className: "overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-100 flex flex-col justify-center items-center gap-3" },
                 react_1.default.createElement("h4", null, "Ajout d'une \u00E9pargne"),
-                react_1.default.createElement("input", { type: "text", placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
-                react_1.default.createElement("input", { type: "number", placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
-                react_1.default.createElement("input", { type: "date", placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
+                react_1.default.createElement("input", { onChange: handleChange, name: "name", type: "text", placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
+                react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
+                react_1.default.createElement("input", { name: "deadline", type: "date", placeholder: "YYYY-MM-DD", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("button", { className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Cr\u00E9er l'\u00E9pargne"),
                 react_1.default.createElement("button", { onClick: handleDrop, className: "mt-2\r\n                shadow-lg\r\n                bg-[#FE6666]/50 min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Annuler"))))));
 }
