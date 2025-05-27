@@ -2,14 +2,24 @@ import React, { useState } from "react";
 import CurrentSavings from "../components/Saving/CurrentSavings";
 import SavingsCompleted from "../components/Saving/SavingsCompleted";
 import useSavingsServices from "../services/SavingsServices";
+import { type SavingsType } from "../services/SavingsServices";
 const ICON_SP = "/logo-xs.png";
 
 function Saving() {
 
-    const [newSaving, setNewSaving] = useState({
+    const {saving, setSaving} = useSavingsServices()
+
+    const [message, setMessage] = useState("")
+    
+
+    
+
+    const [newSaving, setNewSaving] = useState<SavingsType>({
         name: "",
         amount: 0,
-        deadline: Date.now().toString()
+        deadline: Date.now().toString(),
+        deposit: [] ,
+        withdrawal: []
     })
 
     const [isOpen, setIsOpen] = useState(false);
@@ -28,16 +38,47 @@ function Saving() {
             ...prev,
             [fieldName]: newValue,
         }));
-        console.log(newSaving);
     }
 
     const handleSubmit = () =>{
-        const jsonData = JSON.stringify(newSaving);
-            localStorage.setItem("myContracts", jsonData);
-    }
+        
+        
+        setSaving((prev) => {
+
+            let upSavings = [newSaving];
+
+            if(prev.length>0){
+                upSavings = [...prev, newSaving];
+            }
+
+            const jsonData = JSON.stringify(upSavings);
+            localStorage.setItem("mySavings", jsonData);
+
+            setMessage("Création de l'épargne réussie")
+
+            setNewSaving(
+                {
+                    name: "",
+                    amount: 0,
+                    deadline: Date.now().toString(),
+                    deposit: [] ,
+                    withdrawal: []
+                }
+            )
+
+            setTimeout(() => {
+                setIsOpen(!isOpen)
+
+            }, 2000)
+
+            return upSavings;
+            ;
+        })
+
+    };
 
     return (
-        <div className="realtive">
+        <div className="">
             <div className="flex justify-between items-center mt-10">
                 <h2 className="bold text-sm md:text-xl ml-5">Epargnes</h2>
                 <img
@@ -124,6 +165,7 @@ function Saving() {
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
                         <button
+                            onClick={handleSubmit}
                             className="mt-8
                 shadow-lg
                 bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm "
@@ -138,6 +180,7 @@ function Saving() {
                         >
                             Annuler
                         </button>
+                        <p>{message}</p>
                     </div>
                 </>
             )}

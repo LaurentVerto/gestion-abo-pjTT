@@ -39,12 +39,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const CurrentSavings_1 = __importDefault(require("../components/Saving/CurrentSavings"));
 const SavingsCompleted_1 = __importDefault(require("../components/Saving/SavingsCompleted"));
+const SavingsServices_1 = __importDefault(require("../services/SavingsServices"));
 const ICON_SP = "/logo-xs.png";
 function Saving() {
+    const { saving, setSaving } = (0, SavingsServices_1.default)();
+    const [message, setMessage] = (0, react_1.useState)("");
     const [newSaving, setNewSaving] = (0, react_1.useState)({
         name: "",
         amount: 0,
-        deadline: Date.now().toString()
+        deadline: Date.now().toString(),
+        deposit: [],
+        withdrawal: []
     });
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
     const handleDrop = () => {
@@ -54,13 +59,31 @@ function Saving() {
         const { name: fieldName, value } = e.target;
         let newValue = value;
         setNewSaving((prev) => (Object.assign(Object.assign({}, prev), { [fieldName]: newValue })));
-        console.log(newSaving);
     };
     const handleSubmit = () => {
-        const jsonData = JSON.stringify(newSaving);
-        localStorage.setItem("myContracts", jsonData);
+        setSaving((prev) => {
+            let upSavings = [newSaving];
+            if (prev.length > 0) {
+                upSavings = [...prev, newSaving];
+            }
+            const jsonData = JSON.stringify(upSavings);
+            localStorage.setItem("mySavings", jsonData);
+            setMessage("Création de l'épargne réussie");
+            setNewSaving({
+                name: "",
+                amount: 0,
+                deadline: Date.now().toString(),
+                deposit: [],
+                withdrawal: []
+            });
+            setTimeout(() => {
+                setIsOpen(!isOpen);
+            }, 2000);
+            return upSavings;
+            ;
+        });
     };
-    return (react_1.default.createElement("div", { className: "realtive" },
+    return (react_1.default.createElement("div", { className: "" },
         react_1.default.createElement("div", { className: "flex justify-between items-center mt-10" },
             react_1.default.createElement("h2", { className: "bold text-sm md:text-xl ml-5" }, "Epargnes"),
             react_1.default.createElement("img", { src: ICON_SP, alt: "logo_xs", className: "h-8 mr-5" })),
@@ -82,7 +105,8 @@ function Saving() {
                 react_1.default.createElement("input", { onChange: handleChange, name: "name", type: "text", placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("input", { name: "deadline", type: "date", placeholder: "YYYY-MM-DD", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
-                react_1.default.createElement("button", { className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Cr\u00E9er l'\u00E9pargne"),
-                react_1.default.createElement("button", { onClick: handleDrop, className: "mt-2\r\n                shadow-lg\r\n                bg-[#FE6666]/50 min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Annuler"))))));
+                react_1.default.createElement("button", { onClick: handleSubmit, className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Cr\u00E9er l'\u00E9pargne"),
+                react_1.default.createElement("button", { onClick: handleDrop, className: "mt-2\r\n                shadow-lg\r\n                bg-[#FE6666]/50 min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Annuler"),
+                react_1.default.createElement("p", null, message))))));
 }
 exports.default = Saving;

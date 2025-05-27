@@ -66,7 +66,6 @@ function AnimatedRoutes() {
                     <Route path="/etapeTwo" element={<EtapeTwo />} />
                     <Route path="/etapeThree" element={<EtapeThree />} />
 
-
                     <Route path="/prelevements" element={<Prelevement />} />
 
                     <Route path="/contrats" element={<Contrat />} />

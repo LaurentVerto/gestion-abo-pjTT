@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 type ListTransactions = {
     date: Date,
     amount: Number
 }
 
-type SavingsType = {
+export type SavingsType = {
     name: string,
     amount: number,
     deadline: string,
@@ -17,9 +17,18 @@ function useSavingsServices(){
 
     const [saving, setSaving]  = useState<SavingsType[]>([])
     
+
+    useEffect(() => {
+            const dataLocal = localStorage.getItem("mySavings");
+            
+            if (dataLocal) {
+                setSaving(JSON.parse(dataLocal) as SavingsType[]);
+            }
+        }, []);
+    
     return{
         saving,
-        setSaving
+        setSaving,
     }
     
 }
