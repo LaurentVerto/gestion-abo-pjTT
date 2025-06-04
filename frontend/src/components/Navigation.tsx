@@ -73,7 +73,7 @@ function AnimatedRoutes() {
                     <Route path="/ajouter-contrat" element={<AjouterContrat />} />
                     
                     <Route path="/epargnes" element={<Saving />} />
-                    <Route path="/epargnes/detail" element={<SavingDetails />} />
+                    <Route path="/epargnes/:id" element={<SavingDetails />} />
                 </Routes>
             </motion.div>
         </AnimatePresence>

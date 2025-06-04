@@ -92,7 +92,7 @@ function AnimatedRoutes() {
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/contrats", element: react_1.default.createElement(Contrat_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/ajouter-contrat", element: react_1.default.createElement(AjouterContrat_1.default, null) }),
                 react_1.default.createElement(react_router_dom_1.Route, { path: "/epargnes", element: react_1.default.createElement(Saving_1.default, null) }),
-                react_1.default.createElement(react_router_dom_1.Route, { path: "/epargnes/detail", element: react_1.default.createElement(SavingDetails_1.default, null) })))));
+                react_1.default.createElement(react_router_dom_1.Route, { path: "/epargnes/:id", element: react_1.default.createElement(SavingDetails_1.default, null) })))));
 }
 function Navigation() {
     return (react_1.default.createElement(react_router_dom_1.BrowserRouter, null,

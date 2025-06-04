@@ -1,26 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import CurrentSavings from "../components/Saving/CurrentSavings";
 import SavingsCompleted from "../components/Saving/SavingsCompleted";
 import useSavingsServices from "../services/SavingsServices";
 import { type SavingsType } from "../services/SavingsServices";
+import { v4 as uuidv4 } from "uuid";
+import { Navigate, useNavigate } from "react-router-dom";
 const ICON_SP = "/logo-xs.png";
 
 function Saving() {
-
-    const {saving, setSaving} = useSavingsServices()
-
-    const [message, setMessage] = useState("")
     
+    const navigate = useNavigate();
 
-    
+    const { savings, setSavings, selectedSaving, updateSavingById } = useSavingsServices();
+
+
+
+    const [message, setMessage] = useState("");
+
+    const [editMode, setEditMode] = useState<boolean>(true);
 
     const [newSaving, setNewSaving] = useState<SavingsType>({
+        id: uuidv4(),
         name: "",
         amount: 0,
         deadline: Date.now().toString(),
-        deposit: [] ,
-        withdrawal: []
-    })
+        deposit: [],
+        withdrawal: [],
+    });
 
     const [isOpen, setIsOpen] = useState(false);
 
@@ -28,54 +34,87 @@ function Saving() {
         setIsOpen(!isOpen);
     };
 
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    ) => {
+        const { name, value } = e.target;
 
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>
-        ) => {
-        const { name: fieldName, value } = e.target;
-            let newValue: string | number = value;
+        let newValue: string | number = value;
+        if (name === "amount") {
+            newValue = parseFloat(value); // assure que c'est bien un nombre
+        }
 
-            setNewSaving((prev) => ({
+        setNewSaving((prev) => ({
             ...prev,
-            [fieldName]: newValue,
+            [name]: newValue,
         }));
-    }
+    };
 
-    const handleSubmit = () =>{
-        
-        
-        setSaving((prev) => {
+    const handleSubmit = () => {
+    const isExisting = savings.some((s) => s.id === newSaving.id);
 
-            let upSavings = [newSaving];
+    if (isExisting) {
+        // 👉 Mise à jour
+        updateSavingById(newSaving);
+        setMessage("Épargne mise à jour avec succès");
 
-            if(prev.length>0){
-                upSavings = [...prev, newSaving];
-            }
-
-            const jsonData = JSON.stringify(upSavings);
-            localStorage.setItem("mySavings", jsonData);
-
-            setMessage("Création de l'épargne réussie")
-
-            setNewSaving(
-                {
-                    name: "",
-                    amount: 0,
-                    deadline: Date.now().toString(),
-                    deposit: [] ,
-                    withdrawal: []
-                }
-            )
+        setTimeout(() => {
+            setIsOpenModify(false);
+            navigate(`/epargnes/${newSaving.id}`);
+        }, 2000);
+    } else {
+        // 👉 Création
+        setSavings((prev) => {
+            const upSavings = [...prev, newSaving];
+            localStorage.setItem("mySavings", JSON.stringify(upSavings));
+            setMessage("Création de l'épargne réussie");
 
             setTimeout(() => {
-                setIsOpen(!isOpen)
-
-            }, 2000)
+                setIsOpen(false);
+                navigate(`/epargnes/${newSaving.id}`);
+            }, 2000);
 
             return upSavings;
-            ;
-        })
+        });
+    }
 
+    // Reset du formulaire après soumission
+    setNewSaving({
+        id: uuidv4(),
+        name: "",
+        amount: 0,
+        deadline: Date.now().toString(),
+        deposit: [],
+        withdrawal: [],
+    });
+};
+
+    const handleEditMode = () => {
+        setEditMode(!editMode);
     };
+
+    const [isOpenModify, setIsOpenModify] = useState<boolean>(false);
+
+    const handleEdit = (
+        e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    ) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        
+        if (selectedSaving) {
+    setNewSaving({ ...selectedSaving }); 
+}
+setIsOpenModify(true);
+
+
+        console.log(newSaving);
+        
+    };
+
+
+
+    
 
     return (
         <div className="">
@@ -88,7 +127,12 @@ function Saving() {
                 />
             </div>
 
-            <CurrentSavings />
+            <CurrentSavings
+                editMode={editMode}
+                isOpenModify={isOpenModify}
+                handleEdit={handleEdit}
+                setNewSaving={setNewSaving}
+            />
             <SavingsCompleted />
 
             <div className="absolute bottom-20 left-5 flex justify-between w-[90%] items-center">
@@ -98,6 +142,13 @@ function Saving() {
                         <li>1 Epargne finalisé</li>
                     </ul>
                 </div>
+
+                <button
+                    className="bg-red-700 p-1 rounded-lg"
+                    onClick={handleEditMode}
+                >
+                    Edit Mode
+                </button>
 
                 <div
                     onClick={handleDrop}
@@ -136,9 +187,58 @@ function Saving() {
                 </div>
             </div>
 
-
-
             {/* overlay form ajout saving */}
+
+            {isOpenModify && (
+                <>
+                    <div className="overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-100 flex flex-col justify-center items-center gap-3">
+                        <h4>Modifier une épargne</h4>
+                        <input
+                            onChange={handleChange}
+                            name="name"
+                            type="text"
+                            value={newSaving.name}
+                            placeholder="Nom de l'épargne"
+                            className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
+                        />
+                        <input
+                            onChange={handleChange}
+                            name="amount"
+                            type="number"
+                            value={newSaving.amount}
+                            placeholder="Montant de l'épargne"
+                            className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
+                        />
+                        <input
+                            name="deadline"
+                            type="date"
+                            placeholder="YYYY-MM-DD"
+                            value={newSaving.deadline}
+                            onChange={handleChange}
+                            className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
+                        />
+                        <button
+                            onClick={handleSubmit}
+                            className="mt-8
+                shadow-lg
+                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm "
+                        >
+                            Modifier l'épargne
+                        </button>
+                        <button
+                            onClick={(e) => {
+                                handleEdit(e);
+                            }}
+                            className="mt-2
+                shadow-lg
+                bg-[#FE6666]/50 min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm "
+                        >
+                            Annuler les modification
+                        </button>
+                        <p>{message}</p>
+                    </div>
+                </>
+            )}
 
             {isOpen && (
                 <>
@@ -148,6 +248,7 @@ function Saving() {
                             onChange={handleChange}
                             name="name"
                             type="text"
+                            value={newSaving.name}
                             placeholder="Nom de l'épargne"
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
@@ -155,6 +256,7 @@ function Saving() {
                             onChange={handleChange}
                             name="amount"
                             type="number"
+                            value={newSaving.amount}
                             placeholder="Montant de l'épargne"
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
@@ -162,6 +264,8 @@ function Saving() {
                             name="deadline"
                             type="date"
                             placeholder="YYYY-MM-DD"
+                            value={newSaving.deadline}
+                            onChange={handleChange}
                             className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
                         />
                         <button
