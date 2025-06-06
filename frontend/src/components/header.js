@@ -58,11 +58,9 @@ function Header() {
 }
 // Composant réutilisable pour chaque bouton de navigation
 function NavItem({ to, activeTab, setActiveTab, label, children, }) {
-    const isActive = activeTab === to;
+    const isActive = to === "/" ? activeTab === "/" : activeTab.startsWith(to);
     return (react_1.default.createElement("div", { className: "group" },
-        react_1.default.createElement("li", { className: `relative  top-0  p-1 rounded-full w-auto transition-all duration-300  ${isActive
-                ? "text-[#009CEA]"
-                : "text-black group-hover:text-black "}  `, onClick: () => setActiveTab(to) },
+        react_1.default.createElement("li", { className: `relative  top-0  p-1 rounded-full w-auto transition-all duration-300  ${isActive ? "text-[#009CEA]" : "text-black group-hover:text-black "}  `, onClick: () => setActiveTab(to) },
             react_1.default.createElement(react_router_dom_1.Link, { to: to, className: ` "flex flex-col items-center justify-start transition-all" ${isActive ? " duration-300 w-fit" : "group-hover:w-fit"} ` },
                 react_1.default.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", fill: "#f8f8f8", viewBox: "0 0 30 30", strokeWidth: "0", stroke: "none", className: ` justify-self-center size-10 transition-all duration-300  translate-x-[3px] translate-y-[2px]
                     ${isActive

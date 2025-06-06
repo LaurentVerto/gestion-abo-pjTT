@@ -47,7 +47,7 @@ function Saving() {
     const navigate = (0, react_router_dom_1.useNavigate)();
     const { savings, setSavings, selectedSaving, updateSavingById } = (0, SavingsServices_1.default)();
     const [message, setMessage] = (0, react_1.useState)("");
-    const [editMode, setEditMode] = (0, react_1.useState)(true);
+    const [editMode, setEditMode] = (0, react_1.useState)(false);
     const [newSaving, setNewSaving] = (0, react_1.useState)({
         id: (0, uuid_1.v4)(),
         name: "",
@@ -69,9 +69,10 @@ function Saving() {
         setNewSaving((prev) => (Object.assign(Object.assign({}, prev), { [name]: newValue })));
     };
     const handleSubmit = () => {
-        const isExisting = savings.some((s) => s.id === newSaving.id);
+        const dataLocal = localStorage.getItem("mySavings");
+        const currentSavings = dataLocal ? JSON.parse(dataLocal) : [];
+        const isExisting = currentSavings.some(s => s.id === newSaving.id);
         if (isExisting) {
-            // 👉 Mise à jour
             updateSavingById(newSaving);
             setMessage("Épargne mise à jour avec succès");
             setTimeout(() => {
@@ -80,19 +81,17 @@ function Saving() {
             }, 2000);
         }
         else {
-            // 👉 Création
-            setSavings((prev) => {
-                const upSavings = [...prev, newSaving];
-                localStorage.setItem("mySavings", JSON.stringify(upSavings));
-                setMessage("Création de l'épargne réussie");
-                setTimeout(() => {
-                    setIsOpen(false);
-                    navigate(`/epargnes/${newSaving.id}`);
-                }, 2000);
-                return upSavings;
-            });
+            // Ajout en partant de la liste à jour
+            const upSavings = [...currentSavings, newSaving];
+            localStorage.setItem("mySavings", JSON.stringify(upSavings));
+            setSavings(upSavings);
+            setMessage("Création de l'épargne réussie");
+            setTimeout(() => {
+                setIsOpen(false);
+                navigate(`/epargnes/${newSaving.id}`);
+            }, 2000);
         }
-        // Reset du formulaire après soumission
+        // Reset du formulaire
         setNewSaving({
             id: (0, uuid_1.v4)(),
             name: "",
@@ -120,20 +119,20 @@ function Saving() {
             react_1.default.createElement("h2", { className: "bold text-sm md:text-xl ml-5" }, "Epargnes"),
             react_1.default.createElement("img", { src: ICON_SP, alt: "logo_xs", className: "h-8 mr-5" })),
         react_1.default.createElement(CurrentSavings_1.default, { editMode: editMode, isOpenModify: isOpenModify, handleEdit: handleEdit, setNewSaving: setNewSaving }),
-        react_1.default.createElement(SavingsCompleted_1.default, null),
+        react_1.default.createElement(SavingsCompleted_1.default, { editMode: editMode, isOpenModify: isOpenModify, handleEdit: handleEdit, setNewSaving: setNewSaving }),
         react_1.default.createElement("div", { className: "absolute bottom-20 left-5 flex justify-between w-[90%] items-center" },
             react_1.default.createElement("div", null,
                 react_1.default.createElement("ul", { className: "text-xs text-[#009CEA] " },
                     react_1.default.createElement("li", null, "3 Epargnes en cours"),
                     react_1.default.createElement("li", null, "1 Epargne finalis\u00E9"))),
-            react_1.default.createElement("button", { className: "bg-red-700 p-1 rounded-lg", onClick: handleEditMode }, "Edit Mode"),
+            react_1.default.createElement("button", { className: `${editMode ? "border border-blue-500 opacity-100 bg-[#009CEA] " : "border border-white opacity-50"}  py-1 px-3 rounded-lg text-xs`, onClick: handleEditMode }, "Edit Mode"),
             react_1.default.createElement("div", { onClick: handleDrop, className: "z-110" },
                 react_1.default.createElement("svg", { width: "50", height: "50", viewBox: "0 0 50 50", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "cursor-pointer pointer-event-none" },
                     react_1.default.createElement("path", { d: "M25.0001 45.8334C36.506 45.8334 45.8334 36.506 45.8334 25.0001C45.8334 13.4941 36.506 4.16675 25.0001 4.16675C13.4941 4.16675 4.16675 13.4941 4.16675 25.0001C4.16675 36.506 13.4941 45.8334 25.0001 45.8334Z", stroke: "#F8F8F8", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }),
                     react_1.default.createElement("path", { d: "M16.6667 25H33.3334", stroke: "#F8F8F8", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }),
                     react_1.default.createElement("path", { d: "M25 16.6667V33.3334", stroke: "#F8F8F8", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" })))),
         isOpenModify && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement("div", { className: "overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-100 flex flex-col justify-center items-center gap-3" },
+            react_1.default.createElement("div", { className: "overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-120 flex flex-col justify-center items-center gap-3" },
                 react_1.default.createElement("h4", null, "Modifier une \u00E9pargne"),
                 react_1.default.createElement("input", { onChange: handleChange, name: "name", type: "text", value: newSaving.name, placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", value: newSaving.amount, placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
@@ -141,6 +140,7 @@ function Saving() {
                 react_1.default.createElement("button", { onClick: handleSubmit, className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Modifier l'\u00E9pargne"),
                 react_1.default.createElement("button", { onClick: (e) => {
                         handleEdit(e);
+                        setIsOpenModify(!isOpenModify);
                     }, className: "mt-2\r\n                shadow-lg\r\n                bg-[#FE6666]/50 min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Annuler les modification"),
                 react_1.default.createElement("p", null, message)))),
         isOpen && (react_1.default.createElement(react_1.default.Fragment, null,

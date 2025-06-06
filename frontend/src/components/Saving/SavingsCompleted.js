@@ -32,9 +32,14 @@ var __importStar = (this && this.__importStar) || (function () {
         return result;
     };
 })();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
-function SavingsCompleted() {
+const SavingsServices_1 = __importDefault(require("../../services/SavingsServices"));
+function SavingsCompleted({ editMode, isOpenModify, handleEdit, setNewSaving, }) {
+    const { savingsCompleted, deleteSavingById } = (0, SavingsServices_1.default)();
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
     const handleDrop = () => {
         setIsOpen(!isOpen);
@@ -46,15 +51,23 @@ function SavingsCompleted() {
             react_1.default.createElement("svg", { className: isOpen ? "rotate-180" : "rotate-0", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
                 react_1.default.createElement("path", { d: "M6 9L12 15L18 9", stroke: "#F8F8F8", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }))),
         isOpen && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement("ul", { className: "flex flex-col items-center justify-center mt-3" },
-                react_1.default.createElement("li", { className: "bg-[var(--lfpc)]/50 w-[90%] p-3 rounded-lg drop-figma" },
-                    react_1.default.createElement("div", { className: "flex  justify-between" },
-                        react_1.default.createElement("h3", { className: "font-medium" }, "\uD83D\uDCBB Test epargnes"),
+            react_1.default.createElement("ul", { className: "flex flex-col items-center justify-center mt-3" }, savingsCompleted.map((saving) => (react_1.default.createElement("li", { key: saving.id, className: "bg-[var(--lfpc)]/50 w-[90%] p-3 rounded-lg drop-figma" },
+                react_1.default.createElement("div", { className: "flex  justify-between" },
+                    react_1.default.createElement("h3", { className: "font-medium" }, saving.name),
+                    editMode ? (react_1.default.createElement(react_1.default.Fragment, null,
+                        react_1.default.createElement("div", { className: "flex gap-3" },
+                            react_1.default.createElement("button", { onClick: (e) => {
+                                    deleteSavingById(saving.id, e);
+                                }, className: "bg-red-500 py-0 px-4 rounded-lg" }, "X"),
+                            react_1.default.createElement("button", { onClick: (e) => {
+                                    handleEdit(e);
+                                    setNewSaving(saving);
+                                }, className: "bg-yellow-500 py-0 px-4 rounded-lg" }, "edit")))) : (react_1.default.createElement(react_1.default.Fragment, null,
                         react_1.default.createElement("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
-                            react_1.default.createElement("path", { d: "M9 18L15 12L9 6", stroke: "white", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }))),
-                    react_1.default.createElement("div", { className: "mt-3 w-full" },
-                        react_1.default.createElement("div", { className: "bg-[#41414e]  w-80 rounded-full flex justify-start relative\r\n                        drop-figma\r\n                        " },
-                            react_1.default.createElement("div", { className: " w-[100%] rounded-full text-center\r\n                            bg-blue-500\r\n                            " },
-                                react_1.default.createElement("p", { className: "p-1.5 text-sm" }, "100 %"))))))))));
+                            react_1.default.createElement("path", { d: "M9 18L15 12L9 6", stroke: "white", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))))),
+                react_1.default.createElement("div", { className: "mt-3 w-full" },
+                    react_1.default.createElement("div", { className: "bg-[#41414e]  w-80 rounded-full flex justify-start relative\r\n                        drop-figma\r\n                        " },
+                        react_1.default.createElement("div", { className: " w-[100%] rounded-full text-center\r\n                            bg-blue-500\r\n                            " },
+                            react_1.default.createElement("p", { className: "p-1.5 text-sm" }, "100 %"))))))))))));
 }
 exports.default = SavingsCompleted;

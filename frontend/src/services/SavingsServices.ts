@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { data } from "react-router-dom";
+
+export type TransactionType = "deposit" | "withdrawal";
 
 export type ListTransactions = {
   date: Date;
   amount: number;
+  type: TransactionType
 };
 
 export type SavingsType = {
@@ -17,75 +21,144 @@ export type SavingsType = {
 function useSavingsServices() {
   const [savings, setSavings] = useState<SavingsType[]>([]);
 
+  const [savingsCompleted, setSavingsCompleted] = useState<SavingsType[]>([]);
+
   const [selectedSaving, setSelectedSaving] = useState<SavingsType>();
 
   useEffect(() => {
-    const dataLocal = localStorage.getItem("mySavings");
-    if (dataLocal) {
-      setSavings(JSON.parse(dataLocal) as SavingsType[]);
-    }
-  }, []);
+  const dataLocal = localStorage.getItem("mySavings");
+  if (dataLocal) {
+    const savings: SavingsType[] = JSON.parse(dataLocal);
 
-  const deleteSavingById = (
-    savingId: string,
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.stopPropagation();
-    e.preventDefault();
-    const dataLocal = localStorage.getItem("mySavings");
+    const filteredSavings = savings.filter((saving) => {
+      const totalDeposit = saving.deposit.reduce((acc, curr) => acc + (curr.amount ?? 0), 0);
+      const totalWithdrawal = saving.withdrawal.reduce((acc, curr) => acc + (curr.amount ?? 0), 0);
+      const amount = totalDeposit - totalWithdrawal;
 
-    if (dataLocal) {
-      const anciensSavings = JSON.parse(dataLocal) as SavingsType[];
+      return amount < saving.amount; // Garde ceux qui ont atteint ou dépassé l'objectif
+    });
 
-      const savingToRemove = anciensSavings.find(
-        (saving) => saving.id === savingId
+    setSavings(filteredSavings);
+  }
+}, []);
+
+
+ const deleteSavingById = (
+  savingId: string,
+  e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+) => {
+  e.stopPropagation();
+  e.preventDefault();
+
+  const dataLocal = localStorage.getItem("mySavings");
+
+  if (dataLocal) {
+    const anciensSavings = JSON.parse(dataLocal) as SavingsType[];
+
+    const savingToRemove = anciensSavings.find(
+      (saving) => saving.id === savingId
+    );
+
+    if (savingToRemove) {
+      const listeMaj = anciensSavings.filter(
+        (saving) => saving.id !== savingId
       );
 
-      // Si on trouve l'élément à supprimer
-      if (savingToRemove) {
-        // Filtrer la liste pour exclure ce contrat spécifique
-        const listeMaj = anciensSavings.filter(
-          (saving) => saving.id !== savingId
-        );
-        // Vérification de la liste après suppression
-
-        // Si la liste a été modifiée, mettre à jour le localStorage et l'état
-        if (anciensSavings.length !== listeMaj.length) {
-          localStorage.setItem("mySavings", JSON.stringify(listeMaj));
-          setSavings(listeMaj);
-        } else {
-          console.log("Aucune épargne supprimé, vérifiez l'ID.");
-        }
+      if (anciensSavings.length !== listeMaj.length) {
+        localStorage.setItem("mySavings", JSON.stringify(listeMaj));
+        setSavings(listeMaj);
+        // Pas de navigate ici, le composant parent pourra gérer ça ou rafraîchir la liste
       } else {
-        console.log("Aucune épargne trouvé avec l'ID :", savingId);
+        console.log("Aucune épargne supprimé, vérifiez l'ID.");
       }
+    } else {
+      console.log("Aucune épargne trouvé avec l'ID :", savingId);
     }
-  };
+  }
+};
+
 
   // const getSavingById = (saving : SavingsType) => {
   //     setNewSaving(saving)
   // }
 
   const updateSavingById = (updatedSaving: SavingsType) => {
-  const dataLocal = localStorage.getItem("mySavings");
+    const dataLocal = localStorage.getItem("mySavings");
 
-  if (dataLocal) {
-    const anciensSavings = JSON.parse(dataLocal) as SavingsType[];
+    if (dataLocal) {
+      const anciensSavings = JSON.parse(dataLocal) as SavingsType[];
 
-    const indexToUpdate = anciensSavings.findIndex(
-      (saving) => saving.id === updatedSaving.id
-    );
+      const indexToUpdate = anciensSavings.findIndex(
+        (saving) => saving.id === updatedSaving.id
+      );
 
-    if (indexToUpdate !== -1) {
-      anciensSavings[indexToUpdate] = updatedSaving;
+      if (indexToUpdate !== -1) {
+        anciensSavings[indexToUpdate] = updatedSaving;
 
-      localStorage.setItem("mySavings", JSON.stringify(anciensSavings));
-      setSavings([...anciensSavings]);
-    } else {
-      console.log("Aucune épargne trouvée avec l'ID :", updatedSaving.id);
+        localStorage.setItem("mySavings", JSON.stringify(anciensSavings));
+        setSavings([...anciensSavings]);
+      } else {
+        console.log("Aucune épargne trouvée avec l'ID :", updatedSaving.id);
+      }
     }
+  };
+
+  const addTransaction = (newTransaction: ListTransactions & { type: 'deposit' | 'withdrawal' }, savingId: string) => {
+  const dataLocal = localStorage.getItem("mySavings");
+  const previousSavings: SavingsType[] = dataLocal ? JSON.parse(dataLocal) : [];
+
+  const updatedSavings = previousSavings.map((saving) => {
+    if (saving.id === savingId) {
+      return {
+        ...saving,
+        [newTransaction.type]: [
+          ...saving[newTransaction.type], // deposit ou withdrawal
+          { amount: newTransaction.amount, date: newTransaction.date || new Date() },
+        ],
+      };
+    }
+    return saving;
+  });
+
+    //ajouter la transaction dans le tableau correpondant
+
+    localStorage.setItem("mySavings", JSON.stringify(updatedSavings))
+
+    //mettre à jour l'objet 
+
+    setSavings(updatedSavings)
   }
-};
+
+
+  useEffect(() => {
+    //recuperer la liste des Savings
+      const dataLocal = localStorage.getItem("mySavings");
+
+      if(dataLocal){
+      const savings: SavingsType[] = JSON.parse(dataLocal)
+
+      //.map savings
+        const sortSavings = savings.filter((saving) => {
+
+          //calculer le total des depot
+          const totalDeposit = saving.deposit.reduce((acc, curr) => acc + (curr.amount ?? 0), 0);
+
+          //calculer le total des retrait
+          const totalWithdrawal = saving.withdrawal.reduce((acc, curr) => acc + (curr.amount ?? 0), 0);
+
+          // calculer le montant total depot - retait
+          const amount = totalDeposit - totalWithdrawal
+
+          //renvoi moi ceux qui ont un montant épargné supérieur ou = au "goal"
+          return amount >= saving.amount
+        })
+        setSavingsCompleted(sortSavings)
+        
+      }
+  },[])
+
+
+
 
   return {
     savings,
@@ -94,20 +167,11 @@ function useSavingsServices() {
     deleteSavingById,
     // getSavingById,
     selectedSaving,
-    updateSavingById
+    updateSavingById,
+    addTransaction,
+    savingsCompleted
   };
 }
 
 export default useSavingsServices;
 
-//const useSavings = ()=> {
-//  const [savings, setSavings] = useState([])
-
-// useEffect(()=>{ /* ... */}, [])
-
-// const addSaving = (newSaving) => { setSavings([...savings, newSaving]) }
-
-// const removeSavingById = (savingID) => { newSavings = savingID.filter(saving => saving.id !== savingID)
-// setSavings(newSavings) }
-
-// return {saving, addSaving, removeSavingById} }

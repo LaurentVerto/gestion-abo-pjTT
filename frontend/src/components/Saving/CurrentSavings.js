@@ -68,20 +68,21 @@ function CurrentSavings({ editMode, isOpenModify, handleEdit, setNewSaving, }) {
                 react_1.default.createElement("div", { className: "flex  justify-between" },
                     react_1.default.createElement("h3", { className: "font-medium" }, saving.name),
                     editMode ? (react_1.default.createElement(react_1.default.Fragment, null,
-                        react_1.default.createElement("button", { onClick: (e) => {
-                                deleteSavingById(saving.id, e);
-                            }, className: "bg-red-500 p-1" }, "X"),
-                        react_1.default.createElement("button", { onClick: (e) => {
-                                handleEdit(e);
-                                setNewSaving(saving);
-                            }, className: "bg-yellow-500 p-1" }, "edit"))) : (react_1.default.createElement(react_1.default.Fragment, null,
+                        react_1.default.createElement("div", { className: "flex gap-3" },
+                            react_1.default.createElement("button", { onClick: (e) => {
+                                    deleteSavingById(saving.id, e);
+                                }, className: "bg-red-500 py-0 px-4 rounded-lg" }, "X"),
+                            react_1.default.createElement("button", { onClick: (e) => {
+                                    handleEdit(e);
+                                    setNewSaving(saving);
+                                }, className: "bg-yellow-500 py-0 px-4 rounded-lg" }, "edit")))) : (react_1.default.createElement(react_1.default.Fragment, null,
                         react_1.default.createElement("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
                             react_1.default.createElement("path", { d: "M9 18L15 12L9 6", stroke: "white", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))))),
                 react_1.default.createElement("div", { className: "mt-3 w-full" },
-                    react_1.default.createElement("div", { className: "bg-[#41414e]  w-[100%] rounded-full flex justify-start relative\r\n                        drop-figma\r\n                        " },
+                    react_1.default.createElement("div", { className: "bg-[#41414e]  w-[100%] rounded-lg flex justify-start relative\r\n                        drop-figma\r\n                        " },
                         react_1.default.createElement("div", { style: {
                                 width: `${calculateProgress(saving)}%`,
-                            }, className: "w-full rounded-full text-center\r\n                                            bg-linear-to-r from-[#1d1d21] to-blue-500\r\n                                            " },
+                            }, className: "w-full rounded-lg text-center\r\n                                            bg-linear-to-r from-[#1d1d21] to-blue-500\r\n                                            " },
                             react_1.default.createElement("p", { className: "p-1.5 text-sm min-w-20" },
                                 calculateProgress(saving),
                                 " %"))))))))))));
