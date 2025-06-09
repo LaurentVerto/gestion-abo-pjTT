@@ -77,9 +77,14 @@ function SavingDetails() {
     const totalDeposit = (_b = (_a = selected === null || selected === void 0 ? void 0 : selected.deposit) === null || _a === void 0 ? void 0 : _a.reduce((acc, tx) => { var _a; return acc + ((_a = tx.amount) !== null && _a !== void 0 ? _a : 0); }, 0)) !== null && _b !== void 0 ? _b : 0;
     const totalWithdrawal = (_d = (_c = selected === null || selected === void 0 ? void 0 : selected.withdrawal) === null || _c === void 0 ? void 0 : _c.reduce((acc, tx) => { var _a; return acc + ((_a = tx.amount) !== null && _a !== void 0 ? _a : 0); }, 0)) !== null && _d !== void 0 ? _d : 0;
     const netAmount = totalDeposit - totalWithdrawal;
-    const progressValue = selected && selected.amount && selected.amount < 0
-        ? Math.min((netAmount / selected.amount) * 100, 100)
-        : 0;
+    const [progress, setProgress] = (0, react_1.useState)();
+    (0, react_1.useEffect)(() => {
+        let progressValue = selected && selected.amount && selected.amount > 0
+            ? Math.min((netAmount / selected.amount) * 100, 100)
+            : 0;
+        setProgress(progressValue);
+    }, [netAmount]);
+    console.log(progress);
     function monthsDiff(dateFrom, dateTo) {
         return (dateTo.getMonth() -
             dateFrom.getMonth() +
@@ -101,7 +106,7 @@ function SavingDetails() {
     const handleAddTransaction = () => __awaiter(this, void 0, void 0, function* () {
         if (!id)
             return;
-        if (transaction.amount > netAmount) {
+        if (transaction.amount > netAmount && transaction.type == "withdrawal") {
             setMessage(`Solde insuffisant (max disponible : ${netAmount})`);
             return;
         }
@@ -147,7 +152,7 @@ function SavingDetails() {
                             display: "inline-flex",
                         } },
                         react_1.default.createElement(CircularProgress_1.default, { variant: "determinate", value: 100, size: 170, thickness: 3, sx: { color: "#1d1d21" } }),
-                        react_1.default.createElement(CircularProgress_1.default, { variant: "determinate", value: progressValue, size: 170, thickness: 3, sx: {
+                        react_1.default.createElement(CircularProgress_1.default, { variant: "determinate", value: progress, size: 170, thickness: 3, sx: {
                                 color: "#009CEA",
                                 position: "absolute",
                                 left: 0,

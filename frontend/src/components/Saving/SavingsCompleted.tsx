@@ -4,6 +4,7 @@ import {
   type SavingsType,
   ListTransactions,
 } from "../../services/SavingsServices";
+import { Link } from "react-router-dom";
 
 function SavingsCompleted({
   editMode,
@@ -58,7 +59,9 @@ function SavingsCompleted({
             {savingsCompleted.map((saving) => (
 
             
-            <li key={saving.id} className="bg-[var(--lfpc)]/50 w-[90%] p-3 rounded-lg drop-figma">
+            <Link
+              to={`/epargnes/${saving.id}`}
+             key={saving.id} className="bg-[var(--lfpc)]/50 w-[90%] p-3 rounded-lg drop-figma">
               <div className="flex  justify-between">
                 <h3 className="font-medium">{saving.name}</h3>
 
@@ -120,7 +123,7 @@ function SavingsCompleted({
                   </div>
                 </div>
               </div>
-            </li>
+            </Link>
             ))}
           </ul>
         </>

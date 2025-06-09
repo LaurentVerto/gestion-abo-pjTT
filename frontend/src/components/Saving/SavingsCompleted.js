@@ -38,6 +38,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const SavingsServices_1 = __importDefault(require("../../services/SavingsServices"));
+const react_router_dom_1 = require("react-router-dom");
 function SavingsCompleted({ editMode, isOpenModify, handleEdit, setNewSaving, }) {
     const { savingsCompleted, deleteSavingById } = (0, SavingsServices_1.default)();
     const [isOpen, setIsOpen] = (0, react_1.useState)(false);
@@ -51,7 +52,7 @@ function SavingsCompleted({ editMode, isOpenModify, handleEdit, setNewSaving, })
             react_1.default.createElement("svg", { className: isOpen ? "rotate-180" : "rotate-0", width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
                 react_1.default.createElement("path", { d: "M6 9L12 15L18 9", stroke: "#F8F8F8", "stroke-width": "2", "stroke-linecap": "round", "stroke-linejoin": "round" }))),
         isOpen && (react_1.default.createElement(react_1.default.Fragment, null,
-            react_1.default.createElement("ul", { className: "flex flex-col items-center justify-center mt-3" }, savingsCompleted.map((saving) => (react_1.default.createElement("li", { key: saving.id, className: "bg-[var(--lfpc)]/50 w-[90%] p-3 rounded-lg drop-figma" },
+            react_1.default.createElement("ul", { className: "flex flex-col items-center justify-center mt-3" }, savingsCompleted.map((saving) => (react_1.default.createElement(react_router_dom_1.Link, { to: `/epargnes/${saving.id}`, key: saving.id, className: "bg-[var(--lfpc)]/50 w-[90%] p-3 rounded-lg drop-figma" },
                 react_1.default.createElement("div", { className: "flex  justify-between" },
                     react_1.default.createElement("h3", { className: "font-medium" }, saving.name),
                     editMode ? (react_1.default.createElement(react_1.default.Fragment, null,

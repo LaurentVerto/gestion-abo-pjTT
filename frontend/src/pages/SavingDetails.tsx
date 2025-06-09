@@ -6,6 +6,7 @@ import useSavingsServices, {
   ListTransactions,
   TransactionType,
 } from "../services/SavingsServices";
+import { progress } from "framer-motion";
 
 const ICON_SP = "/logo-xs.png";
 
@@ -46,10 +47,24 @@ function SavingDetails() {
 
   const netAmount = totalDeposit - totalWithdrawal;
 
-  const progressValue =
-    selected && selected.amount && selected.amount < 0
+  const [progress, setProgress] = useState<number>()
+
+  useEffect(() => {
+    let progressValue =
+    selected && selected.amount && selected.amount > 0
       ? Math.min((netAmount / selected.amount) * 100, 100)
       : 0;
+
+      setProgress(progressValue)
+  },[netAmount])
+
+console.log(progress);
+
+  
+  
+
+
+      
 
   function monthsDiff(dateFrom: Date, dateTo: Date): number {
     return (
@@ -79,7 +94,7 @@ function SavingDetails() {
 
   const handleAddTransaction = async () => {
     if (!id) return;
-    if(transaction.amount > netAmount){
+    if(transaction.amount > netAmount && transaction.type == "withdrawal"){
       setMessage(`Solde insuffisant (max disponible : ${netAmount})`)
       return
     }
@@ -145,7 +160,6 @@ function SavingDetails() {
                   display: "inline-flex",
                 }}
               >
-                {/* Cercle fond rouge */}
 
                 <CircularProgress
                   variant="determinate"
@@ -157,7 +171,7 @@ function SavingDetails() {
                 {/* Cercle progression bleu */}
                 <CircularProgress
                   variant="determinate"
-                  value={progressValue}
+                  value={progress}
                   size={170}
                   thickness={3}
                   sx={{
