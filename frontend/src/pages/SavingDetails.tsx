@@ -88,17 +88,21 @@ console.log(progress);
 
   const [transaction, setTransaction] = useState<ListTransactions>({
     date: new Date(),
-    amount: 0,
+    amount: undefined,
     type: "deposit",
   });
 
   const handleAddTransaction = async () => {
     if (!id) return;
-    if(transaction.amount > netAmount && transaction.type == "withdrawal"){
-      setMessage(`Solde insuffisant (max disponible : ${netAmount})`)
-      return
-    }
 
+    if(transaction.amount !== undefined){
+
+      if(transaction.amount > netAmount && transaction.type == "withdrawal"){
+        setMessage(`Solde insuffisant (max disponible : ${netAmount})`)
+        return
+      }
+    }
+      
     addTransaction(transaction, id);
 
     const dataLocal = localStorage.getItem("mySavings");
@@ -112,7 +116,7 @@ console.log(progress);
         }, 200);
         setTransaction({
           date: new Date(),
-          amount: 0,
+          amount: undefined,
           type: "deposit",
         });
       } catch (error) {
@@ -153,7 +157,7 @@ console.log(progress);
             </div>
 
             {/* Nouveau cercle de progression */}
-            <div className="relative flex items-center justify-center mt-5">
+            <div className="relative flex items-center justify-center mt-5 ">
               <div
                 style={{
                   position: "relative",
@@ -222,7 +226,7 @@ console.log(progress);
                 </div>
               </div>
             </div>
-            <ul className="w-full px-5 mt-3 flex flex-col gap-3 overflow-hidden h-[20vh]">
+            <ul className="w-full px-5 mt-3 flex flex-col gap-3 overflow-x-hidden overflow-y-scroll h-[17vh]">
               {selected &&
                 (() => {
                   const allTransactions = [

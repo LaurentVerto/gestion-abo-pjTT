@@ -96,7 +96,7 @@ function CurrentSavings({
                           onClick={(e) => {
                             deleteSavingById(saving.id, e);
                           }}
-                          className="bg-red-500 py-0 px-4 rounded-lg"
+                          className="bg-red-500/30 py-0 px-4 rounded-lg text-xs"
                         >
                           X
                         </button>
@@ -106,9 +106,9 @@ function CurrentSavings({
                             handleEdit(e);
                             setNewSaving(saving);
                           }}
-                          className="bg-yellow-500 py-0 px-4 rounded-lg"
+                          className="bg-yellow-500/30 py-0 px-4 rounded-lg text-xs"
                         >
-                          edit
+                          modifier
                         </button>
                       </div>
                     </>

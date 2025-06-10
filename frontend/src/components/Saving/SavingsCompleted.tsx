@@ -72,7 +72,7 @@ function SavingsCompleted({
                           onClick={(e) => {
                             deleteSavingById(saving.id, e);
                           }}
-                          className="bg-red-500 py-0 px-4 rounded-lg"
+                          className="bg-red-500/30 py-0 px-4 rounded-lg text-xs"
                         >
                           X
                         </button>
@@ -82,9 +82,9 @@ function SavingsCompleted({
                             handleEdit(e);
                             setNewSaving(saving);
                           }}
-                          className="bg-yellow-500 py-0 px-4 rounded-lg"
+                          className="bg-yellow-500/30 py-0 px-4 rounded-lg text-xs"
                         >
-                          edit
+                          modifier
                         </button>
                       </div>
                     </>
@@ -110,12 +110,12 @@ function SavingsCompleted({
               </div>
               <div className="mt-3 w-full">
                 <div
-                  className="bg-[#41414e]  w-80 rounded-full flex justify-start relative
+                  className="bg-[#41414e]  w-80 rounded-lg flex justify-start relative
                         drop-figma
                         "
                 >
                   <div
-                    className=" w-[100%] rounded-full text-center
+                    className=" w-[100%] rounded-lg  text-center
                             bg-blue-500
                             "
                   >

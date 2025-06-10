@@ -100,15 +100,17 @@ function SavingDetails() {
         : 0; // pas de données
     const [transaction, setTransaction] = (0, react_1.useState)({
         date: new Date(),
-        amount: 0,
+        amount: undefined,
         type: "deposit",
     });
     const handleAddTransaction = () => __awaiter(this, void 0, void 0, function* () {
         if (!id)
             return;
-        if (transaction.amount > netAmount && transaction.type == "withdrawal") {
-            setMessage(`Solde insuffisant (max disponible : ${netAmount})`);
-            return;
+        if (transaction.amount !== undefined) {
+            if (transaction.amount > netAmount && transaction.type == "withdrawal") {
+                setMessage(`Solde insuffisant (max disponible : ${netAmount})`);
+                return;
+            }
         }
         addTransaction(transaction, id);
         const dataLocal = localStorage.getItem("mySavings");
@@ -122,7 +124,7 @@ function SavingDetails() {
                 }, 200);
                 setTransaction({
                     date: new Date(),
-                    amount: 0,
+                    amount: undefined,
                     type: "deposit",
                 });
             }
@@ -146,7 +148,7 @@ function SavingDetails() {
                     react_1.default.createElement("p", { className: "text-2xl font-semibold" }, netAmount !== undefined && netAmount > 0
                         ? netAmount.toLocaleString() + " €"
                         : "0")),
-                react_1.default.createElement("div", { className: "relative flex items-center justify-center mt-5" },
+                react_1.default.createElement("div", { className: "relative flex items-center justify-center mt-5 " },
                     react_1.default.createElement("div", { style: {
                             position: "relative",
                             display: "inline-flex",
@@ -189,7 +191,7 @@ function SavingDetails() {
                                 "Retrait = ",
                                 totalWithdrawal.toLocaleString(),
                                 " \u20AC")))),
-                react_1.default.createElement("ul", { className: "w-full px-5 mt-3 flex flex-col gap-3 overflow-hidden h-[20vh]" }, selected &&
+                react_1.default.createElement("ul", { className: "w-full px-5 mt-3 flex flex-col gap-3 overflow-x-hidden overflow-y-scroll h-[17vh]" }, selected &&
                     (() => {
                         const allTransactions = [
                             ...selected.deposit.map((tx) => (Object.assign(Object.assign({}, tx), { type: "deposit" }))),

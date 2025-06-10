@@ -45,13 +45,13 @@ const react_router_dom_1 = require("react-router-dom");
 const ICON_SP = "/logo-xs.png";
 function Saving() {
     const navigate = (0, react_router_dom_1.useNavigate)();
-    const { savings, setSavings, selectedSaving, updateSavingById } = (0, SavingsServices_1.default)();
+    const { savings, setSavings, selectedSaving, updateSavingById, savingsCompleted } = (0, SavingsServices_1.default)();
     const [message, setMessage] = (0, react_1.useState)("");
     const [editMode, setEditMode] = (0, react_1.useState)(false);
     const [newSaving, setNewSaving] = (0, react_1.useState)({
         id: (0, uuid_1.v4)(),
         name: "",
-        amount: 0,
+        amount: undefined,
         deadline: Date.now().toString(),
         deposit: [],
         withdrawal: [],
@@ -95,7 +95,7 @@ function Saving() {
         setNewSaving({
             id: (0, uuid_1.v4)(),
             name: "",
-            amount: 0,
+            amount: undefined,
             deadline: Date.now().toString(),
             deposit: [],
             withdrawal: [],
@@ -123,8 +123,12 @@ function Saving() {
         react_1.default.createElement("div", { className: "absolute bottom-20 left-5 flex justify-between w-[90%] items-center" },
             react_1.default.createElement("div", null,
                 react_1.default.createElement("ul", { className: "text-xs text-[#009CEA] " },
-                    react_1.default.createElement("li", null, "3 Epargnes en cours"),
-                    react_1.default.createElement("li", null, "1 Epargne finalis\u00E9"))),
+                    react_1.default.createElement("li", null,
+                        savings.length,
+                        " Epargnes en cours"),
+                    react_1.default.createElement("li", null,
+                        savingsCompleted.length,
+                        " Epargne finalis\u00E9"))),
             react_1.default.createElement("button", { className: `${editMode ? "border border-blue-500 opacity-100 bg-[#009CEA] " : "border border-white opacity-50"}  py-1 px-3 rounded-lg text-xs`, onClick: handleEditMode }, "Edit Mode"),
             react_1.default.createElement("div", { onClick: handleDrop, className: "z-110" },
                 react_1.default.createElement("svg", { width: "50", height: "50", viewBox: "0 0 50 50", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "cursor-pointer pointer-event-none" },
@@ -135,7 +139,7 @@ function Saving() {
             react_1.default.createElement("div", { className: "overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-120 flex flex-col justify-center items-center gap-3" },
                 react_1.default.createElement("h4", null, "Modifier une \u00E9pargne"),
                 react_1.default.createElement("input", { onChange: handleChange, name: "name", type: "text", value: newSaving.name, placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
-                react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", value: newSaving.amount, placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
+                react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", value: newSaving.amount === undefined ? "" : newSaving.amount, placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("input", { name: "deadline", type: "date", placeholder: "YYYY-MM-DD", value: newSaving.deadline, onChange: handleChange, className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("button", { onClick: handleSubmit, className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Modifier l'\u00E9pargne"),
                 react_1.default.createElement("button", { onClick: (e) => {
@@ -147,7 +151,7 @@ function Saving() {
             react_1.default.createElement("div", { className: "overlay-add-saving absolute top-0 left-0 w-full h-full bg-black/60 z-100 flex flex-col justify-center items-center gap-3" },
                 react_1.default.createElement("h4", null, "Ajout d'une \u00E9pargne"),
                 react_1.default.createElement("input", { onChange: handleChange, name: "name", type: "text", value: newSaving.name, placeholder: "Nom de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
-                react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", value: newSaving.amount, placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
+                react_1.default.createElement("input", { onChange: handleChange, name: "amount", type: "number", value: newSaving.amount === undefined ? "" : newSaving.amount, placeholder: "Montant de l'\u00E9pargne", className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("input", { name: "deadline", type: "date", placeholder: "YYYY-MM-DD", value: newSaving.deadline, onChange: handleChange, className: " dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm " }),
                 react_1.default.createElement("button", { onClick: handleSubmit, className: "mt-8\r\n                shadow-lg\r\n                bg-[#009CEA] min-w-[250px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Cr\u00E9er l'\u00E9pargne"),
                 react_1.default.createElement("button", { onClick: handleDrop, className: "mt-2\r\n                shadow-lg\r\n                bg-[#FE6666]/50 min-w-[200px] text-white rounded-lg p-1 cursor-pointer transition-all  text-sm " }, "Annuler"),

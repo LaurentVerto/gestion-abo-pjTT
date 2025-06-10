@@ -10,7 +10,7 @@ const ICON_SP = "/logo-xs.png";
 function Saving() {
   const navigate = useNavigate();
 
-  const { savings, setSavings, selectedSaving, updateSavingById } =
+  const { savings, setSavings, selectedSaving, updateSavingById, savingsCompleted } =
     useSavingsServices();
 
   const [message, setMessage] = useState("");
@@ -20,11 +20,15 @@ function Saving() {
   const [newSaving, setNewSaving] = useState<SavingsType>({
     id: uuidv4(),
     name: "",
-    amount: 0,
+    amount: undefined,
     deadline: Date.now().toString(),
     deposit: [],
     withdrawal: [],
   });
+
+  
+
+  
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -79,7 +83,7 @@ function Saving() {
   setNewSaving({
     id: uuidv4(),
     name: "",
-    amount: 0,
+    amount: undefined,
     deadline: Date.now().toString(),
     deposit: [],
     withdrawal: [],
@@ -106,6 +110,8 @@ function Saving() {
 
     console.log(newSaving);
   };
+
+  
 
   return (
     <div className="">
@@ -134,8 +140,8 @@ function Saving() {
       <div className="absolute bottom-20 left-5 flex justify-between w-[90%] items-center">
         <div>
           <ul className="text-xs text-[#009CEA] ">
-            <li>3 Epargnes en cours</li>
-            <li>1 Epargne finalisé</li>
+            <li>{savings.length} Epargnes en cours</li>
+            <li>{savingsCompleted.length} Epargne finalisé</li>
           </ul>
         </div>
 
@@ -201,7 +207,7 @@ function Saving() {
               onChange={handleChange}
               name="amount"
               type="number"
-              value={newSaving.amount}
+              value={newSaving.amount ===undefined ? "" : newSaving.amount}
               placeholder="Montant de l'épargne"
               className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
             />
@@ -253,7 +259,7 @@ function Saving() {
               onChange={handleChange}
               name="amount"
               type="number"
-              value={newSaving.amount}
+              value={newSaving.amount ===undefined ? "" : newSaving.amount}
               placeholder="Montant de l'épargne"
               className=" dateInput cursor-pointer w-[40%] min-w-[300px] text-center rounded-lg p-1 mt-1 flex justify-center  bg-[#282830]  appearance-none text-center drop-figma p-2 rounded-lg text-white appearance-none text-sm "
             />

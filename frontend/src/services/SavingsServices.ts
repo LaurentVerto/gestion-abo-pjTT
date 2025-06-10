@@ -5,14 +5,14 @@ export type TransactionType = "deposit" | "withdrawal";
 
 export type ListTransactions = {
   date: Date;
-  amount: number;
+  amount: number | undefined;
   type: TransactionType
 };
 
 export type SavingsType = {
   id: string;
   name: string;
-  amount: number;
+  amount: number | undefined;
   deadline: string;
   deposit: ListTransactions[];
   withdrawal: ListTransactions[];
@@ -35,7 +35,11 @@ function useSavingsServices() {
       const totalWithdrawal = saving.withdrawal.reduce((acc, curr) => acc + (curr.amount ?? 0), 0);
       const amount = totalDeposit - totalWithdrawal;
 
-      return amount < saving.amount; // Garde ceux qui ont atteint ou dépassé l'objectif
+      if(saving.amount !== undefined) {
+
+        
+        return amount < saving.amount; // Garde ceux qui ont atteint ou dépassé l'objectif
+      }
     });
 
     setSavings(filteredSavings);
@@ -150,12 +154,14 @@ function useSavingsServices() {
           const amount = totalDeposit - totalWithdrawal
 
           //renvoi moi ceux qui ont un montant épargné supérieur ou = au "goal"
+          if(saving.amount !== undefined) {
           return amount >= saving.amount
+          }
         })
         setSavingsCompleted(sortSavings)
         
       }
-  },[])
+  },[savings])
 
 
 

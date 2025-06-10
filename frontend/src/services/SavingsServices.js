@@ -13,7 +13,9 @@ function useSavingsServices() {
                 const totalDeposit = saving.deposit.reduce((acc, curr) => { var _a; return acc + ((_a = curr.amount) !== null && _a !== void 0 ? _a : 0); }, 0);
                 const totalWithdrawal = saving.withdrawal.reduce((acc, curr) => { var _a; return acc + ((_a = curr.amount) !== null && _a !== void 0 ? _a : 0); }, 0);
                 const amount = totalDeposit - totalWithdrawal;
-                return amount < saving.amount; // Garde ceux qui ont atteint ou dépassé l'objectif
+                if (saving.amount !== undefined) {
+                    return amount < saving.amount; // Garde ceux qui ont atteint ou dépassé l'objectif
+                }
             });
             setSavings(filteredSavings);
         }
@@ -90,11 +92,13 @@ function useSavingsServices() {
                 // calculer le montant total depot - retait
                 const amount = totalDeposit - totalWithdrawal;
                 //renvoi moi ceux qui ont un montant épargné supérieur ou = au "goal"
-                return amount >= saving.amount;
+                if (saving.amount !== undefined) {
+                    return amount >= saving.amount;
+                }
             });
             setSavingsCompleted(sortSavings);
         }
-    }, []);
+    }, [savings]);
     return {
         savings,
         setSavings,

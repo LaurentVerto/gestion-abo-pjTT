@@ -71,11 +71,11 @@ function CurrentSavings({ editMode, isOpenModify, handleEdit, setNewSaving, }) {
                         react_1.default.createElement("div", { className: "flex gap-3" },
                             react_1.default.createElement("button", { onClick: (e) => {
                                     deleteSavingById(saving.id, e);
-                                }, className: "bg-red-500 py-0 px-4 rounded-lg" }, "X"),
+                                }, className: "bg-red-500/30 py-0 px-4 rounded-lg text-xs" }, "X"),
                             react_1.default.createElement("button", { onClick: (e) => {
                                     handleEdit(e);
                                     setNewSaving(saving);
-                                }, className: "bg-yellow-500 py-0 px-4 rounded-lg" }, "edit")))) : (react_1.default.createElement(react_1.default.Fragment, null,
+                                }, className: "bg-yellow-500/30 py-0 px-4 rounded-lg text-xs" }, "modifier")))) : (react_1.default.createElement(react_1.default.Fragment, null,
                         react_1.default.createElement("svg", { width: "24", height: "24", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg" },
                             react_1.default.createElement("path", { d: "M9 18L15 12L9 6", stroke: "white", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" }))))),
                 react_1.default.createElement("div", { className: "mt-3 w-full" },
